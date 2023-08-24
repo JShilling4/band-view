@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppTopbar from "./components/AppTopbar.vue";
+</script>
 
 <template>
   <div>
+    <app-topbar />
     <RouterView></RouterView>
   </div>
 </template>
