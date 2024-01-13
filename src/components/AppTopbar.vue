@@ -2,7 +2,7 @@
   <div class="topbar-wrapper bg-black shadow-2">
     <div class="row items-center justify-between full-width">
       <div class="app-block">
-        <h1 class="app-name">Setlist Maker</h1>
+        <h1 class="app-name">Band View</h1>
       </div>
     </div>
   </div>

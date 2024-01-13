@@ -1,6 +1,6 @@
-import { Gig } from "@/types";
-
 export interface Setlist {
-  sets: string[];
-  gigs: Gig[];
+  id: number;
+  created_at: string;
+  name: string;
+  url: string;
 }

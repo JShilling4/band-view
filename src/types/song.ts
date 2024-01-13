@@ -1,7 +1,8 @@
 export interface Song {
-  name: string;
-  leadVocal: string[];
-  starters: string[];
+  id: number;
+  artist: string;
+  title: string;
+  linkUrl: string;
   hasBanjoTunedDown: boolean;
   hasBanjoTunedUp: boolean;
   isDropD: boolean;

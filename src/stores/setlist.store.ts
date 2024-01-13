@@ -8,12 +8,7 @@ interface State {
 export const useSetlistStore = defineStore("setlists", {
   state: (): State => {
     return {
-      setlists: [
-        {
-          sets: [],
-          gigs: [],
-        },
-      ],
+      setlists: [],
     };
   },
 });
