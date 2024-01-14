@@ -9,12 +9,7 @@
       </div>
     </div>
 
-    <div class="song-container q-mb-lg">
-      <h2>Songs</h2>
-      <div v-for="song in songs" :key="song.id">
-        {{ `${song.artist} - ${song.title}` }}
-      </div>
-    </div>
+
 
     <div class="set-container">
       <h2>Sets</h2>
@@ -44,7 +39,6 @@ defineProps<{
 }>();
 
 const members = ref<Members>([]);
-const songs = ref<Tables<"song">[]>([]);
 const sets = ref<Sets>([]);
 const setlists = ref<Tables<"setlist">[]>([]);
 
@@ -58,11 +52,6 @@ async function getMembers(): Promise<void> {
   const { data: member, error } = await memberQuery;
   const queryResult: Members = member;
   members.value = queryResult;
-}
-
-async function getSongs(): Promise<void> {
-  const { data: song, error } = await supabase.from("song").select("*");
-  songs.value = song;
 }
 
 async function getSetlists(): Promise<void> {

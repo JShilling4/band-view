@@ -6,7 +6,7 @@
       v-model="leftDrawerOpen"
       side="left"
       behavior="desktop"
-      mini-width="47"
+      :mini-width="47"
       class="bg-grey-10"
     >
       <template #mini>
@@ -84,9 +84,8 @@ h6 {
 }
 
 .h2 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 500;
-  letter-spacing: 1px;
   line-height: 1.5;
 }
 ul {

@@ -3,9 +3,13 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  pageTitle: string;
-}>();
+interface PropTypes {
+  pageTitle?: string;
+}
+
+withDefaults(defineProps<PropTypes>(), {
+  pageTitle: "New Page",
+});
 </script>
 
 <style lang="scss" scoped></style>
