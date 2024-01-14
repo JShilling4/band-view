@@ -12,22 +12,12 @@
       color="blue-10"
       size="lg"
       padding=".5rem 5rem"
-      @click="returnToLastPage"
+      @click="$router.replace('/')"
     >
       Return
     </q-btn>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useRouter } from "vue-router";
-
-const $router = useRouter();
-
-function returnToLastPage() {
-  $router.back();
-}
-</script>
 
 <style lang="scss" scoped>
 .container {

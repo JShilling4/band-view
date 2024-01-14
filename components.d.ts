@@ -11,6 +11,8 @@ declare module 'vue' {
     AppDrawer: typeof import('./src/components/AppDrawer.vue')['default']
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    AppPagetitle: typeof import('./src/components/AppPagetitle.vue')['default']
+    AppPageTitle: typeof import('./src/components/AppPageTitle.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

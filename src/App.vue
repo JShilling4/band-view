@@ -1,16 +1,56 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <app-header
-      @toggle-left-drawer="toggleLeftDrawer"
-      @toggle-right-drawer="toggleRightDrawer"
-    />
+    <app-header />
 
-    <app-drawer v-model="leftDrawerOpen" bordered side="left">
-      Left Drawer
-    </app-drawer>
-
-    <app-drawer v-model="rightDrawerOpen" bordered side="right">
-      Right Drawer
+    <app-drawer
+      v-model="leftDrawerOpen"
+      side="left"
+      behavior="desktop"
+      mini-width="47"
+      class="bg-grey-10"
+    >
+      <template #mini>
+        <q-scroll-area class="fit mini-slot cursor-pointer">
+          <div class="column items-center">
+            <q-icon
+              name="fa-solid fa-grip"
+              color="red-4"
+              class="mini-icon"
+              @click="$router.push('/')"
+            />
+            <q-icon
+              name="fa-solid fa-music"
+              color="blue"
+              class="mini-icon"
+              @click="$router.push('/songs')"
+            />
+            <q-icon
+              name="fa-solid fa-file"
+              color="orange"
+              class="mini-icon"
+              @click="$router.push('/sets')"
+            />
+            <q-icon
+              name="fa-solid fa-paste"
+              color="purple"
+              class="mini-icon"
+              @click="$router.push('/setlists')"
+            />
+            <q-icon
+              name="fa-solid fa-calendar-days"
+              color="teal"
+              class="mini-icon"
+              @click="openBrowserTab('http://www.steelerailband.com/shows')"
+            />
+            <q-icon
+              name="fa-solid fa-gear"
+              color="grey-5"
+              class="mini-icon"
+              @click="$router.push('/settings')"
+            />
+          </div>
+        </q-scroll-area>
+      </template>
     </app-drawer>
 
     <q-page-container>
@@ -21,17 +61,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { openBrowserTab } from "@/utils/helpers";
 
-const leftDrawerOpen = ref(false);
-const rightDrawerOpen = ref(false);
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
-
-function toggleRightDrawer() {
-  rightDrawerOpen.value = !rightDrawerOpen.value;
-}
+const leftDrawerOpen = ref(true);
 </script>
 
 <style lang="scss">
@@ -50,8 +82,19 @@ h6 {
     line-height: 1.5;
   }
 }
+
+.h2 {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
 ul {
   list-style: none;
+}
+
+.page-container {
+  padding: 10px 15px;
 }
 
 // Quasar overrides

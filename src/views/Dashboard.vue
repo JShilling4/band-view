@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <div class="member-container q-mb-lg">
+  <div class="page-container">
+    <app-page-title>{{ pageTitle }}</app-page-title>
+    <!-- <div class="member-container q-mb-lg">
       <h2>Members</h2>
       <div v-for="member in members" :key="member.id">
         <div>{{ member.name }}</div>
@@ -28,7 +29,7 @@
       <div v-for="setlist in setlists" :key="setlist.id">
         {{ setlist.name }}
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,6 +38,10 @@ import { onMounted, ref } from "vue";
 import supabase from "@/supabase";
 import { QueryData } from "@supabase/supabase-js";
 import { Tables } from "@/types";
+
+defineProps<{
+  pageTitle: string;
+}>();
 
 const members = ref<Members>([]);
 const songs = ref<Tables<"song">[]>([]);

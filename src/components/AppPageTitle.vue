@@ -1,7 +1,5 @@
 <template>
-  <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
-  </div>
+  <h2 class="h2"><slot /></h2>
 </template>
 
 <script setup lang="ts">
