@@ -12,108 +12,81 @@ export interface Database {
       member: {
         Row: {
           description: string | null
+          firstName: string
           id: number
-          image_url: string | null
-          is_active: boolean
-          name: string
+          imageUrl: string | null
+          isActive: boolean
+          lastName: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          firstName: string
           id?: number
-          image_url?: string | null
-          is_active?: boolean
-          name: string
+          imageUrl?: string | null
+          isActive?: boolean
+          lastName?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          firstName?: string
           id?: number
-          image_url?: string | null
-          is_active?: boolean
-          name?: string
+          imageUrl?: string | null
+          isActive?: boolean
+          lastName?: string | null
           title?: string
         }
         Relationships: []
-      }
-      member_song: {
-        Row: {
-          member_id: number
-          song_id: number
-        }
-        Insert: {
-          member_id?: number
-          song_id: number
-        }
-        Update: {
-          member_id?: number
-          song_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "member_song_member_id_fkey"
-            columns: ["member_id"]
-            isOneToOne: false
-            referencedRelation: "member"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "member_song_song_id_fkey"
-            columns: ["song_id"]
-            isOneToOne: false
-            referencedRelation: "song"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       set: {
         Row: {
           id: number
           name: string
           notes: string | null
-          sort_order: number
+          sortOrder: number
         }
         Insert: {
           id?: number
           name: string
           notes?: string | null
-          sort_order?: number
+          sortOrder?: number
         }
         Update: {
           id?: number
           name?: string
           notes?: string | null
-          sort_order?: number
+          sortOrder?: number
         }
         Relationships: []
       }
       set_song: {
         Row: {
-          set_id: number
-          song_id: number
-          sort_order: number
+          setId: number
+          songId: number
+          sortOrder: number
         }
         Insert: {
-          set_id: number
-          song_id: number
-          sort_order?: number
+          setId: number
+          songId: number
+          sortOrder?: number
         }
         Update: {
-          set_id?: number
-          song_id?: number
-          sort_order?: number
+          setId?: number
+          songId?: number
+          sortOrder?: number
         }
         Relationships: [
           {
-            foreignKeyName: "set_song_set_id_fkey"
-            columns: ["set_id"]
+            foreignKeyName: "set_song_setId_fkey"
+            columns: ["setId"]
             isOneToOne: false
             referencedRelation: "set"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "set_song_song_id_fkey"
-            columns: ["song_id"]
+            foreignKeyName: "set_song_songId_fkey"
+            columns: ["songId"]
             isOneToOne: false
             referencedRelation: "song"
             referencedColumns: ["id"]
@@ -141,30 +114,30 @@ export interface Database {
       setlist_set: {
         Row: {
           id: number
-          set_id: number
-          setlist_id: number
+          setId: number
+          setlistId: number
         }
         Insert: {
           id?: number
-          set_id: number
-          setlist_id: number
+          setId: number
+          setlistId: number
         }
         Update: {
           id?: number
-          set_id?: number
-          setlist_id?: number
+          setId?: number
+          setlistId?: number
         }
         Relationships: [
           {
-            foreignKeyName: "setlist_set_set_id_fkey"
-            columns: ["set_id"]
+            foreignKeyName: "setlist_set_setId_fkey"
+            columns: ["setId"]
             isOneToOne: false
             referencedRelation: "set"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "setlist_set_setlist_id_fkey"
-            columns: ["setlist_id"]
+            foreignKeyName: "setlist_set_setlistId_fkey"
+            columns: ["setlistId"]
             isOneToOne: false
             referencedRelation: "setlist"
             referencedColumns: ["id"]
@@ -216,17 +189,19 @@ export interface Database {
           id: number
           linkUrl: string | null
           status: Database["public"]["Enums"]["song_status"]
-          suggested_by: string | null
+          suggestedBy: string | null
           title: string
+          vocalLead: number | null
         }
         Insert: {
           artist: string
           downloadUrl?: string | null
           id?: number
           linkUrl?: string | null
-          status?: Database["public"]["Enums"]["song_status"]
-          suggested_by?: string | null
+          status: Database["public"]["Enums"]["song_status"]
+          suggestedBy?: string | null
           title: string
+          vocalLead?: number | null
         }
         Update: {
           artist?: string
@@ -234,10 +209,19 @@ export interface Database {
           id?: number
           linkUrl?: string | null
           status?: Database["public"]["Enums"]["song_status"]
-          suggested_by?: string | null
+          suggestedBy?: string | null
           title?: string
+          vocalLead?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "song_vocalLead_fkey"
+            columns: ["vocalLead"]
+            isOneToOne: false
+            referencedRelation: "member"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       venue: {
         Row: {
@@ -275,7 +259,7 @@ export interface Database {
         | "suggested"
         | "next"
         | "learning"
-        | "learned"
+        | "active"
         | "burner"
         | "killed"
     }

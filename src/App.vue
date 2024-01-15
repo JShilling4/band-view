@@ -14,7 +14,7 @@
           <div class="column items-center">
             <q-icon
               name="fa-solid fa-grip"
-              color="red-4"
+              color="red-6"
               class="mini-icon"
               @click="$router.push('/')"
             />
@@ -60,10 +60,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
+import { useMemberStore } from "./stores/member.store";
 
 const leftDrawerOpen = ref(true);
+
+const memberStore = useMemberStore();
+
+onMounted(() => {
+  memberStore.fetchMembers();
+});
 </script>
 
 <style lang="scss">

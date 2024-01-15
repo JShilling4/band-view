@@ -1,5 +1,5 @@
 import supabase from "@/supabase";
-import { Tables } from "@/types";
+import { SongStatus, Tables } from "@/types";
 import { defineStore } from "pinia";
 
 interface State {
@@ -16,6 +16,14 @@ export const useSongStore = defineStore("songs", {
       const { data: song, error } = await supabase.from("song").select("*");
       if (!song) return;
       this.songs = song;
+    },
+  },
+
+  getters: {
+    getSongsByStatus: (state) => {
+      return (status: SongStatus) => {
+        return state.songs.filter((song) => song.status === status);
+      };
     },
   },
 });

@@ -33,55 +33,45 @@ import { onMounted, ref } from "vue";
 import supabase from "@/supabase";
 import { QueryData } from "@supabase/supabase-js";
 import { Tables } from "@/types";
+import { useMemberStore } from "@/stores/member.store";
 
 defineProps<{
   pageTitle: string;
 }>();
 
-const members = ref<Members>([]);
-const sets = ref<Sets>([]);
-const setlists = ref<Tables<"setlist">[]>([]);
+// const members = ref<Tables<"member">[]>([]);
+// const sets = ref<Sets>([]);
+// const setlists = ref<Tables<"setlist">[]>([]);
 
-const memberQuery = supabase.from("member").select(`
-  *,
-  song (id, title)
-`);
+// async function getMembers(): Promise<void> {
+//   const { data: member, error } = await supabase.from("member").select("*");
+//   if (!member) return;
+//   members.value = member;
+// }
 
-type Members = QueryData<typeof memberQuery>;
-async function getMembers(): Promise<void> {
-  const { data: member, error } = await memberQuery;
-  const queryResult: Members = member;
-  members.value = queryResult;
-}
+// async function getSetlists(): Promise<void> {
+//   const { data: setlist, error } = await supabase.from("setlist").select("*");
+//   if (!setlist) return;
+//   setlists.value = setlist;
+// }
 
-async function getSetlists(): Promise<void> {
-  const { data: setlist, error } = await supabase.from("setlist").select("*");
-  setlists.value = setlist;
-}
-
-const setQuery = supabase
-  .from("set")
-  .select(
-    `
-    id,
-    name,
-    song (artist, title)
-  `
-  )
-  .order("sort_order");
-type Sets = QueryData<typeof setQuery>;
-async function getSets() {
-  const { data: set, error } = await setQuery;
-  const queryResult: Sets = set;
-  sets.value = queryResult;
-}
-
-onMounted(() => {
-  // getMembers();
-  // getSongs();
-  // getSets();
-  // getSetlists();
-});
+// const setQuery = supabase
+//   .from("set")
+//   .select(
+//     `
+//     id,
+//     name,
+//     song (artist, title)
+//   `
+//   )
+//   .order("sort_order");
+// type Sets = QueryData<typeof setQuery>;
+// async function getSets() {
+//   const { data: set, error } = await setQuery;
+//   if (!set) return;
+//   const queryResult: Sets = set;
+//   sets.value = queryResult;
+// }
 </script>
 
 <style lang="scss" scoped></style>
