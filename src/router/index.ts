@@ -13,7 +13,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/songs",
     name: "Songs",
     component: () => import("@/views/Songs.vue"),
-    props: { pageTitle: "Songs" },
+    props: (route) => {
+      return { pageTitle: "Songs", status: route.query.status };
+    },
   },
   {
     path: "/sets",

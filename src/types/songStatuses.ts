@@ -8,8 +8,8 @@
 // }
 
 export const SONG_STATUSES = [
-  "active",
   "learning",
+  "active",
   "next",
   "suggested",
   "burner",

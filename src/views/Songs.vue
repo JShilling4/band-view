@@ -3,21 +3,25 @@
     <app-page-title>{{ pageTitle }}</app-page-title>
 
     <div class="page-content">
-      <div class="tabs-container q-mb-lg">
+      <div class="tabs-container q-mb-md">
         <q-tabs
           v-model="activeTab"
           inline-label
           :breakpoint="0"
           narrow-indicator
+          dense
+          indicator-color="transparent"
+          active-bg-color="blue-10"
+          active-color="grey-11"
           align="left"
-          class="bg-white text-blue-10"
         >
           <q-tab
             v-for="(status, index) in SONG_STATUSES"
             :key="index"
             :name="status"
             :label="status"
-            class="tab"
+            no-caps
+            class="tab text-blue-10"
           />
         </q-tabs>
       </div>
@@ -28,22 +32,36 @@
         </div>
         <q-list>
           <div v-for="song in selectedSongs" :key="song.id">
-            <q-item>
+            <q-item dense>
               <q-item-section>
-                <q-item-label>{{
-                  `${song.artist} - ${song.title}`
-                }}</q-item-label>
-                <q-item-label lines="1" class="text-brown-5">
+                <q-item-label>
+                  {{ `${song.artist} - ${song.title}` }}
+                </q-item-label>
+                <q-item-label v-if="song.vocalLead" lines="1">
                   Vocal:
-                  {{
-                    memberStore.getMemberById(song.vocalLead)?.firstName ??
-                    "None"
-                  }}</q-item-label
+                  <span
+                    :style="{
+                      color:
+                        memberStore.getMemberById(song.vocalLead)
+                          ?.profileColor ?? '',
+                      fontWeight: 600,
+                      fontSize: '13px',
+                    }"
+                  >
+                    {{
+                      memberStore.getMemberById(song.vocalLead)?.firstName ?? ""
+                    }}
+                  </span></q-item-label
                 >
               </q-item-section>
-
               <q-item-section side top>
-                <q-icon name="fa-solid fa-edit" color="blue-9" />
+                <q-icon
+                  v-if="song.linkUrl"
+                  name="fa-brands fa-youtube"
+                  color="red-9"
+                  class="song-link-icon"
+                  @click="openBrowserTab(song.linkUrl)"
+                />
               </q-item-section>
             </q-item>
 
@@ -56,15 +74,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useSongStore } from "@/stores/song.store";
 import { useMemberStore } from "@/stores/member.store";
 import { SONG_STATUSES, SongStatus } from "@/types";
+import { openBrowserTab } from "@/utils/helpers";
+import { useRouter } from "vue-router";
 
-defineProps<{
+const props = defineProps<{
   pageTitle: string;
+  status: SongStatus;
 }>();
 
+const router = useRouter();
 const songStore = useSongStore();
 const memberStore = useMemberStore();
 
@@ -72,6 +94,19 @@ const activeTab = ref<SongStatus>("active");
 
 const selectedSongs = computed(() => {
   return songStore.songs.filter((song) => song.status === activeTab.value);
+});
+
+watch(
+  () => props.status,
+  () => {
+    if (!props.status) return;
+    activeTab.value = props.status;
+  },
+  { immediate: true }
+);
+
+watch(activeTab, (newVal) => {
+  router.push({ name: "Songs", query: { status: newVal } });
 });
 
 onMounted(() => {
@@ -83,7 +118,10 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .tab {
-  padding-left: 0;
+  /* padding-left: 0; */
+  text-transform: capitalize;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
 .results-text {
@@ -96,5 +134,11 @@ onMounted(() => {
 .q-item {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+.song-link-icon {
+  cursor: pointer;
 }
 </style>

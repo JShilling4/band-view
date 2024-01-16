@@ -6,8 +6,9 @@
       v-model="leftDrawerOpen"
       side="left"
       behavior="desktop"
-      :mini-width="47"
+      :mini-width="45"
       class="bg-grey-10"
+      mini-to-overlay
     >
       <template #mini>
         <q-scroll-area class="fit mini-slot cursor-pointer">
@@ -20,34 +21,34 @@
             />
             <q-icon
               name="fa-solid fa-music"
-              color="blue"
+              color="blue-5"
               class="mini-icon"
               @click="$router.push('/songs')"
             />
             <q-icon
               name="fa-solid fa-file"
-              color="orange"
+              color="orange-5"
               class="mini-icon"
               @click="$router.push('/sets')"
             />
             <q-icon
               name="fa-solid fa-paste"
-              color="purple"
+              color="purple-4"
               class="mini-icon"
               @click="$router.push('/setlists')"
             />
             <q-icon
               name="fa-solid fa-calendar-days"
-              color="teal"
+              color="teal-4"
               class="mini-icon"
               @click="openBrowserTab('http://www.steelerailband.com/shows')"
             />
-            <q-icon
+            <!-- <q-icon
               name="fa-solid fa-gear"
               color="grey-5"
               class="mini-icon"
               @click="$router.push('/settings')"
-            />
+            /> -->
           </div>
         </q-scroll-area>
       </template>

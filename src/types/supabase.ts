@@ -17,6 +17,7 @@ export interface Database {
           imageUrl: string | null
           isActive: boolean
           lastName: string | null
+          profileColor: string | null
           title: string
         }
         Insert: {
@@ -26,6 +27,7 @@ export interface Database {
           imageUrl?: string | null
           isActive?: boolean
           lastName?: string | null
+          profileColor?: string | null
           title: string
         }
         Update: {
@@ -35,6 +37,7 @@ export interface Database {
           imageUrl?: string | null
           isActive?: boolean
           lastName?: string | null
+          profileColor?: string | null
           title?: string
         }
         Relationships: []
