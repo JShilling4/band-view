@@ -21,7 +21,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/sets",
     name: "Sets",
     component: () => import("@/views/Sets.vue"),
-    props: { pageTitle: "Sets" },
+    props: (route) => {
+      return { pageTitle: "Sets", status: route.query.name };
+    },
   },
   {
     path: "/setlists",

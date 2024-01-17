@@ -65,31 +65,31 @@ export interface Database {
       }
       set_song: {
         Row: {
-          setId: number
-          songId: number
-          sortOrder: number
+          set_id: number
+          song_id: number
+          sort_order: number
         }
         Insert: {
-          setId: number
-          songId: number
-          sortOrder?: number
+          set_id: number
+          song_id: number
+          sort_order?: number
         }
         Update: {
-          setId?: number
-          songId?: number
-          sortOrder?: number
+          set_id?: number
+          song_id?: number
+          sort_order?: number
         }
         Relationships: [
           {
-            foreignKeyName: "set_song_setId_fkey"
-            columns: ["setId"]
+            foreignKeyName: "set_song_set_id_fkey"
+            columns: ["set_id"]
             isOneToOne: false
             referencedRelation: "set"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "set_song_songId_fkey"
-            columns: ["songId"]
+            foreignKeyName: "set_song_song_id_fkey"
+            columns: ["song_id"]
             isOneToOne: false
             referencedRelation: "song"
             referencedColumns: ["id"]
@@ -194,7 +194,7 @@ export interface Database {
           status: Database["public"]["Enums"]["song_status"]
           suggestedBy: string | null
           title: string
-          vocalLead: number | null
+          vocal_lead: number | null
         }
         Insert: {
           artist: string
@@ -204,7 +204,7 @@ export interface Database {
           status: Database["public"]["Enums"]["song_status"]
           suggestedBy?: string | null
           title: string
-          vocalLead?: number | null
+          vocal_lead?: number | null
         }
         Update: {
           artist?: string
@@ -214,12 +214,12 @@ export interface Database {
           status?: Database["public"]["Enums"]["song_status"]
           suggestedBy?: string | null
           title?: string
-          vocalLead?: number | null
+          vocal_lead?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "song_vocalLead_fkey"
-            columns: ["vocalLead"]
+            foreignKeyName: "song_vocal_lead_fkey"
+            columns: ["vocal_lead"]
             isOneToOne: false
             referencedRelation: "member"
             referencedColumns: ["id"]
@@ -252,7 +252,23 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      songs_ordered: {
+        Row: {
+          name: string | null
+          sort_order: number | null
+          title: string | null
+          vocal_lead: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "song_vocal_lead_fkey"
+            columns: ["vocal_lead"]
+            isOneToOne: false
+            referencedRelation: "member"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

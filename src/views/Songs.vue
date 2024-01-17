@@ -35,21 +35,26 @@
             <q-item dense>
               <q-item-section>
                 <q-item-label>
-                  {{ `${song.artist} - ${song.title}` }}
+                  <span class="song-artist">{{ song.artist }} - </span>
+                  <span class="song-title">{{ song.title }}</span>
                 </q-item-label>
-                <q-item-label v-if="song.vocalLead" lines="1">
+                <q-item-label
+                  v-if="song.vocal_lead"
+                  lines="1"
+                  class="song-metadata"
+                >
                   Vocal:
                   <span
                     :style="{
                       color:
-                        memberStore.getMemberById(song.vocalLead)
+                        memberStore.getMemberById(song.vocal_lead)
                           ?.profileColor ?? '',
-                      fontWeight: 600,
-                      fontSize: '13px',
                     }"
+                    class="song-vocal-lead"
                   >
                     {{
-                      memberStore.getMemberById(song.vocalLead)?.firstName ?? ""
+                      memberStore.getMemberById(song.vocal_lead)?.firstName ??
+                      ""
                     }}
                   </span></q-item-label
                 >
@@ -138,7 +143,14 @@ onMounted(() => {
   font-weight: 400;
 }
 
+.song-artist {
+  color: rgb(163, 163, 163);
+}
 .song-link-icon {
   cursor: pointer;
+}
+
+.song-metadata {
+  font-size: 13px;
 }
 </style>
