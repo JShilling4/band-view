@@ -27,23 +27,34 @@
       </div>
 
       <div class="song-container q-mb-lg">
-        <!-- <q-list>
-          <q-item dense>
-            <q-item-section>
-              <q-item-label> </q-item-label>
-              <q-item-label lines="1"> </q-item-label>
-            </q-item-section>
-            <q-item-section side top>
-              <q-icon
-                name="fa-brands fa-youtube"
-                color="red-9"
-                class="song-link-icon"
-              />
-            </q-item-section>
-          </q-item>
+        <q-list>
+          <div v-for="(song, index) in setSongs" :key="song.title">
+            <q-item dense>
+              <q-item-section>
+                <q-item-label> {{ index + 1 }}. {{ song.title }}</q-item-label>
+              </q-item-section>
+              <q-item-section lines="1" side>
+                <q-item-label>
+                  V:
+                  <span
+                    :style="{
+                      color:
+                        memberStore.getMemberById(song.vocal_lead)
+                          ?.profile_color ?? 'N/A',
+                    }"
+                  >
+                    {{ memberStore.getMemberById(song.vocal_lead)?.first_name }}
+                  </span>
+                </q-item-label>
+              </q-item-section>
+              <q-item-section side lines="1">
+                <span v-for="special in song.specials">{{ special }}</span>
+              </q-item-section>
+            </q-item>
 
-          <q-separator spaced />
-        </q-list> -->
+            <q-separator spaced />
+          </div>
+        </q-list>
       </div>
     </div>
   </div>
@@ -52,6 +63,8 @@
 <script setup lang="ts">
 import { useMemberStore } from "@/stores/member.store";
 import { useSetStore } from "@/stores/set.store";
+import { useSongStore } from "@/stores/song.store";
+import { Tables } from "@/types";
 import { openBrowserTab } from "@/utils/helpers";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
@@ -63,12 +76,23 @@ const props = defineProps<{
 
 const router = useRouter();
 const memberStore = useMemberStore();
+const songStore = useSongStore();
 const setStore = useSetStore();
 
 const activeTab = ref("");
 
 const selectedSet = computed(() => {
-  return setStore.sets.filter((set) => set.name === activeTab.value);
+  return setStore.sets.find((set) => set.name === activeTab.value);
+});
+
+const setSongs = computed(() => {
+  if (!selectedSet.value?.songs?.length) return [];
+  const songs: Tables<"song">[] = [];
+  selectedSet.value.songs?.forEach((id) => {
+    let song = songStore.getSongById(id);
+    if (song) songs.push(song);
+  });
+  return songs;
 });
 
 watch(
@@ -91,4 +115,11 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.q-item {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+</style>

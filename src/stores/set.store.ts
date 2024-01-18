@@ -1,6 +1,10 @@
 import supabase from "@/supabase";
-import { QueryData } from "@supabase/supabase-js";
+import { Tables } from "@/types";
 import { defineStore } from "pinia";
+
+interface State {
+  sets: Tables<"set">[];
+}
 
 export const useSetStore = defineStore("sets", {
   state: (): State => ({
@@ -9,10 +13,13 @@ export const useSetStore = defineStore("sets", {
 
   actions: {
     async fetchSets() {
-      const { data: set, error } = await setQuery;
+      const { data: set, error } = await supabase
+        .from("set")
+        .select("*")
+        .order("name");
       if (!set) return;
-      const queryResult: Sets = set;
-      this.sets = queryResult;
+
+      this.sets = set;
     },
   },
 
@@ -24,15 +31,3 @@ export const useSetStore = defineStore("sets", {
     },
   },
 });
-
-interface State {
-  sets: Sets;
-}
-
-const setQuery = supabase
-  .from("set")
-  .select(
-    `id, name, song:songs_ordered!set_song (title, vocal_lead, sort_order)`
-  )
-  .order("name");
-type Sets = QueryData<typeof setQuery>;

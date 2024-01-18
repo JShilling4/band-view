@@ -48,12 +48,12 @@
                     :style="{
                       color:
                         memberStore.getMemberById(song.vocal_lead)
-                          ?.profileColor ?? '',
+                          ?.profile_color ?? '',
                     }"
                     class="song-vocal-lead"
                   >
                     {{
-                      memberStore.getMemberById(song.vocal_lead)?.firstName ??
+                      memberStore.getMemberById(song.vocal_lead)?.first_name ??
                       ""
                     }}
                   </span></q-item-label
@@ -61,11 +61,11 @@
               </q-item-section>
               <q-item-section side top>
                 <q-icon
-                  v-if="song.linkUrl"
+                  v-if="song.link_url"
                   name="fa-brands fa-youtube"
                   color="red-9"
                   class="song-link-icon"
-                  @click="openBrowserTab(song.linkUrl)"
+                  @click="openBrowserTab(song.link_url)"
                 />
               </q-item-section>
             </q-item>

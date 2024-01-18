@@ -1,8 +1,7 @@
-import { Setlist } from "@/types";
 import { defineStore } from "pinia";
 
 interface State {
-  setlists: Setlist[];
+  setlists: [];
 }
 
 export const useSetlistStore = defineStore("setlists", {

@@ -25,5 +25,10 @@ export const useSongStore = defineStore("songs", {
         return state.songs.filter((song) => song.status === status);
       };
     },
+    getSongById: (state) => {
+      return (id: number) => {
+        return state.songs.find((song) => song.id === id);
+      };
+    },
   },
 });

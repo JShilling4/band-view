@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "Sets",
     component: () => import("@/views/Sets.vue"),
     props: (route) => {
-      return { pageTitle: "Sets", status: route.query.name };
+      return { pageTitle: "Sets", name: route.query.name };
     },
   },
   {

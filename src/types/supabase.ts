@@ -11,33 +11,27 @@ export interface Database {
     Tables: {
       member: {
         Row: {
-          description: string | null
-          firstName: string
+          first_name: string
           id: number
-          imageUrl: string | null
-          isActive: boolean
-          lastName: string | null
-          profileColor: string | null
+          image_url: string | null
+          last_name: string | null
+          profile_color: string | null
           title: string
         }
         Insert: {
-          description?: string | null
-          firstName: string
+          first_name: string
           id?: number
-          imageUrl?: string | null
-          isActive?: boolean
-          lastName?: string | null
-          profileColor?: string | null
+          image_url?: string | null
+          last_name?: string | null
+          profile_color?: string | null
           title: string
         }
         Update: {
-          description?: string | null
-          firstName?: string
+          first_name?: string
           id?: number
-          imageUrl?: string | null
-          isActive?: boolean
-          lastName?: string | null
-          profileColor?: string | null
+          image_url?: string | null
+          last_name?: string | null
+          profile_color?: string | null
           title?: string
         }
         Relationships: []
@@ -47,54 +41,24 @@ export interface Database {
           id: number
           name: string
           notes: string | null
-          sortOrder: number
+          songs: number[] | null
+          sort_order: number
         }
         Insert: {
           id?: number
           name: string
           notes?: string | null
-          sortOrder?: number
+          songs?: number[] | null
+          sort_order?: number
         }
         Update: {
           id?: number
           name?: string
           notes?: string | null
-          sortOrder?: number
+          songs?: number[] | null
+          sort_order?: number
         }
         Relationships: []
-      }
-      set_song: {
-        Row: {
-          set_id: number
-          song_id: number
-          sort_order: number
-        }
-        Insert: {
-          set_id: number
-          song_id: number
-          sort_order?: number
-        }
-        Update: {
-          set_id?: number
-          song_id?: number
-          sort_order?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "set_song_set_id_fkey"
-            columns: ["set_id"]
-            isOneToOne: false
-            referencedRelation: "set"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "set_song_song_id_fkey"
-            columns: ["song_id"]
-            isOneToOne: false
-            referencedRelation: "song"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       setlist: {
         Row: {
@@ -113,39 +77,6 @@ export interface Database {
           url?: string | null
         }
         Relationships: []
-      }
-      setlist_set: {
-        Row: {
-          id: number
-          setId: number
-          setlistId: number
-        }
-        Insert: {
-          id?: number
-          setId: number
-          setlistId: number
-        }
-        Update: {
-          id?: number
-          setId?: number
-          setlistId?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "setlist_set_setId_fkey"
-            columns: ["setId"]
-            isOneToOne: false
-            referencedRelation: "set"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "setlist_set_setlistId_fkey"
-            columns: ["setlistId"]
-            isOneToOne: false
-            referencedRelation: "setlist"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       show: {
         Row: {
@@ -188,31 +119,34 @@ export interface Database {
       song: {
         Row: {
           artist: string
-          downloadUrl: string | null
+          download_url: string | null
           id: number
-          linkUrl: string | null
+          link_url: string | null
+          mood: Database["public"]["Enums"]["song_mood"] | null
+          specials: string[] | null
           status: Database["public"]["Enums"]["song_status"]
-          suggestedBy: string | null
           title: string
           vocal_lead: number | null
         }
         Insert: {
           artist: string
-          downloadUrl?: string | null
+          download_url?: string | null
           id?: number
-          linkUrl?: string | null
+          link_url?: string | null
+          mood?: Database["public"]["Enums"]["song_mood"] | null
+          specials?: string[] | null
           status: Database["public"]["Enums"]["song_status"]
-          suggestedBy?: string | null
           title: string
           vocal_lead?: number | null
         }
         Update: {
           artist?: string
-          downloadUrl?: string | null
+          download_url?: string | null
           id?: number
-          linkUrl?: string | null
+          link_url?: string | null
+          mood?: Database["public"]["Enums"]["song_mood"] | null
+          specials?: string[] | null
           status?: Database["public"]["Enums"]["song_status"]
-          suggestedBy?: string | null
           title?: string
           vocal_lead?: number | null
         }
@@ -252,28 +186,13 @@ export interface Database {
       }
     }
     Views: {
-      songs_ordered: {
-        Row: {
-          name: string | null
-          sort_order: number | null
-          title: string | null
-          vocal_lead: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "song_vocal_lead_fkey"
-            columns: ["vocal_lead"]
-            isOneToOne: false
-            referencedRelation: "member"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
+      song_mood: "fast dance" | "slow dance" | "drink" | "singalong"
       song_status:
         | "suggested"
         | "next"
