@@ -61,15 +61,20 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, provide, ref } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
 import { useMemberStore } from "./stores/member.store";
 import { useSongStore } from "./stores/song.store";
+import { useQuasar } from "quasar";
+import { qInjectionKey } from "./types";
 
 const leftDrawerOpen = ref(true);
 
 const memberStore = useMemberStore();
 const songStore = useSongStore();
+const $q = useQuasar();
+
+provide(qInjectionKey, $q);
 
 onMounted(() => {
   memberStore.fetchMembers();

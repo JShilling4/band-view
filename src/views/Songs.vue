@@ -4,7 +4,7 @@
 
     <div class="page-content">
       <div class="tabs-container q-mb-md">
-        <q-tabs
+        <!-- <q-tabs
           v-model="activeTab"
           inline-label
           :breakpoint="0"
@@ -23,7 +23,16 @@
             no-caps
             class="tab text-blue-10"
           />
-        </q-tabs>
+        </q-tabs> -->
+        <q-select
+          v-model="activeTab"
+          :options="SONG_STATUSES"
+          emit-value
+          option-value="name"
+          option-label="name"
+          label="Select Song Status"
+          filled
+        />
       </div>
 
       <div class="song-container q-mb-lg">
@@ -141,6 +150,10 @@ onMounted(() => {
   padding-right: 0 !important;
   font-family: Roboto, sans-serif;
   font-weight: 400;
+}
+
+:deep(.q-field__native, .q-item__label) {
+  text-transform: capitalize;
 }
 
 .song-artist {

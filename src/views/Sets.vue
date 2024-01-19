@@ -4,7 +4,8 @@
 
     <div class="page-content">
       <div class="tabs-container q-mb-md">
-        <q-tabs
+        <!-- <q-tabs
+          v-if="$q.screen.gt.sm"
           v-model="activeTab"
           inline-label
           :breakpoint="0"
@@ -23,7 +24,16 @@
             no-caps
             class="tab text-blue-10"
           />
-        </q-tabs>
+        </q-tabs> -->
+        <q-select
+          v-model="activeTab"
+          :options="setStore.sets.map((set) => set.name)"
+          emit-value
+          option-value="name"
+          option-label="name"
+          label="Select Set Name"
+          filled
+        />
       </div>
 
       <div class="song-container q-mb-lg">
@@ -32,23 +42,37 @@
             <q-item dense>
               <q-item-section>
                 <q-item-label> {{ index + 1 }}. {{ song.title }}</q-item-label>
-              </q-item-section>
-              <q-item-section lines="1" side>
-                <q-item-label>
-                  V:
-                  <span
-                    :style="{
-                      color:
-                        memberStore.getMemberById(song.vocal_lead)
-                          ?.profile_color ?? 'N/A',
-                    }"
-                  >
-                    {{ memberStore.getMemberById(song.vocal_lead)?.first_name }}
-                  </span>
+                <q-item-label caption>
+                  <div>
+                    Vocal:
+                    <span
+                      :style="{
+                        color:
+                          memberStore.getMemberById(song.vocal_lead)
+                            ?.profile_color ?? 'N/A',
+                      }"
+                    >
+                      {{
+                        memberStore.getMemberById(song.vocal_lead)?.first_name
+                      }}
+                    </span>
+                    <span
+                      v-for="special in song.specials"
+                      class="specials-symbols"
+                    >
+                      Specials: {{ special }}
+                    </span>
+                  </div>
                 </q-item-label>
               </q-item-section>
-              <q-item-section side lines="1">
+              <!-- <q-item-section side lines="1" top>
                 <span v-for="special in song.specials">{{ special }}</span>
+              </q-item-section> -->
+              <q-item-section side top lines="1" class="row">
+                <div class="q-gutter-sm">
+                  <q-icon name="fa-solid fa-edit" color="blue-9" />
+                  <q-icon name="fa-solid fa-trash-alt" color="red-10" />
+                </div>
               </q-item-section>
             </q-item>
 
@@ -61,13 +85,11 @@
 </template>
 
 <script setup lang="ts">
-import { useMemberStore } from "@/stores/member.store";
-import { useSetStore } from "@/stores/set.store";
-import { useSongStore } from "@/stores/song.store";
-import { Tables } from "@/types";
-import { openBrowserTab } from "@/utils/helpers";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, inject, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { QVueGlobals } from "quasar";
+import { useMemberStore, useSetStore, useSongStore } from "@/stores";
+import { Tables, qInjectionKey } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -78,6 +100,7 @@ const router = useRouter();
 const memberStore = useMemberStore();
 const songStore = useSongStore();
 const setStore = useSetStore();
+const $q = inject(qInjectionKey);
 
 const activeTab = ref("");
 
