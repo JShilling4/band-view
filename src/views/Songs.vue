@@ -16,9 +16,7 @@
       </div>
 
       <div class="song-container q-mb-lg">
-        <div class="results-text">
-          {{ songStore.getSongsByStatus(activeTab).length }} results
-        </div>
+        <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
         <q-list>
           <div v-for="song in selectedSongs" :key="song.id">
             <q-item dense>
@@ -27,31 +25,20 @@
                   <span class="song-artist">{{ song.artist }} - </span>
                   <span class="song-title">{{ song.title }}</span>
                 </q-item-label>
-                <q-item-label
-                  v-if="song.vocal_lead"
-                  lines="1"
-                  class="song-metadata"
-                >
+                <q-item-label v-if="song.vocal_lead" lines="1" class="song-metadata">
                   Vocal:
                   <span
                     :style="{
-                      color:
-                        memberStore.getMemberById(song.vocal_lead)
-                          ?.profile_color ?? '',
+                      color: memberStore.getMemberById(song.vocal_lead)?.profile_color ?? '',
                     }"
                     class="song-vocal-lead"
                   >
-                    {{
-                      memberStore.getMemberById(song.vocal_lead)?.first_name ??
-                      ""
-                    }}
+                    {{ memberStore.getMemberById(song.vocal_lead)?.first_name ?? "" }}
                   </span></q-item-label
                 >
               </q-item-section>
               <q-item-section side top>
                 <div class="q-gutter-sm">
-                  <!-- <q-icon name="fa-solid fa-edit" color="blue-9" /> -->
-
                   <q-icon
                     v-if="song.link_url"
                     name="fa-brands fa-youtube"

@@ -17,11 +17,7 @@
 
       <div class="song-container q-mb-lg">
         <q-list>
-          <VueDraggable
-            ref="el"
-            v-model="localSetSongs"
-            :on-update="onSongOrderChange"
-          >
+          <VueDraggable ref="el" v-model="localSetSongs" :on-update="onSongOrderChange">
             <div v-for="(song, i) in localSetSongs" :key="song.title">
               <q-item dense>
                 <q-item-section>
@@ -31,19 +27,12 @@
                       Vocal:
                       <span
                         :style="{
-                          color:
-                            memberStore.getMemberById(song.vocal_lead)
-                              ?.profile_color ?? 'N/A',
+                          color: memberStore.getMemberById(song.vocal_lead)?.profile_color ?? 'N/A',
                         }"
                       >
-                        {{
-                          memberStore.getMemberById(song.vocal_lead)?.first_name
-                        }}
+                        {{ memberStore.getMemberById(song.vocal_lead)?.first_name }}
                       </span>
-                      <span
-                        v-for="special in song.specials"
-                        class="specials-symbols"
-                      >
+                      <span v-for="special in song.specials" class="specials-symbols">
                         Specials: {{ special }}
                       </span>
                     </div>
@@ -51,7 +40,11 @@
                 </q-item-section>
                 <q-item-section side top lines="1" class="row">
                   <div class="q-gutter-sm">
-                    <q-icon name="fa-solid fa-trash-alt" color="red-10" />
+                    <q-icon
+                      name="fa-solid fa-trash-alt"
+                      color="red-10"
+                      @click="onDeleteSetSong(song.id)"
+                    />
                   </div>
                 </q-item-section>
               </q-item>
@@ -110,27 +103,39 @@ watch(
 watch(
   selectedSet,
   () => {
-    if (!selectedSet.value?.songs?.length) return;
-    const songs: Tables<"song">[] = [];
-    selectedSet.value.songs?.forEach((id) => {
-      let song = songStore.getSongById(id);
-      if (song) songs.push(song);
-    });
-    localSetSongs.value = songs;
+    syncLocalSetSongs();
   },
   { immediate: true }
 );
 
-function onSongOrderChange(): void {
-  console.log(
-    "Posting new order: ",
-    localSetSongs.value.map((ss) => ss.id)
-  );
+function syncLocalSetSongs() {
+  if (!selectedSet.value?.songs?.length) return;
+  const songs: Tables<"song">[] = [];
+  selectedSet.value.songs?.forEach((id) => {
+    let song = songStore.getSongById(id);
+    if (song) songs.push(song);
+  });
+  localSetSongs.value = songs;
+}
+
+function updateSetOrder() {
   if (selectedSet.value) {
     setStore.updateSetOrder(
       selectedSet.value.id,
       localSetSongs.value.map((ss) => ss.id)
     );
+  }
+}
+
+function onSongOrderChange() {
+  updateSetOrder();
+}
+
+function onDeleteSetSong(id: number) {
+  const target = localSetSongs.value.findIndex((ss) => ss.id === id);
+  if (target !== -1) {
+    localSetSongs.value.splice(target, 1);
+    updateSetOrder();
   }
 }
 
