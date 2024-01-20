@@ -65,21 +65,20 @@ import { onMounted, provide, ref } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
 import { useMemberStore } from "./stores/member.store";
 import { useSongStore } from "./stores/song.store";
-import { useQuasar } from "quasar";
-import { qInjectionKey } from "./types";
+// import { useQuasar } from "quasar";
+// import { qInjectionKey } from "./types";
 
 const leftDrawerOpen = ref(true);
 
 const memberStore = useMemberStore();
 const songStore = useSongStore();
-const $q = useQuasar();
+// const $q = useQuasar();
 
-provide(qInjectionKey, $q);
+// provide(qInjectionKey, $q);
 
-onMounted(() => {
-  memberStore.fetchMembers();
-  songStore.fetchSongs();
-});
+// onMounted(async () => {
+
+// });
 </script>
 
 <style lang="scss">

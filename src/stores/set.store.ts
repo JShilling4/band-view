@@ -13,10 +13,8 @@ export const useSetStore = defineStore("sets", {
 
   actions: {
     async fetchSets() {
-      const { data: set, error } = await supabase
-        .from("set")
-        .select("*")
-        .order("name");
+      if (this.sets.length) return;
+      const { data: set, error } = await supabase.from("set").select("*").order("name");
       if (!set) return;
 
       this.sets = set;

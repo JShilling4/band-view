@@ -13,6 +13,7 @@ export const useSongStore = defineStore("songs", {
 
   actions: {
     async fetchSongs() {
+      if (this.songs.length) return;
       const { data: song, error } = await supabase.from("song").select("*");
       if (!song) return;
       this.songs = song;

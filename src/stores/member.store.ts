@@ -13,6 +13,7 @@ export const useMemberStore = defineStore("members", {
 
   actions: {
     async fetchMembers() {
+      if (this.members.length) return;
       const { data: member, error } = await supabase.from("member").select("*");
       if (!member) return;
       this.members = member;

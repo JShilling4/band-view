@@ -96,13 +96,6 @@ watch(
   activeTab,
   (newVal) => {
     router.push({ name: "Sets", query: { name: newVal } });
-  },
-  { immediate: true }
-);
-
-watch(
-  selectedSet,
-  () => {
     syncLocalSetSongs();
   },
   { immediate: true }
@@ -139,9 +132,13 @@ function onDeleteSetSong(id: number) {
   }
 }
 
-onMounted(() => {
-  if (!setStore.sets.length) {
-    setStore.fetchSets();
+onMounted(async () => {
+  await memberStore.fetchMembers();
+  await songStore.fetchSongs();
+  await setStore.fetchSets();
+  if (!localSetSongs.value.length) {
+    syncLocalSetSongs();
+    console.log("syncing local setSongs...");
   }
 });
 </script>
