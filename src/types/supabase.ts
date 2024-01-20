@@ -43,6 +43,7 @@ export interface Database {
           notes: string | null
           songs: number[] | null
           sort_order: number
+          type: Database["public"]["Enums"]["set_type"] | null
         }
         Insert: {
           id?: number
@@ -50,6 +51,7 @@ export interface Database {
           notes?: string | null
           songs?: number[] | null
           sort_order?: number
+          type?: Database["public"]["Enums"]["set_type"] | null
         }
         Update: {
           id?: number
@@ -57,6 +59,7 @@ export interface Database {
           notes?: string | null
           songs?: number[] | null
           sort_order?: number
+          type?: Database["public"]["Enums"]["set_type"] | null
         }
         Relationships: []
       }
@@ -192,6 +195,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      set_type: "3h" | "4h" | "Country"
       song_mood: "fast dance" | "slow dance" | "drink" | "singalong"
       song_status:
         | "suggested"

@@ -3,7 +3,7 @@
     <app-page-title>{{ pageTitle }}</app-page-title>
 
     <div class="page-content">
-      <div class="tabs-container q-mb-md">
+      <div class="top-controls q-mb-md row">
         <q-select
           v-model="activeTab"
           :options="SONG_STATUSES"
@@ -11,7 +11,17 @@
           option-value="name"
           option-label="name"
           label="Select Song Status"
+          class="col"
+          dense
           filled
+        />
+        <q-btn
+          v-if="isAdmin"
+          color="green-8"
+          icon="fa-solid fa-plus"
+          class="q-ml-md"
+          no-caps
+          dense
         />
       </div>
 
@@ -38,14 +48,23 @@
                 >
               </q-item-section>
               <q-item-section side top>
-                <div class="q-gutter-sm">
-                  <q-icon
-                    v-if="song.link_url"
-                    name="fa-brands fa-youtube"
-                    color="red-9"
-                    class="song-link-icon"
-                    @click="openBrowserTab(song.link_url)"
-                  />
+                <div>
+                  <span class="q-mr-sm">
+                    <q-icon
+                      v-if="song.link_url"
+                      name="fa-brands fa-youtube"
+                      color="red-9"
+                      class="song-link-icon"
+                      @click="openBrowserTab(song.link_url)"
+                    />
+                  </span>
+                  <span v-if="isAdmin" class="admin-controls">
+                    <q-icon
+                      name="fa-solid fa-trash-alt"
+                      color="red-10"
+                      @click="onDeleteSetSong(song.id)"
+                    />
+                  </span>
                 </div>
               </q-item-section>
             </q-item>
@@ -59,10 +78,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, inject } from "vue";
 import { useSongStore } from "@/stores/song.store";
 import { useMemberStore } from "@/stores/member.store";
-import { SONG_STATUSES, SongStatus } from "@/types";
+import { SONG_STATUSES, SongStatus, isAdminIK } from "@/types";
 import { openBrowserTab } from "@/utils/helpers";
 import { useRouter } from "vue-router";
 
@@ -74,6 +93,7 @@ const props = defineProps<{
 const router = useRouter();
 const songStore = useSongStore();
 const memberStore = useMemberStore();
+const isAdmin = inject(isAdminIK);
 
 const activeTab = ref<SongStatus>("active");
 
@@ -94,10 +114,13 @@ watch(activeTab, (newVal) => {
   router.push({ name: "Songs", query: { status: newVal } });
 });
 
-onMounted(() => {
-  if (!songStore.songs.length) {
-    songStore.fetchSongs();
-  }
+function onDeleteSetSong(id: number) {
+  songStore.deleteSong(id);
+}
+
+onMounted(async () => {
+  await memberStore.fetchMembers();
+  songStore.fetchSongs();
 });
 </script>
 

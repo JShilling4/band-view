@@ -26,6 +26,11 @@ export const useSetStore = defineStore("sets", {
         .update({ songs: songOrder })
         .eq("id", id)
         .select();
+      if (!data) return;
+      const target = this.sets.findIndex((s) => s.id === id);
+      if (target !== -1) {
+        this.sets[target] = data[0];
+      }
     },
   },
 
