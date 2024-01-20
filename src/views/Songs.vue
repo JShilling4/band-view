@@ -22,7 +22,40 @@
           class="q-ml-md"
           no-caps
           dense
+          @click="showAddSongModal = !showAddSongModal"
         />
+        <q-dialog v-model="showAddSongModal" persistent>
+          <q-card style="width: 325px">
+            <q-card-section class="modal-heading row items-center">
+              <span>Add Song</span>
+            </q-card-section>
+            <q-card-section>
+              <q-input v-model="localSong.artist" label="Artist" />
+              <q-input v-model="localSong.title" label="Title" />
+              <q-select v-model="localSong.status" :options="SONG_STATUSES" label="Status" />
+              <q-select
+                v-model="localSong.vocal_lead"
+                :options="memberStore.members"
+                option-value="id"
+                :option-label="(option) => `${option.first_name} ${option.last_name}`"
+                label="Vocal Lead"
+              />
+              <q-input v-model="localSong.link_url" label="YouTube Link" />
+              <q-input v-model="localSong.download_url" label="Download Link" />
+              <q-select v-model="localSong.mood" :options="SONG_MOODS" label="Mood" />
+              <q-select
+                v-model="localSong.specials"
+                :options="SONG_SPECIALS"
+                label="Specials"
+                multiple
+              />
+            </q-card-section>
+            <q-card-actions align="right" class="modal-controls">
+              <q-btn flat label="Cancel" color="red-8" no-caps v-close-popup />
+              <q-btn label="Save" color="green-10" no-caps v-close-popup />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
       </div>
 
       <div class="song-container q-mb-lg">
@@ -79,11 +112,18 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, inject } from "vue";
+import { useRouter } from "vue-router";
 import { useSongStore } from "@/stores/song.store";
 import { useMemberStore } from "@/stores/member.store";
-import { SONG_STATUSES, SongStatus, isAdminIK } from "@/types";
 import { openBrowserTab } from "@/utils/helpers";
-import { useRouter } from "vue-router";
+import {
+  type NewSong,
+  SONG_STATUSES,
+  SONG_SPECIALS,
+  SONG_MOODS,
+  type SongStatus,
+  isAdminIK,
+} from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -96,7 +136,17 @@ const memberStore = useMemberStore();
 const isAdmin = inject(isAdminIK);
 
 const activeTab = ref<SongStatus>("active");
-
+const showAddSongModal = ref(false);
+const localSong = ref<NewSong>({
+  artist: "",
+  title: "",
+  download_url: "",
+  link_url: "",
+  vocal_lead: null,
+  mood: null,
+  status: "suggested",
+  specials: [],
+});
 const selectedSongs = computed(() => {
   return songStore.songs.filter((song) => song.status === activeTab.value);
 });
