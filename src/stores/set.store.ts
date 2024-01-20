@@ -21,6 +21,14 @@ export const useSetStore = defineStore("sets", {
 
       this.sets = set;
     },
+
+    async updateSetOrder(id: number, songOrder: number[]) {
+      const { data, error } = await supabase
+        .from("set")
+        .update({ songs: songOrder })
+        .eq("id", id)
+        .select();
+    },
   },
 
   getters: {

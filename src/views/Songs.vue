@@ -4,26 +4,6 @@
 
     <div class="page-content">
       <div class="tabs-container q-mb-md">
-        <!-- <q-tabs
-          v-model="activeTab"
-          inline-label
-          :breakpoint="0"
-          narrow-indicator
-          dense
-          indicator-color="transparent"
-          active-bg-color="blue-10"
-          active-color="grey-11"
-          align="left"
-        >
-          <q-tab
-            v-for="(status, index) in SONG_STATUSES"
-            :key="index"
-            :name="status"
-            :label="status"
-            no-caps
-            class="tab text-blue-10"
-          />
-        </q-tabs> -->
         <q-select
           v-model="activeTab"
           :options="SONG_STATUSES"
@@ -69,13 +49,17 @@
                 >
               </q-item-section>
               <q-item-section side top>
-                <q-icon
-                  v-if="song.link_url"
-                  name="fa-brands fa-youtube"
-                  color="red-9"
-                  class="song-link-icon"
-                  @click="openBrowserTab(song.link_url)"
-                />
+                <div class="q-gutter-sm">
+                  <!-- <q-icon name="fa-solid fa-edit" color="blue-9" /> -->
+
+                  <q-icon
+                    v-if="song.link_url"
+                    name="fa-brands fa-youtube"
+                    color="red-9"
+                    class="song-link-icon"
+                    @click="openBrowserTab(song.link_url)"
+                  />
+                </div>
               </q-item-section>
             </q-item>
 
@@ -152,7 +136,7 @@ onMounted(() => {
   font-weight: 400;
 }
 
-:deep(.q-field__native, .q-item__label) {
+:deep(.q-field__native) {
   text-transform: capitalize;
 }
 

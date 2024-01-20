@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@fortawesome/fontawesome-svg-core':
     specifier: ^6.5.1
@@ -37,9 +41,9 @@ dependencies:
   vue:
     specifier: ^3.4.13
     version: 3.4.13(typescript@5.3.3)
-  vue-draggable-next:
-    specifier: ^2.2.1
-    version: 2.2.1(sortablejs@1.15.1)(vue@3.4.13)
+  vue-draggable-plus:
+    specifier: ^0.3.5
+    version: 0.3.5(@types/sortablejs@1.15.7)
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.4.13)
@@ -639,6 +643,10 @@ packages:
   /@types/semver@7.5.6:
     resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==}
     dev: true
+
+  /@types/sortablejs@1.15.7:
+    resolution: {integrity: sha512-PvgWCx1Lbgm88FdQ6S7OGvLIjWS66mudKPlfdrWil0TjsO5zmoZmzoKiiwRShs1dwPgrlkr0N4ewuy0/+QUXYQ==}
+    dev: false
 
   /@types/ws@8.5.10:
     resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
@@ -2009,10 +2017,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /sortablejs@1.15.1:
-    resolution: {integrity: sha512-P5Cjvb0UG1ZVNiDPj/n4V+DinttXG6K8n7vM/HQf0C25K3YKQTQY6fsr/sEGsJGpQ9exmPxluHxKBc0mLKU1lQ==}
-    dev: false
-
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
@@ -2218,14 +2222,16 @@ packages:
       vue: 3.4.13(typescript@5.3.3)
     dev: false
 
-  /vue-draggable-next@2.2.1(sortablejs@1.15.1)(vue@3.4.13):
-    resolution: {integrity: sha512-EAMS1IRHF0kZO0o5PMOinsQsXIqsrKT1hKmbICxG3UEtn7zLFkLxlAtajcCcUTisNvQ6TtCB5COjD9a1raNADw==}
+  /vue-draggable-plus@0.3.5(@types/sortablejs@1.15.7):
+    resolution: {integrity: sha512-HqIxV4Wr4U5LRPLRi2oV+EJ4g6ibyRKhuaiH4ZQo+LxK4zrk2XcBk9UyXC88OXp4SAq0XYH4Wco/T3LX5kJ79A==}
     peerDependencies:
-      sortablejs: ^1.14.0
-      vue: ^3.2.2
+      '@types/sortablejs': ^1.15.0
+      '@vue/composition-api': '*'
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
     dependencies:
-      sortablejs: 1.15.1
-      vue: 3.4.13(typescript@5.3.3)
+      '@types/sortablejs': 1.15.7
     dev: false
 
   /vue-eslint-parser@9.4.0(eslint@8.56.0):

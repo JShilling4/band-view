@@ -116,4 +116,8 @@ ul {
 .q-btn {
   letter-spacing: 1px;
 }
+
+.q-item__label {
+  text-transform: capitalize;
+}
 </style>

@@ -22,7 +22,7 @@
     "type-fest": "^4.9.0",
     "vite": "^5.0.11",
     "vue": "^3.4.13",
-    "vue-draggable-next": "^2.2.1",
+    "vue-draggable-plus": "^0.3.5",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
