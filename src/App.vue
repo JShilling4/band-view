@@ -43,12 +43,6 @@
               class="mini-icon"
               @click="openBrowserTab('http://www.steelerailband.com/shows')"
             />
-            <!-- <q-icon
-              name="fa-solid fa-gear"
-              color="grey-5"
-              class="mini-icon"
-              @click="$router.push('/settings')"
-            /> -->
           </div>
         </q-scroll-area>
       </template>
@@ -63,18 +57,20 @@
 <script setup lang="ts">
 import { onMounted, provide, ref } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
-import { useMemberStore } from "./stores/member.store";
-import { useSongStore } from "./stores/song.store";
+// import { useMemberStore } from "./stores/member.store";
+// import { useSongStore } from "./stores/song.store";
 // import { useQuasar } from "quasar";
-// import { qInjectionKey } from "./types";
+import { quasarIK, isAdminIK } from "./types";
 
-const leftDrawerOpen = ref(true);
-
-const memberStore = useMemberStore();
-const songStore = useSongStore();
+// const memberStore = useMemberStore();
+// const songStore = useSongStore();
 // const $q = useQuasar();
 
+const leftDrawerOpen = ref(true);
+const isAdmin = import.meta.env.DEV;
+
 // provide(qInjectionKey, $q);
+provide(isAdminIK, isAdmin);
 
 // onMounted(async () => {
 

@@ -18,6 +18,16 @@ export const useSongStore = defineStore("songs", {
       if (!song) return;
       this.songs = song;
     },
+
+    async deleteSong(id: number) {
+      const { error } = await supabase.from("song").delete().eq("id", id);
+      if (!error) {
+        const target = this.songs.findIndex((s) => s.id === id);
+        if (target !== -1) {
+          this.songs.splice(target, 1);
+        }
+      }
+    },
   },
 
   getters: {
