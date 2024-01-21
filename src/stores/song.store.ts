@@ -1,15 +1,17 @@
 import supabase from "@/supabase";
-import { SongStatus, Tables } from "@/types";
 import { defineStore } from "pinia";
+import { SongStatus, Tables, NewSong } from "@/types";
 
 interface State {
   songs: Tables<"song">[];
 }
 
 export const useSongStore = defineStore("songs", {
-  state: (): State => ({
-    songs: [],
-  }),
+  state: (): State => {
+    return {
+      songs: [],
+    };
+  },
 
   actions: {
     async fetchSongs() {
@@ -28,18 +30,26 @@ export const useSongStore = defineStore("songs", {
         }
       }
     },
+
+    async createSong(song: NewSong) {
+      if (!song) return;
+      const { data, error } = await supabase
+        .from("song")
+        .insert(song)
+        .select()
+        .returns<Tables<"song">[]>();
+      if (!error) {
+        this.songs.push(data[0]);
+      }
+    },
   },
 
   getters: {
-    getSongsByStatus: (state) => {
-      return (status: SongStatus) => {
-        return state.songs.filter((song) => song.status === status);
-      };
+    getSongsByStatus: (state) => (status: SongStatus) => {
+      return state.songs.filter((song) => song.status === status);
     },
-    getSongById: (state) => {
-      return (id: number) => {
-        return state.songs.find((song) => song.id === id);
-      };
+    getSongById: (state) => (id: number) => {
+      return state.songs.find((song) => song.id === id);
     },
   },
 });

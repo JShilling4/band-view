@@ -27,7 +27,7 @@
         <q-dialog v-model="showAddSongModal" persistent>
           <q-card style="width: 325px">
             <q-card-section class="modal-heading row items-center">
-              <span>Add Song</span>
+              <h6>Add Song</h6>
             </q-card-section>
             <q-card-section>
               <q-input v-model="localSong.artist" label="Artist" />
@@ -51,8 +51,8 @@
               />
             </q-card-section>
             <q-card-actions align="right" class="modal-controls">
-              <q-btn flat label="Cancel" color="red-8" no-caps v-close-popup />
-              <q-btn label="Save" color="green-10" no-caps v-close-popup />
+              <q-btn outline label="Cancel" color="black" no-caps v-close-popup />
+              <q-btn label="Save" color="green-10" no-caps v-close-popup @click="onAddSong" />
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -148,7 +148,7 @@ const localSong = ref<NewSong>({
   specials: [],
 });
 const selectedSongs = computed(() => {
-  return songStore.songs.filter((song) => song.status === activeTab.value);
+  return songStore.getSongsByStatus(activeTab.value);
 });
 
 watch(
@@ -166,6 +166,10 @@ watch(activeTab, (newVal) => {
 
 function onDeleteSetSong(id: number) {
   songStore.deleteSong(id);
+}
+
+async function onAddSong() {
+  await songStore.createSong(localSong.value);
 }
 
 onMounted(async () => {
