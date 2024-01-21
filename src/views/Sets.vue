@@ -40,7 +40,12 @@
 
       <div class="song-container q-mb-lg">
         <q-list>
-          <VueDraggable ref="el" v-model="localSetSongs" :on-update="onSongOrderChange">
+          <VueDraggable
+            ref="el"
+            v-model="localSetSongs"
+            :on-update="onSongOrderChange"
+            :disabled="!isAdmin"
+          >
             <div v-for="(song, i) in localSetSongs" :key="song.title">
               <q-item dense>
                 <q-item-section>
