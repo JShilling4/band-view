@@ -14,7 +14,7 @@ export default defineConfig({
     Components({ dts: true }),
   ],
   define: {
-    "process.env": {},
+    "process.env": process.env,
   },
   resolve: {
     alias: {
