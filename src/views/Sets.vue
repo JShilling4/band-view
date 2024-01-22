@@ -64,7 +64,7 @@
                         </span>
                       </div>
 
-                      <div>
+                      <div v-if="song.specials?.length">
                         <span class="q-ml-sm q-gutter-sm">
                           Specials:
                           <span v-for="special in song.specials" class="specials-symbols text-bold">
@@ -80,6 +80,7 @@
                     <q-icon
                       name="fa-solid fa-trash-alt"
                       color="red-10"
+                      size="xs"
                       @click="onDeleteSetSong(song.id)"
                     />
                   </div>

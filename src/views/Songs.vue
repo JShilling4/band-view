@@ -82,19 +82,21 @@
               </q-item-section>
               <q-item-section side top>
                 <div>
-                  <span class="q-mr-sm">
+                  <span>
                     <q-icon
                       v-if="song.link_url"
                       name="fa-brands fa-youtube"
                       color="red-9"
                       class="song-link-icon"
+                      size="sm"
                       @click="openBrowserTab(song.link_url)"
                     />
                   </span>
-                  <span v-if="isAdmin" class="admin-controls">
+                  <span v-if="isAdmin" class="admin-controls q-ml-md">
                     <q-icon
                       name="fa-solid fa-trash-alt"
                       color="red-10"
+                      size="sm"
                       @click="onDeleteSetSong(song.id)"
                     />
                   </span>
