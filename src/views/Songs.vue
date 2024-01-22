@@ -35,6 +35,8 @@
               <q-select v-model="localSong.status" :options="SONG_STATUSES" label="Status" />
               <q-select
                 v-model="localSong.vocal_lead"
+                emit-value
+                map-options
                 :options="memberStore.members"
                 option-value="id"
                 :option-label="(option) => `${option.first_name} ${option.last_name}`"
