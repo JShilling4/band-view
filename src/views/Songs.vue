@@ -24,7 +24,7 @@
           dense
           @click="showAddSongModal = !showAddSongModal"
         />
-        <q-dialog v-model="showAddSongModal" persistent>
+        <q-dialog v-model="showAddSongModal" persistent @hide="onHideSongModal">
           <q-card style="width: 325px">
             <q-card-section class="modal-heading row items-center">
               <h6>Add Song</h6>
@@ -121,12 +121,13 @@ import { useSongStore } from "@/stores/song.store";
 import { useMemberStore } from "@/stores/member.store";
 import { openBrowserTab } from "@/utils/helpers";
 import {
-  type NewSong,
+  type LocalSong,
   SONG_STATUSES,
   SONG_SPECIALS,
   SONG_MOODS,
   type SongStatus,
   isAdminIK,
+  NewSong,
 } from "@/types";
 
 const props = defineProps<{
@@ -141,16 +142,7 @@ const isAdmin = inject(isAdminIK);
 
 const activeTab = ref<SongStatus>("active");
 const showAddSongModal = ref(false);
-const localSong = ref<NewSong>({
-  artist: "",
-  title: "",
-  download_url: "",
-  link_url: "",
-  vocal_lead: null,
-  mood: null,
-  status: "suggested",
-  specials: [],
-});
+const localSong = ref<LocalSong>(NewSong());
 const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(activeTab.value);
 });
@@ -174,6 +166,10 @@ function onDeleteSetSong(id: number) {
 
 async function onAddSong() {
   await songStore.createSong(localSong.value);
+}
+
+function onHideSongModal() {
+  localSong.value = NewSong();
 }
 
 onMounted(async () => {
