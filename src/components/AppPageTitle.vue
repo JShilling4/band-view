@@ -12,8 +12,7 @@ withDefaults(defineProps<PropTypes>(), {
 });
 </script>
 
-<style lang="scss" scoped>
-.h2 {
-  margin-bottom: 10px;
-}
+<style lang="sass" scoped>
+.h2
+  margin-bottom: 10px
 </style>

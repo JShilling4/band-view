@@ -10,4 +10,4 @@ defineProps<{
 }>();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="sass" scoped></style>

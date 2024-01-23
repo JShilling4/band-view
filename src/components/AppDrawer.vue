@@ -12,12 +12,11 @@ import { ref } from "vue";
 
 const model = defineModel<boolean>({ required: true });
 
-const miniState = ref(true);
+const miniState = ref(false);
 </script>
 
-<style lang="scss" scoped>
-:deep(.mini-icon) {
-  font-size: 1.5rem;
-  padding: 20px 0;
-}
+<style lang="sass" scoped>
+:deep(.mini-icon)
+  font-size: 1.5rem
+  padding: 20px 0
 </style>

@@ -19,17 +19,16 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-.heading {
-  text-align: center;
-  font-size: 40px;
-  font-weight: 500;
-}
+<style lang="sass" scoped>
+.container
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  height: 80vh
+
+.heading
+  text-align: center
+  font-size: 40px
+  font-weight: 500
 </style>

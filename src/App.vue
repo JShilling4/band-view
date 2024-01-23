@@ -65,53 +65,42 @@ const isAdmin = import.meta.env.DEV;
 provide(isAdminIK, isAdmin);
 </script>
 
-<style lang="scss">
-@import "./scss/breakpoints";
+<style lang="sass">
+@import "./scss/breakpoints"
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-  &.heading {
-    line-height: 1.5;
-  }
-}
+h6
+  &.heading
+    line-height: 1.5
 
-.h2 {
-  font-size: 26px;
-  font-weight: 500;
-  line-height: 1.5;
-}
-ul {
-  list-style: none;
-}
+.h2
+  font-size: 26px
+  font-weight: 500
+  line-height: 1.5
 
-.page-container {
-  padding: 10px 15px;
+ul
+  list-style: none
 
-  @include sm {
-    max-width: 80%;
-    margin: 0 auto;
-  }
-  @include lg {
-    max-width: 60%;
-    margin: 0 auto;
-  }
-}
+.page-container
+  padding: 10px 15px
+
+  @include sm
+    max-width: 1320px
+    margin: 0 auto
 
 // Quasar overrides
-.q-btn {
-  letter-spacing: 1px;
-}
+.q-btn
+  letter-spacing: 1px
 
-.q-item__label {
-  text-transform: capitalize;
-}
+.q-item__label
+  text-transform: capitalize
 </style>

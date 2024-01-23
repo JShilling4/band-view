@@ -206,11 +206,10 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss" scoped>
-.q-item {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-}
+<style lang="sass" scoped>
+.q-item
+  padding-left: 0 !important
+  padding-right: 0 !important
+  font-family: Roboto, sans-serif
+  font-weight: 400
 </style>

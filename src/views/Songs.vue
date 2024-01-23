@@ -178,40 +178,36 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss" scoped>
-.tab {
-  /* padding-left: 0; */
-  text-transform: capitalize;
-  font-weight: 300;
-  letter-spacing: 1px;
-}
+<style lang="sass" scoped>
+.tab
+  text-transform: capitalize
+  font-weight: 300
+  letter-spacing: 1px
 
-.results-text {
-  font-size: 18px;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  color: gray;
-}
 
-.q-item {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-}
+.results-text
+  font-size: 18px
+  margin-bottom: 1rem
+  font-weight: 600
+  color: gray
 
-:deep(.q-field__native) {
-  text-transform: capitalize;
-}
 
-.song-artist {
-  color: rgb(163, 163, 163);
-}
-.song-link-icon {
-  cursor: pointer;
-}
+.q-item
+  padding-left: 0 !important
+  padding-right: 0 !important
+  font-family: Roboto, sans-serif
+  font-weight: 400
 
-.song-metadata {
-  font-size: 13px;
-}
+
+:deep(.q-field__native)
+  text-transform: capitalize
+
+.song-artist
+  color: rgb(163, 163, 163)
+
+.song-link-icon
+  cursor: pointer
+
+.song-metadata
+  font-size: 13px
 </style>
