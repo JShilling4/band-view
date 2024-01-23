@@ -55,29 +55,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, provide, ref } from "vue";
+import { provide, ref } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
-// import { useMemberStore } from "./stores/member.store";
-// import { useSongStore } from "./stores/song.store";
-// import { useQuasar } from "quasar";
-import { quasarIK, isAdminIK } from "./types";
-
-// const memberStore = useMemberStore();
-// const songStore = useSongStore();
-// const $q = useQuasar();
+import { isAdminIK } from "./types";
 
 const leftDrawerOpen = ref(true);
 const isAdmin = import.meta.env.DEV;
 
-// provide(qInjectionKey, $q);
 provide(isAdminIK, isAdmin);
-
-// onMounted(async () => {
-
-// });
 </script>
 
 <style lang="scss">
+@import "./scss/breakpoints";
+
 * {
   margin: 0;
   padding: 0;
@@ -105,6 +95,15 @@ ul {
 
 .page-container {
   padding: 10px 15px;
+
+  @include sm {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  @include lg {
+    max-width: 60%;
+    margin: 0 auto;
+  }
 }
 
 // Quasar overrides
