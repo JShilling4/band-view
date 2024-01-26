@@ -12,6 +12,7 @@
           option-label="name"
           label="Select Song Status"
           class="app-select-filter col"
+          behavior="menu"
           dense
           filled
         />
@@ -84,14 +85,22 @@
               </q-item-section>
               <q-item-section side top>
                 <div>
-                  <span>
+                  <span v-if="song.link_url">
                     <q-icon
-                      v-if="song.link_url"
                       name="fa-brands fa-youtube"
                       color="red-9"
                       class="song-link-icon"
                       size="sm"
                       @click="openBrowserTab(song.link_url)"
+                    />
+                  </span>
+                  <span v-if="song.download_url">
+                    <q-icon
+                      name="fa-solid fa-download"
+                      color="green-9"
+                      class="song-link-icon"
+                      size="sm"
+                      @click="openBrowserTab(song.download_url)"
                     />
                   </span>
                   <span v-if="isAdmin" class="admin-controls q-ml-md">
@@ -203,7 +212,8 @@ onMounted(async () => {
   text-transform: capitalize
 
 .song-artist
-  color: rgb(163, 163, 163)
+  color: rgb(148, 148, 148)
+  font-weight: 500
 
 .song-link-icon
   cursor: pointer
