@@ -1,51 +1,70 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <app-header />
-
     <app-drawer
       v-model="leftDrawerOpen"
+      :mini="miniLeftDrawer"
       side="left"
+      :width="$q.screen.width > 1024 ? 250 : 45"
+      class="app-left-drawer bg-grey-10 text-grey-3"
       behavior="desktop"
-      :mini-width="45"
-      class="bg-grey-10"
-      mini-to-overlay
+      show-if-above
+      persistent
     >
-      <template #mini>
-        <q-scroll-area class="fit mini-slot cursor-pointer">
-          <div class="column items-center">
-            <q-icon
-              name="fa-solid fa-grip"
-              color="red-6"
-              class="mini-icon"
-              @click="$router.push('/')"
-            />
-            <q-icon
-              name="fa-solid fa-music"
-              color="blue-5"
-              class="mini-icon"
-              @click="$router.push('/songs')"
-            />
-            <q-icon
-              name="fa-solid fa-file"
-              color="orange-5"
-              class="mini-icon"
-              @click="$router.push('/sets')"
-            />
-            <q-icon
-              name="fa-solid fa-paste"
-              color="purple-4"
-              class="mini-icon"
-              @click="$router.push('/setlists')"
-            />
-            <q-icon
-              name="fa-solid fa-calendar-days"
-              color="teal-4"
-              class="mini-icon"
-              @click="openBrowserTab('http://www.steelerailband.com/shows')"
-            />
-          </div>
-        </q-scroll-area>
-      </template>
+      <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: '0' }">
+        <q-list>
+          <q-item
+            :active="$route.name === 'Dashboard'"
+            clickable
+            v-ripple
+            @click="$router.push('/')"
+          >
+            <q-item-section avatar>
+              <q-icon name="fa-solid fa-grip" color="red-6" class="mini-icon" />
+            </q-item-section>
+            <q-item-section> Dashboard </q-item-section>
+          </q-item>
+          <q-item
+            :active="$route.name === 'Songs'"
+            clickable
+            v-ripple
+            @click="$router.push('/songs')"
+          >
+            <q-item-section avatar>
+              <q-icon name="fa-solid fa-music" color="blue-5" class="mini-icon" />
+            </q-item-section>
+            <q-item-section> Songs </q-item-section>
+          </q-item>
+          <q-item
+            :active="$route.name === 'Sets'"
+            clickable
+            v-ripple
+            @click="$router.push('/sets')"
+          >
+            <q-item-section avatar>
+              <q-icon name="fa-solid fa-file" color="orange-5" class="mini-icon" />
+            </q-item-section>
+            <q-item-section> Sets </q-item-section>
+          </q-item>
+          <q-item
+            :active="$route.name === 'Setlists'"
+            clickable
+            v-ripple
+            @click="$router.push('/setlists')"
+          >
+            <q-item-section avatar>
+              <q-icon name="fa-solid fa-paste" color="purple-4" class="mini-icon" />
+            </q-item-section>
+            <q-item-section> Setlists </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple @click="openBrowserTab('http://www.steelerailband.com/shows')">
+            <q-item-section avatar>
+              <q-icon name="fa-solid fa-calendar-days" color="teal-4" class="mini-icon" />
+            </q-item-section>
+            <q-item-section> Calendar </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
     </app-drawer>
 
     <q-page-container>
@@ -56,10 +75,16 @@
 
 <script setup lang="ts">
 import { provide, ref } from "vue";
+import { useRoute } from "vue-router";
+import { useQuasar } from "quasar";
 import { openBrowserTab } from "@/utils/helpers";
 import { isAdminIK } from "./types";
 
+const $q = useQuasar();
+const $route = useRoute();
+
 const leftDrawerOpen = ref(true);
+const miniLeftDrawer = ref(false);
 const isAdmin = import.meta.env.DEV;
 
 provide(isAdminIK, isAdmin);
@@ -72,6 +97,9 @@ provide(isAdminIK, isAdmin);
   margin: 0
   padding: 0
   box-sizing: border-box
+
+body
+  font-size: 16px
 
 h1,
 h2,
@@ -93,14 +121,19 @@ ul
 .page-container
   padding: 10px 15px
 
-  @include sm
-    max-width: 1320px
-    margin: 0 auto
+  // @include custom(768)
+  //   max-width: 1200px
+  //   margin: 0 auto
 
 // Quasar overrides
+.app-left-drawer
+  .q-item
+    padding: 8px 10px
+    &--active
+      background-color: #3d3d3d
 .q-btn
   letter-spacing: 1px
 
-.q-item__label
+.q-item__label, .q-field__native
   text-transform: capitalize
 </style>

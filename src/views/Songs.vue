@@ -11,7 +11,7 @@
           option-value="name"
           option-label="name"
           label="Select Song Status"
-          class="col"
+          class="app-select-filter col"
           dense
           filled
         />
@@ -179,11 +179,13 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
+.app-select-filter
+  max-width: 300px
+
 .tab
   text-transform: capitalize
   font-weight: 300
   letter-spacing: 1px
-
 
 .results-text
   font-size: 18px
@@ -191,13 +193,11 @@ onMounted(async () => {
   font-weight: 600
   color: gray
 
-
 .q-item
   padding-left: 0 !important
   padding-right: 0 !important
   font-family: Roboto, sans-serif
   font-weight: 400
-
 
 :deep(.q-field__native)
   text-transform: capitalize

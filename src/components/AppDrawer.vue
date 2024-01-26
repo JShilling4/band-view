@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="model" v-bind="$attrs" :mini="miniState">
+  <q-drawer v-model="model" v-bind="$attrs">
     <template v-slot:mini>
       <slot name="mini" />
     </template>
@@ -11,8 +11,6 @@
 import { ref } from "vue";
 
 const model = defineModel<boolean>({ required: true });
-
-const miniState = ref(false);
 </script>
 
 <style lang="sass" scoped>
