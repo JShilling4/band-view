@@ -1,6 +1,6 @@
 import supabase from "@/supabase";
 import { defineStore } from "pinia";
-import { SongStatus, Tables, NewSong } from "@/types";
+import { type SongStatus, Tables, type LocalSong } from "@/types";
 
 interface State {
   songs: Tables<"song">[];
@@ -31,7 +31,7 @@ export const useSongStore = defineStore("songs", {
       }
     },
 
-    async createSong(song: NewSong) {
+    async createSong(song: LocalSong) {
       if (!song) return;
       const { data, error } = await supabase
         .from("song")

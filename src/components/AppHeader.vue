@@ -8,8 +8,7 @@
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped>
-.left-menu-toggle {
-  visibility: hidden;
-}
+<style lang="sass" scoped>
+.left-menu-toggle
+  visibility: hidden
 </style>
