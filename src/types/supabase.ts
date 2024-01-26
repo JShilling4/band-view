@@ -36,6 +36,27 @@ export interface Database {
         }
         Relationships: []
       }
+      rehearsal: {
+        Row: {
+          agenda: string[] | null
+          date: string
+          id: number
+          start_time: string | null
+        }
+        Insert: {
+          agenda?: string[] | null
+          date: string
+          id?: number
+          start_time?: string | null
+        }
+        Update: {
+          agenda?: string[] | null
+          date?: string
+          id?: number
+          start_time?: string | null
+        }
+        Relationships: []
+      }
       set: {
         Row: {
           id: number
