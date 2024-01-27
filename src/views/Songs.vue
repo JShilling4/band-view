@@ -38,7 +38,7 @@
         <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
         <q-list separator>
           <song-list-item
-            v-for="song in selectedSongs"
+            v-for="(song, i) in selectedSongs"
             :song="song"
             :key="song.id"
             @song-clicked="onSongClicked(song.id)"

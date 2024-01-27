@@ -2,6 +2,9 @@
   <q-item :clickable="isAdmin">
     <q-item-section @click="$emit('song-clicked')">
       <q-item-label>
+        <span v-if="typeof index === 'number'" style="width: 1.5rem; display: inline-block"
+          >{{ index + 1 }}.
+        </span>
         <span class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">{{ song.title }}</span>
       </q-item-label>
@@ -62,6 +65,7 @@ const isAdmin = inject(isAdminIK);
 
 defineProps<{
   song: Tables<"song">;
+  index?: number;
 }>();
 
 const emit = defineEmits<{

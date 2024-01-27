@@ -47,7 +47,7 @@
             :disabled="!isAdmin"
           >
             <div v-for="(song, i) in localSetSongs" :key="song.title">
-              <song-list-item :song="song" />
+              <song-list-item :song="song" :index="i" />
               <q-separator />
             </div>
           </VueDraggable>

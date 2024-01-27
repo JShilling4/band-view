@@ -32,8 +32,7 @@
 
 <script setup lang="ts">
 import { useMemberStore, useSongStore } from "@/stores";
-import { LocalSong, SONG_MOODS, SONG_SPECIALS, SONG_STATUSES, Tables } from "@/types";
-import { ModelRef } from "vue";
+import { type LocalSong, SONG_MOODS, SONG_SPECIALS, SONG_STATUSES, type Tables } from "@/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
