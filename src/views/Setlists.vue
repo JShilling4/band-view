@@ -33,21 +33,34 @@
         </q-btn-dropdown> -->
       </div>
 
-      <div class="set-container q-mb-lg">
+      <div class="setlist-container row q-col-gutter-xl">
         <q-list
           v-if="selectedSetlist"
           v-for="(setId, i) in selectedSetlist.sets"
           :key="setId"
-          class="q-mb-md"
+          class="set-container q-mb-md"
         >
           <div class="set-name">{{ setStore.getSetById(setId)?.name }}</div>
           <div v-for="(songId, i) in setStore.getSetById(setId)?.songs" :key="songId">
-            <song-list-item :song="songStore.getSongById(songId)" :index="i" />
+            <song-list-item
+              :song="songStore.getSongById(songId)"
+              :index="i"
+              hide-artist
+              @song-clicked="onSongClicked(songId)"
+            />
             <q-separator v-if="i < (setStore.getSetById(setId)?.songs?.length as number) - 1" />
           </div>
         </q-list>
       </div>
     </div>
+
+    <song-modal
+      v-model:show-modal="showSongModal"
+      v-model:song="localSong"
+      action="Edit"
+      persistent
+      @hide="onHideSongModal"
+    />
   </div>
 </template>
 
@@ -56,7 +69,7 @@ import { computed, inject, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useMemberStore, useSetStore, useSongStore } from "@/stores";
 import { VueDraggable } from "vue-draggable-plus";
-import { Tables, isAdminIK } from "@/types";
+import { LocalSong, NewSong, Tables, isAdminIK } from "@/types";
 import { useSetlistStore } from "@/stores/setlist.store";
 
 const props = defineProps<{
@@ -72,7 +85,9 @@ const setlistStore = useSetlistStore();
 const isAdmin = inject(isAdminIK);
 
 const activeTab = ref("");
-
+const showSongModal = ref(false);
+const songModalAction = ref<"Add" | "Edit">("Add");
+const localSong = ref<LocalSong | Tables<"song">>(NewSong());
 const selectedSetlist = computed(() => {
   return setlistStore.setlists.find((setlist) => setlist.name === activeTab.value);
 });
@@ -144,6 +159,16 @@ watch(
 //   }
 // }
 
+function onSongClicked(songId: number) {
+  localSong.value = songStore.getSongById(songId) ?? NewSong();
+  songModalAction.value = "Edit";
+  showSongModal.value = true;
+}
+
+function onHideSongModal() {
+  localSong.value = NewSong();
+}
+
 onMounted(async () => {
   await memberStore.fetchMembers();
   await songStore.fetchSongs();
@@ -153,6 +178,16 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
+@import "../scss/breakpoints"
+.setlist-container
+  flex-wrap: wrap
+.set-container
+  width: 100%
+
+  @include md
+    flex: 50%
+  @include lg
+    flex: 25%
 .set-name
   font-weight: 600
   font-size: 18px
