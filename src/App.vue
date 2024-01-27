@@ -122,6 +122,8 @@ ul
   padding: 10px 15px
 
 // Quasar overrides
+.q-drawer
+  position: fixed !important
 .app-left-drawer
   .q-item
     padding: 8px 10px

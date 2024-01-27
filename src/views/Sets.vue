@@ -13,6 +13,7 @@
           label="Select Set Name"
           filled
           dense
+          behavior="menu"
           class="col"
         />
         <q-btn-dropdown

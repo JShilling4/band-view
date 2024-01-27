@@ -88,16 +88,19 @@ export interface Database {
         Row: {
           id: number
           name: string
+          sets: number[]
           url: string | null
         }
         Insert: {
           id?: number
           name: string
+          sets?: number[]
           url?: string | null
         }
         Update: {
           id?: number
           name?: string
+          sets?: number[]
           url?: string | null
         }
         Relationships: []
