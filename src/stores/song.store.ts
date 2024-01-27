@@ -1,4 +1,5 @@
 import supabase from "@/supabase";
+import omit from "lodash/omit";
 import { defineStore } from "pinia";
 import { type SongStatus, Tables, type LocalSong } from "@/types";
 
@@ -40,6 +41,22 @@ export const useSongStore = defineStore("songs", {
         .returns<Tables<"song">[]>();
       if (!error) {
         this.songs.push(data[0]);
+      }
+    },
+
+    async updateSong(song: Tables<"song">) {
+      if (!song) return;
+      var clonedSong: LocalSong = omit(song, "id");
+      console.log(clonedSong);
+      const { error } = await supabase
+        .from("song")
+        .update({ ...clonedSong })
+        .eq("id", song.id);
+      if (!error) {
+        const target = this.songs.findIndex((s) => s.id === song.id);
+        if (target !== -1) {
+          this.songs.splice(target, 1, song);
+        }
       }
     },
   },

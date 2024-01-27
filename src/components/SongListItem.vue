@@ -1,6 +1,6 @@
 <template>
   <q-item :clickable="isAdmin">
-    <q-item-section @click="onSongClick">
+    <q-item-section @click="$emit('song-clicked')">
       <q-item-label>
         <span class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">{{ song.title }}</span>
@@ -64,13 +64,12 @@ defineProps<{
   song: Tables<"song">;
 }>();
 
+const emit = defineEmits<{
+  (e: "song-clicked"): void;
+}>();
+
 function onDeleteSetSong(id: number) {
   songStore.deleteSong(id);
-}
-
-function onSongClick() {
-  if (!isAdmin) return;
-  alert("song clicked...");
 }
 </script>
 

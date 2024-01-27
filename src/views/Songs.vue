@@ -23,11 +23,12 @@
           class="q-ml-md"
           no-caps
           dense
-          @click="showAddSongModal = !showAddSongModal"
+          @click="onAddSongClick"
         />
         <song-modal
-          v-model:show-modal="showAddSongModal"
+          v-model:show-modal="showSongModal"
           v-model:song="localSong"
+          :action="songModalAction"
           persistent
           @hide="onHideSongModal"
         />
@@ -36,7 +37,12 @@
       <div class="song-container q-mb-lg">
         <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
         <q-list separator>
-          <song-list-item v-for="song in selectedSongs" :song="song" :key="song.id" />
+          <song-list-item
+            v-for="song in selectedSongs"
+            :song="song"
+            :key="song.id"
+            @song-clicked="onSongClicked(song.id)"
+          />
         </q-list>
       </div>
     </div>
@@ -48,7 +54,14 @@ import { computed, onMounted, ref, watch, inject } from "vue";
 import { useRouter } from "vue-router";
 import { useSongStore } from "@/stores/song.store";
 import { useMemberStore } from "@/stores/member.store";
-import { SONG_STATUSES, isAdminIK, NewSong, type SongStatus, type LocalSong } from "@/types";
+import {
+  SONG_STATUSES,
+  isAdminIK,
+  NewSong,
+  type SongStatus,
+  type LocalSong,
+  Tables,
+} from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -61,8 +74,9 @@ const memberStore = useMemberStore();
 const isAdmin = inject(isAdminIK);
 
 const activeTab = ref<SongStatus>("active");
-const showAddSongModal = ref(false);
-const localSong = ref<LocalSong>(NewSong());
+const showSongModal = ref(false);
+const songModalAction = ref<"Add" | "Edit">("Add");
+const localSong = ref<LocalSong | Tables<"song">>(NewSong());
 const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(activeTab.value);
 });
@@ -82,6 +96,17 @@ watch(activeTab, (newVal) => {
 
 function onHideSongModal() {
   localSong.value = NewSong();
+}
+
+function onSongClicked(songId: number) {
+  localSong.value = songStore.getSongById(songId) ?? NewSong();
+  songModalAction.value = "Edit";
+  showSongModal.value = true;
+}
+
+function onAddSongClick() {
+  songModalAction.value = "Add";
+  showSongModal.value = true;
 }
 
 onMounted(async () => {

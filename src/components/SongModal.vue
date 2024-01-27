@@ -4,7 +4,7 @@
       <q-card-section class="modal-heading row items-center">
         <h6>Add Song</h6>
       </q-card-section>
-      <q-card-section class="modal-body">
+      <q-card-section v-if="song" class="modal-body">
         <q-input v-model="song.artist" label="Artist" />
         <q-input v-model="song.title" label="Title" />
         <q-select v-model="song.status" :options="SONG_STATUSES" label="Status" />
@@ -24,7 +24,7 @@
       </q-card-section>
       <q-card-actions align="right" class="modal-controls">
         <q-btn outline label="Cancel" color="black" no-caps v-close-popup />
-        <q-btn label="Save" color="green-10" no-caps v-close-popup @click="onAddSong" />
+        <q-btn label="Save" color="green-10" no-caps v-close-popup @click="onSaveSong" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -32,17 +32,25 @@
 
 <script setup lang="ts">
 import { useMemberStore, useSongStore } from "@/stores";
-import { LocalSong, SONG_MOODS, SONG_SPECIALS, SONG_STATUSES } from "@/types";
+import { LocalSong, SONG_MOODS, SONG_SPECIALS, SONG_STATUSES, Tables } from "@/types";
 import { ModelRef } from "vue";
 
-const song = defineModel<LocalSong>("song") as ModelRef<LocalSong>;
+const props = defineProps<{
+  action: "Add" | "Edit";
+}>();
+
+const song = defineModel<LocalSong | Tables<"song">>("song");
 const showModal = defineModel<boolean>("showModal");
 const memberStore = useMemberStore();
 const songStore = useSongStore();
 
-async function onAddSong() {
+async function onSaveSong() {
   if (!song.value) return;
-  await songStore.createSong(song.value);
+  if (props.action === "Add") {
+    await songStore.createSong(song.value);
+  } else {
+    await songStore.updateSong(song.value as Tables<"song">);
+  }
 }
 </script>
 
