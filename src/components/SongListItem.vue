@@ -1,6 +1,6 @@
 <template>
   <q-item v-if="song" :clickable="isAdmin">
-    <q-item-section @click="$emit('song-clicked')">
+    <q-item-section @click="isAdmin && $emit('song-clicked')">
       <q-item-label>
         <span v-if="typeof index === 'number'" style="width: 1.5rem; display: inline-block"
           >{{ index + 1 }}.
