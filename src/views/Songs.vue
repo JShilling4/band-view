@@ -3,17 +3,16 @@
     <app-page-title>{{ pageTitle }}</app-page-title>
 
     <div class="page-content">
-      <div class="top-controls q-mb-md row">
+      <div class="top-controls q-mb-md row items-center">
         <q-select
           v-model="activeTab"
           :options="SONG_STATUSES"
           emit-value
           option-value="name"
           option-label="name"
-          label="Select Song Status"
+          label="Select Status"
           class="app-select-filter col"
           behavior="menu"
-          dense
           filled
         />
         <q-btn
@@ -23,100 +22,26 @@
           class="q-ml-md"
           no-caps
           dense
-          @click="showAddSongModal = !showAddSongModal"
+          @click="onAddSongClick"
         />
-        <q-dialog v-model="showAddSongModal" persistent @hide="onHideSongModal">
-          <q-card style="width: 325px">
-            <q-card-section class="modal-heading row items-center">
-              <h6>Add Song</h6>
-            </q-card-section>
-            <q-card-section>
-              <q-input v-model="localSong.artist" label="Artist" />
-              <q-input v-model="localSong.title" label="Title" />
-              <q-select v-model="localSong.status" :options="SONG_STATUSES" label="Status" />
-              <q-select
-                v-model="localSong.vocal_lead"
-                emit-value
-                map-options
-                :options="memberStore.members"
-                option-value="id"
-                :option-label="(option) => `${option.first_name} ${option.last_name}`"
-                label="Vocal Lead"
-              />
-              <q-input v-model="localSong.link_url" label="YouTube Link" />
-              <q-input v-model="localSong.download_url" label="Download Link" />
-              <q-select v-model="localSong.mood" :options="SONG_MOODS" label="Mood" />
-              <q-select
-                v-model="localSong.specials"
-                :options="SONG_SPECIALS"
-                label="Specials"
-                multiple
-              />
-            </q-card-section>
-            <q-card-actions align="right" class="modal-controls">
-              <q-btn outline label="Cancel" color="black" no-caps v-close-popup />
-              <q-btn label="Save" color="green-10" no-caps v-close-popup @click="onAddSong" />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
+        <song-modal
+          v-model:show-modal="showSongModal"
+          v-model:song="localSong"
+          :action="songModalAction"
+          persistent
+          @hide="onHideSongModal"
+        />
       </div>
 
       <div class="song-container q-mb-lg">
         <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
-        <q-list>
-          <div v-for="song in selectedSongs" :key="song.id">
-            <q-item dense>
-              <q-item-section>
-                <q-item-label>
-                  <span class="song-artist">{{ song.artist }} - </span>
-                  <span class="song-title">{{ song.title }}</span>
-                </q-item-label>
-                <q-item-label v-if="song.vocal_lead" lines="1" class="song-metadata">
-                  Vocal:
-                  <span
-                    :style="{
-                      color: memberStore.getMemberById(song.vocal_lead)?.profile_color ?? '',
-                    }"
-                    class="song-vocal-lead"
-                  >
-                    {{ memberStore.getMemberById(song.vocal_lead)?.first_name ?? "" }}
-                  </span></q-item-label
-                >
-              </q-item-section>
-              <q-item-section side top>
-                <div>
-                  <span v-if="song.link_url">
-                    <q-icon
-                      name="fa-brands fa-youtube"
-                      color="red-9"
-                      class="song-link-icon"
-                      size="sm"
-                      @click="openBrowserTab(song.link_url)"
-                    />
-                  </span>
-                  <span v-if="song.download_url">
-                    <q-icon
-                      name="fa-solid fa-download"
-                      color="green-9"
-                      class="song-link-icon"
-                      size="sm"
-                      @click="openBrowserTab(song.download_url)"
-                    />
-                  </span>
-                  <span v-if="isAdmin" class="admin-controls q-ml-md">
-                    <q-icon
-                      name="fa-solid fa-trash-alt"
-                      color="red-10"
-                      size="sm"
-                      @click="onDeleteSetSong(song.id)"
-                    />
-                  </span>
-                </div>
-              </q-item-section>
-            </q-item>
-
-            <q-separator spaced />
-          </div>
+        <q-list separator>
+          <song-list-item
+            v-for="(song, i) in selectedSongs"
+            :song="song"
+            :key="song.id"
+            @song-clicked="onSongClicked(song.id)"
+          />
         </q-list>
       </div>
     </div>
@@ -128,15 +53,13 @@ import { computed, onMounted, ref, watch, inject } from "vue";
 import { useRouter } from "vue-router";
 import { useSongStore } from "@/stores/song.store";
 import { useMemberStore } from "@/stores/member.store";
-import { openBrowserTab } from "@/utils/helpers";
 import {
-  type LocalSong,
   SONG_STATUSES,
-  SONG_SPECIALS,
-  SONG_MOODS,
-  type SongStatus,
   isAdminIK,
   NewSong,
+  type SongStatus,
+  type LocalSong,
+  Tables,
 } from "@/types";
 
 const props = defineProps<{
@@ -149,9 +72,10 @@ const songStore = useSongStore();
 const memberStore = useMemberStore();
 const isAdmin = inject(isAdminIK);
 
-const activeTab = ref<SongStatus>("active");
-const showAddSongModal = ref(false);
-const localSong = ref<LocalSong>(NewSong());
+const activeTab = ref<SongStatus>("learning");
+const showSongModal = ref(false);
+const songModalAction = ref<"Add" | "Edit">("Add");
+const localSong = ref<LocalSong | Tables<"song">>(NewSong());
 const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(activeTab.value);
 });
@@ -169,16 +93,19 @@ watch(activeTab, (newVal) => {
   router.push({ name: "Songs", query: { status: newVal } });
 });
 
-function onDeleteSetSong(id: number) {
-  songStore.deleteSong(id);
-}
-
-async function onAddSong() {
-  await songStore.createSong(localSong.value);
-}
-
 function onHideSongModal() {
   localSong.value = NewSong();
+}
+
+function onSongClicked(songId: number) {
+  localSong.value = songStore.getSongById(songId) ?? NewSong();
+  songModalAction.value = "Edit";
+  showSongModal.value = true;
+}
+
+function onAddSongClick() {
+  songModalAction.value = "Add";
+  showSongModal.value = true;
 }
 
 onMounted(async () => {
@@ -188,8 +115,7 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
-.app-select-filter
-  max-width: 300px
+
 
 .tab
   text-transform: capitalize
@@ -202,22 +128,9 @@ onMounted(async () => {
   font-weight: 600
   color: gray
 
-.q-item
-  padding-left: 0 !important
-  padding-right: 0 !important
-  font-family: Roboto, sans-serif
-  font-weight: 400
+.song-container
+  max-width: 500px
 
 :deep(.q-field__native)
   text-transform: capitalize
-
-.song-artist
-  color: rgb(148, 148, 148)
-  font-weight: 500
-
-.song-link-icon
-  cursor: pointer
-
-.song-metadata
-  font-size: 13px
 </style>

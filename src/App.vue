@@ -121,11 +121,12 @@ ul
 .page-container
   padding: 10px 15px
 
-  // @include custom(768)
-  //   max-width: 1200px
-  //   margin: 0 auto
+.app-select-filter
+  max-width: 300px !important
 
 // Quasar overrides
+.q-drawer
+  position: fixed !important
 .app-left-drawer
   .q-item
     padding: 8px 10px

@@ -15,5 +15,7 @@ declare module 'vue' {
     AppPageTitle: typeof import('./src/components/AppPageTitle.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SongListItem: typeof import('./src/components/SongListItem.vue')['default']
+    SongModal: typeof import('./src/components/SongModal.vue')['default']
   }
 }

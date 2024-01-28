@@ -10,10 +10,11 @@
           emit-value
           option-value="name"
           option-label="name"
-          label="Select Set Name"
+          label="Select Set"
           filled
           dense
-          class="col"
+          behavior="menu"
+          class="app-select-filter col"
         />
         <q-btn-dropdown
           v-if="isAdmin && selectedSet && availableSongs.length"
@@ -43,51 +44,12 @@
           <VueDraggable
             ref="el"
             v-model="localSetSongs"
-            :on-update="onSongOrderChange"
+            :on-update="updateSetOrder"
             :disabled="!isAdmin"
           >
             <div v-for="(song, i) in localSetSongs" :key="song.title">
-              <q-item dense>
-                <q-item-section>
-                  <q-item-label> {{ i + 1 }}. {{ song.title }}</q-item-label>
-                  <q-item-label caption>
-                    <div class="row">
-                      <div style="width: 90px">
-                        Vocal:
-                        <span
-                          :style="{
-                            color:
-                              memberStore.getMemberById(song.vocal_lead)?.profile_color ?? 'N/A',
-                          }"
-                        >
-                          {{ memberStore.getMemberById(song.vocal_lead)?.first_name }}
-                        </span>
-                      </div>
-
-                      <div v-if="song.specials?.length">
-                        <span class="q-ml-sm q-gutter-sm">
-                          Specials:
-                          <span v-for="special in song.specials" class="specials-symbols text-bold">
-                            {{ special }}
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </q-item-label>
-                </q-item-section>
-                <q-item-section side top lines="1" class="row">
-                  <div v-if="isAdmin" class="admin-controls q-gutter-sm">
-                    <q-icon
-                      name="fa-solid fa-trash-alt"
-                      color="red-10"
-                      size="xs"
-                      @click="onDeleteSetSong(song.id)"
-                    />
-                  </div>
-                </q-item-section>
-              </q-item>
-
-              <q-separator spaced />
+              <song-list-item :song="song" :index="i" hide-artist />
+              <q-separator />
             </div>
           </VueDraggable>
         </q-list>
@@ -114,7 +76,7 @@ const songStore = useSongStore();
 const setStore = useSetStore();
 const isAdmin = inject(isAdminIK);
 
-const activeTab = ref("");
+const activeTab = ref("Set 1 (4h)");
 
 const selectedSet = computed(() => {
   return setStore.sets.find((set) => set.name === activeTab.value);
@@ -179,18 +141,6 @@ function updateSetOrder() {
   }
 }
 
-function onSongOrderChange() {
-  updateSetOrder();
-}
-
-function onDeleteSetSong(id: number) {
-  const target = localSetSongs.value.findIndex((ss) => ss.id === id);
-  if (target !== -1) {
-    localSetSongs.value.splice(target, 1);
-    updateSetOrder();
-  }
-}
-
 function onAddSong(id: number) {
   const song = songStore.getSongById(id);
   if (song) {
@@ -207,9 +157,6 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
-.q-item
-  padding-left: 0 !important
-  padding-right: 0 !important
-  font-family: Roboto, sans-serif
-  font-weight: 400
+.song-container
+  max-width: 500px
 </style>
