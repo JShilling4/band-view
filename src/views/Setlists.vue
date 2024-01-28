@@ -12,8 +12,8 @@
           label="Select Setlist"
           filled
           dense
-          class="col"
           behavior="menu"
+          class="app-select-filter col"
         />
         <!-- <q-btn-dropdown
           v-if="isAdmin && selectedSet && availableSongs.length"
@@ -84,7 +84,7 @@ const setStore = useSetStore();
 const setlistStore = useSetlistStore();
 const isAdmin = inject(isAdminIK);
 
-const activeTab = ref("");
+const activeTab = ref("4h Standard");
 const showSongModal = ref(false);
 const songModalAction = ref<"Add" | "Edit">("Add");
 const localSong = ref<LocalSong | Tables<"song">>(NewSong());
@@ -92,25 +92,11 @@ const selectedSetlist = computed(() => {
   return setlistStore.setlists.find((setlist) => setlist.name === activeTab.value);
 });
 
-// const localSetSongs = ref<Tables<"song">[]>([]);
-
-// const availableSongs = computed(() => {
-//   const setsOfType = setStore.sets.filter((s) => s.type === selectedSetlist.value?.type);
-//   const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id) => id) ?? []);
-
-//   return songStore.songs
-//     .filter((s) => s.status === "active" && !setlistSongIds.includes(s.id))
-//     .sort((a, b) => {
-//       return a.title > b.title ? 1 : -1;
-//     });
-// });
-
 watch(
   () => props.name,
   () => {
     if (!props.name) return;
     activeTab.value = props.name;
-    // syncLocalSetSongs();
   },
   { immediate: true }
 );
@@ -122,42 +108,6 @@ watch(
   },
   { immediate: true }
 );
-
-// watch(
-//   selectedSetlist,
-//   () => {
-//     syncLocalSetSongs();
-//   },
-//   { immediate: true }
-// );
-
-// function syncLocalSetSongs() {
-//   localSetSongs.value = [];
-//   if (!selectedSetlist.value?.songs?.length) return;
-//   const songs: Tables<"song">[] = [];
-//   selectedSetlist.value.songs?.forEach((id) => {
-//     let song = songStore.getSongById(id);
-//     if (song) songs.push(song);
-//   });
-//   localSetSongs.value = songs;
-// }
-
-// function updateSetOrder() {
-//   if (selectedSet.value) {
-//     setStore.updateSetOrder(
-//       selectedSet.value.id,
-//       localSetSongs.value.map((ss) => ss.id)
-//     );
-//   }
-// }
-
-// function onAddSetlist(id: number) {
-//   const song = songStore.getSongById(id);
-//   if (song) {
-//     localSetSongs.value.push(song);
-//     updateSetOrder();
-//   }
-// }
 
 function onSongClicked(songId: number) {
   localSong.value = songStore.getSongById(songId) ?? NewSong();

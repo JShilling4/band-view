@@ -121,6 +121,9 @@ ul
 .page-container
   padding: 10px 15px
 
+.app-select-filter
+  max-width: 300px !important
+
 // Quasar overrides
 .q-drawer
   position: fixed !important

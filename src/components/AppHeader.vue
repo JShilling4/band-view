@@ -1,5 +1,5 @@
 <template>
-  <q-header elevated class="bg-grey-10 text-white" height-hint="98">
+  <q-header elevated class="bg-black text-white" height-hint="98">
     <q-toolbar class="q-pl-xl">
       <q-toolbar-title> Steele Rail Band </q-toolbar-title>
     </q-toolbar>

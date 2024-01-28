@@ -1,26 +1,33 @@
 <template>
   <q-dialog v-model="showModal" persistent>
     <q-card class="modal-content">
-      <q-card-section class="modal-heading row items-center">
-        <h6>Add Song</h6>
+      <q-card-section class="modal-heading row items-center bg-black text-white">
+        <h6>{{ action }} Song</h6>
       </q-card-section>
       <q-card-section v-if="song" class="modal-body">
         <q-input v-model="song.artist" label="Artist" />
         <q-input v-model="song.title" label="Title" />
-        <q-select v-model="song.status" :options="SONG_STATUSES" label="Status" />
+        <q-select v-model="song.status" :options="SONG_STATUSES" label="Status" behavior="menu" />
         <q-select
           v-model="song.vocal_lead"
-          emit-value
-          map-options
           :options="memberStore.members"
           option-value="id"
           :option-label="(option) => `${option.first_name} ${option.last_name}`"
           label="Vocal Lead"
+          emit-value
+          map-options
+          behavior="menu"
         />
         <q-input v-model="song.link_url" label="YouTube Link" />
         <q-input v-model="song.download_url" label="Download Link" />
-        <q-select v-model="song.mood" :options="SONG_MOODS" label="Mood" />
-        <q-select v-model="song.specials" :options="SONG_SPECIALS" label="Specials" multiple />
+        <q-select v-model="song.mood" :options="SONG_MOODS" label="Mood" behavior="menu" />
+        <q-select
+          v-model="song.specials"
+          :options="SONG_SPECIALS"
+          label="Specials"
+          multiple
+          behavior="menu"
+        />
       </q-card-section>
       <q-card-actions align="right" class="modal-controls">
         <q-btn outline label="Cancel" color="black" no-caps v-close-popup />
@@ -56,11 +63,11 @@ async function onSaveSong() {
 <style lang="sass" scoped>
 @import "../scss/breakpoints"
 .modal-content
-  width: 325px
+  width: 100%
 
   @include md
     width: 500px
 
 .modal-body
-  padding: 0 2rem 2rem
+  padding: 0 1.5rem 2rem
 </style>

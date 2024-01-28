@@ -3,17 +3,16 @@
     <app-page-title>{{ pageTitle }}</app-page-title>
 
     <div class="page-content">
-      <div class="top-controls q-mb-md row">
+      <div class="top-controls q-mb-md row items-center">
         <q-select
           v-model="activeTab"
           :options="SONG_STATUSES"
           emit-value
           option-value="name"
           option-label="name"
-          label="Select Song Status"
+          label="Select Status"
           class="app-select-filter col"
           behavior="menu"
-          dense
           filled
         />
         <q-btn
@@ -73,7 +72,7 @@ const songStore = useSongStore();
 const memberStore = useMemberStore();
 const isAdmin = inject(isAdminIK);
 
-const activeTab = ref<SongStatus>("active");
+const activeTab = ref<SongStatus>("learning");
 const showSongModal = ref(false);
 const songModalAction = ref<"Add" | "Edit">("Add");
 const localSong = ref<LocalSong | Tables<"song">>(NewSong());
@@ -116,8 +115,7 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
-.app-select-filter
-  max-width: 300px
+
 
 .tab
   text-transform: capitalize

@@ -14,7 +14,7 @@
           filled
           dense
           behavior="menu"
-          class="col"
+          class="app-select-filter col"
         />
         <q-btn-dropdown
           v-if="isAdmin && selectedSet && availableSongs.length"
@@ -76,7 +76,7 @@ const songStore = useSongStore();
 const setStore = useSetStore();
 const isAdmin = inject(isAdminIK);
 
-const activeTab = ref("");
+const activeTab = ref("Set 1 (4h)");
 
 const selectedSet = computed(() => {
   return setStore.sets.find((set) => set.name === activeTab.value);
