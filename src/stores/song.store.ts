@@ -29,7 +29,6 @@ export const useSongStore = defineStore("songs", {
 
       if (!error) {
         const target = this.songs.findIndex((s) => s.id === id);
-
         if (target !== -1) {
           this.songs.splice(target, 1);
         }

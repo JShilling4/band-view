@@ -40,7 +40,9 @@
             v-for="(song, i) in selectedSongs"
             :song="song"
             :key="song.id"
-            @song-clicked="onSongClicked(song.id)"
+            hide-specials
+            @song-clicked="onSongClick(song.id)"
+            @delete="onDeleteSongClick(song.id)"
           />
         </q-list>
       </div>
@@ -51,16 +53,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, inject } from "vue";
 import { useRouter } from "vue-router";
-import { useSongStore } from "@/stores/song.store";
-import { useMemberStore } from "@/stores/member.store";
-import {
-  SONG_STATUSES,
-  isAdminIK,
-  NewSong,
-  type SongStatus,
-  type LocalSong,
-  Tables,
-} from "@/types";
+import { useSongStore, useMemberStore } from "@/stores";
+import { useSongUtility } from "@/composables";
+import { SONG_STATUSES, isAdminIK, type SongStatus } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -70,12 +65,19 @@ const props = defineProps<{
 const router = useRouter();
 const songStore = useSongStore();
 const memberStore = useMemberStore();
+const {
+  localSong,
+  onDeleteSongClick,
+  onSongClick,
+  showSongModal,
+  songModalAction,
+  onHideSongModal,
+  onAddSongClick,
+} = useSongUtility();
 const isAdmin = inject(isAdminIK);
 
 const activeTab = ref<SongStatus>("learning");
-const showSongModal = ref(false);
-const songModalAction = ref<"Add" | "Edit">("Add");
-const localSong = ref<LocalSong | Tables<"song">>(NewSong());
+
 const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(activeTab.value);
 });
@@ -93,21 +95,6 @@ watch(activeTab, (newVal) => {
   router.push({ name: "Songs", query: { status: newVal } });
 });
 
-function onHideSongModal() {
-  localSong.value = NewSong();
-}
-
-function onSongClicked(songId: number) {
-  localSong.value = songStore.getSongById(songId) ?? NewSong();
-  songModalAction.value = "Edit";
-  showSongModal.value = true;
-}
-
-function onAddSongClick() {
-  songModalAction.value = "Add";
-  showSongModal.value = true;
-}
-
 onMounted(async () => {
   await memberStore.fetchMembers();
   songStore.fetchSongs();
@@ -115,8 +102,6 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
-
-
 .tab
   text-transform: capitalize
   font-weight: 300

@@ -11,46 +11,18 @@
           option-label="name"
           label="Select Setlist"
           filled
-          dense
           behavior="menu"
           class="app-select-filter col"
         />
-        <!-- <q-btn-dropdown
-          v-if="isAdmin && selectedSet && availableSongs.length"
-          color="green-8"
-          icon="fa-solid fa-plus"
-          class="q-ml-md"
-          no-caps
-          dense
-        >
-          <q-list dense separator>
-            <q-item v-for="song in availableSets" clickable v-close-popup @click="onAddSet(set.id)">
-              <q-item-section>
-                <q-item-label header>{{ set.name }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown> -->
       </div>
 
       <div class="setlist-container row q-col-gutter-xl">
-        <q-list
+        <set-list
           v-if="selectedSetlist"
           v-for="(setId, i) in selectedSetlist.sets"
           :key="setId"
-          class="set-container q-mb-md"
-        >
-          <div class="set-name">{{ setStore.getSetById(setId)?.name }}</div>
-          <div v-for="(songId, i) in setStore.getSetById(setId)?.songs" :key="songId">
-            <song-list-item
-              :song="songStore.getSongById(songId)"
-              :index="i"
-              hide-artist
-              @song-clicked="onSongClicked(songId)"
-            />
-            <q-separator v-if="i < (setStore.getSetById(setId)?.songs?.length as number) - 1" />
-          </div>
-        </q-list>
+          :set="setStore.getSetById(setId)"
+        />
       </div>
     </div>
 
@@ -67,31 +39,33 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useMemberStore, useSetStore, useSongStore } from "@/stores";
-import { VueDraggable } from "vue-draggable-plus";
-import { LocalSong, NewSong, Tables, isAdminIK } from "@/types";
-import { useSetlistStore } from "@/stores/setlist.store";
+// import { VueDraggable } from "vue-draggable-plus";
+import { useMemberStore, useSetStore, useSongStore, useSetlistStore } from "@/stores";
+import { useSetUtility, useSongUtility } from "@/composables";
+import { type LocalSong, NewSong, type Tables, isAdminIK } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
   name: string | undefined;
 }>();
 
+// Dependency
 const router = useRouter();
 const memberStore = useMemberStore();
 const songStore = useSongStore();
 const setStore = useSetStore();
 const setlistStore = useSetlistStore();
+const { updateSetOrder } = useSetUtility();
+const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtility();
 const isAdmin = inject(isAdminIK);
 
+// State
 const activeTab = ref("4h Standard");
-const showSongModal = ref(false);
-const songModalAction = ref<"Add" | "Edit">("Add");
-const localSong = ref<LocalSong | Tables<"song">>(NewSong());
 const selectedSetlist = computed(() => {
   return setlistStore.setlists.find((setlist) => setlist.name === activeTab.value);
 });
 
+// Watch
 watch(
   () => props.name,
   () => {
@@ -109,16 +83,7 @@ watch(
   { immediate: true }
 );
 
-function onSongClicked(songId: number) {
-  localSong.value = songStore.getSongById(songId) ?? NewSong();
-  songModalAction.value = "Edit";
-  showSongModal.value = true;
-}
-
-function onHideSongModal() {
-  localSong.value = NewSong();
-}
-
+// Methods
 onMounted(async () => {
   await memberStore.fetchMembers();
   await songStore.fetchSongs();
