@@ -6,7 +6,19 @@
           >{{ index + 1 }}.
         </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
-        <span class="song-title">{{ song.title }}</span>
+        <span class="song-title">
+          <span class="text-bold text-grey-9">{{ song.title }}&nbsp;</span>
+          <span v-if="!hideSpecials && song.specials?.length">
+            [
+            <span
+              v-for="special in song.specials"
+              class="specials-symbols text-grey-6 text-bold q-mr-xs"
+            >
+              {{ special }}
+            </span>
+            ]
+          </span>
+        </span>
       </q-item-label>
       <q-item-label v-if="song.vocal_lead" lines="1" class="song-metadata">
         Vocal:
@@ -14,11 +26,11 @@
           :style="{
             color: memberStore.getMemberById(song.vocal_lead)?.profile_color ?? '',
           }"
-          class="song-vocal-lead"
+          class="vocal-lead"
         >
           {{ memberStore.getMemberById(song.vocal_lead)?.first_name ?? "" }}
-        </span></q-item-label
-      >
+        </span>
+      </q-item-label>
     </q-item-section>
     <q-item-section side top>
       <div>
@@ -45,7 +57,7 @@
             name="fa-solid fa-trash-alt"
             color="red-10"
             size="sm"
-            @click="onDeleteSetSong(song.id)"
+            @click="$emit('delete', song.id)"
           />
         </span>
       </div>
@@ -54,28 +66,25 @@
 </template>
 
 <script setup lang="ts">
-import { useMemberStore, useSongStore } from "@/stores";
-import { Tables, isAdminIK } from "@/types";
-import { openBrowserTab } from "@/utils/helpers";
 import { inject } from "vue";
+import { useMemberStore } from "@/stores";
+import { openBrowserTab } from "@/utils/helpers";
+import { type Tables, isAdminIK } from "@/types";
 
 const memberStore = useMemberStore();
-const songStore = useSongStore();
 const isAdmin = inject(isAdminIK);
 
 defineProps<{
   song: Tables<"song">;
   hideArtist?: boolean;
+  hideSpecials?: boolean;
   index?: number;
 }>();
 
 const emit = defineEmits<{
-  (e: "song-clicked"): void;
+  "song-clicked": [];
+  delete: [id: number];
 }>();
-
-function onDeleteSetSong(id: number) {
-  songStore.deleteSong(id);
-}
 </script>
 
 <style lang="sass" scoped>
@@ -84,8 +93,6 @@ function onDeleteSetSong(id: number) {
   padding-right: 0 !important
   font-family: Roboto, sans-serif
   font-weight: 400
-
-
 
 .song-artist
   color: rgb(148, 148, 148)
