@@ -35,18 +35,21 @@ export interface Database {
           agenda: string[] | null;
           date: string;
           id: number;
+          include_new_songs: boolean;
           start_time: string | null;
         };
         Insert: {
           agenda?: string[] | null;
           date: string;
           id?: number;
+          include_new_songs?: boolean;
           start_time?: string | null;
         };
         Update: {
           agenda?: string[] | null;
           date?: string;
           id?: number;
+          include_new_songs?: boolean;
           start_time?: string | null;
         };
         Relationships: [];

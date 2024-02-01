@@ -70,7 +70,7 @@
           </q-item>
           <q-item clickable v-ripple @click="openBrowserTab('http://www.steelerailband.com/shows')">
             <q-item-section avatar>
-              <q-icon name="fa-solid " color="teal-4" class="mini-icon" />
+              <q-icon name="fa-solid fa-calendar-days" color="teal-4" class="mini-icon" />
             </q-item-section>
             <q-item-section> Calendar </q-item-section>
           </q-item>
