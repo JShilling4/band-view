@@ -16,7 +16,7 @@ export const useSetlistStore = defineStore("setlists", {
   actions: {
     async fetchSetlists() {
       if (this.setlists.length) return;
-      const { data: setlist, error } = await supabase.from("setlist").select("*");
+      const { data: setlist } = await supabase.from("setlist").select("*");
       if (!setlist) return;
       this.setlists = setlist;
     },

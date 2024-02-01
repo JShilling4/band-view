@@ -85,7 +85,7 @@ const $route = useRoute();
 
 const leftDrawerOpen = ref(true);
 const miniLeftDrawer = ref(false);
-const isAdmin = false;
+const isAdmin = import.meta.env.DEV;
 
 provide(isAdminIK, isAdmin);
 </script>

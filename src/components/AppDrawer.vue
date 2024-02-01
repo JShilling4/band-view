@@ -1,6 +1,6 @@
 <template>
   <q-drawer v-model="model" v-bind="$attrs">
-    <template v-slot:mini>
+    <template #mini>
       <slot name="mini" />
     </template>
     <slot />
@@ -8,8 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-
 const model = defineModel<boolean>({ required: true });
 </script>
 

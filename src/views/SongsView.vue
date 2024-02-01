@@ -10,7 +10,7 @@
           emit-value
           option-value="name"
           option-label="name"
-          label="Select Status"
+          label="Status"
           class="app-select-filter col"
           behavior="menu"
           filled
@@ -37,7 +37,7 @@
         <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
         <q-list separator>
           <song-list-item
-            v-for="(song, i) in selectedSongs"
+            v-for="song in selectedSongs"
             :song="song"
             :key="song.id"
             hide-specials

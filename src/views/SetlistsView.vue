@@ -16,33 +16,21 @@
         />
       </div>
 
-      <div class="setlist-container row q-col-gutter-xl">
+      <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
         <set-list
-          v-if="selectedSetlist"
-          v-for="(setId, i) in selectedSetlist.sets"
+          v-for="setId in selectedSetlist.sets"
           :key="setId"
           :set="setStore.getSetById(setId)"
         />
       </div>
     </div>
-
-    <song-modal
-      v-model:show-modal="showSongModal"
-      v-model:song="localSong"
-      action="Edit"
-      persistent
-      @hide="onHideSongModal"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-// import { VueDraggable } from "vue-draggable-plus";
 import { useMemberStore, useSetStore, useSongStore, useSetlistStore } from "@/stores";
-import { useSetUtility, useSongUtility } from "@/composables";
-import { type LocalSong, NewSong, type Tables, isAdminIK } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -55,9 +43,6 @@ const memberStore = useMemberStore();
 const songStore = useSongStore();
 const setStore = useSetStore();
 const setlistStore = useSetlistStore();
-const { updateSetOrder } = useSetUtility();
-const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtility();
-const isAdmin = inject(isAdminIK);
 
 // State
 const activeTab = ref("4h Standard");

@@ -71,4 +71,7 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.setlist-wrapper
+  max-width: 500px
+</style>

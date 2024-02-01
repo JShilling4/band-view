@@ -12,6 +12,7 @@
             [
             <span
               v-for="special in song.specials"
+              :key="special"
               class="specials-symbols text-grey-6 text-bold q-mr-xs"
             >
               {{ special }}
@@ -81,7 +82,7 @@ defineProps<{
   index?: number;
 }>();
 
-const emit = defineEmits<{
+defineEmits<{
   "song-clicked": [];
   delete: [id: number];
 }>();
