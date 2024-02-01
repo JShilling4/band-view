@@ -7,8 +7,9 @@
           {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
         </h3>
         <div v-if="rehearsal.include_new_songs" class="new-songs-container q-mb-sm">
-          <div class="section-header text-green-9">New Songs</div>
-          <q-separator color="green-3" spaced />
+          <q-separator color="grey-4" spaced />
+          <div class="section-header text-grey-6">New Songs</div>
+          <q-separator color="grey-4" spaced />
           <q-list class="song-list">
             <div>
               <song-list-item
@@ -21,8 +22,9 @@
         </div>
 
         <div class="agenda-container">
-          <div class="section-header text-green-9">Agenda Items</div>
-          <q-separator color="green-3" spaced />
+          <q-separator color="grey-4" spaced />
+          <div class="section-header text-grey-6">Agenda Items</div>
+          <q-separator color="grey-4" spaced />
           <q-list class="agenda-list">
             <q-item v-for="item in rehearsal.agenda" :key="item">
               <q-item-section>
@@ -58,7 +60,6 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
-.page-content
 
 .q-item
   padding-left: 0 !important
