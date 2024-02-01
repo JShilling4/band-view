@@ -36,7 +36,7 @@ export function useSetUtility() {
     if (!selectedSet.songs?.length) return;
     const songs: Tables<"song">[] = [];
     selectedSet.songs?.forEach((id) => {
-      let song = songStore.getSongById(id);
+      const song = songStore.getSongById(id);
       if (song) songs.push(song);
     });
     localSetSongs.value = songs;

@@ -18,7 +18,7 @@ export const useSongStore = defineStore("songs", {
     async fetchSongs() {
       if (this.songs.length) return;
 
-      const { data: song, error } = await supabase.from("song").select("*");
+      const { data: song } = await supabase.from("song").select("*");
 
       if (!song) return;
       this.songs = song;
@@ -51,7 +51,7 @@ export const useSongStore = defineStore("songs", {
 
     async updateSong(song: Tables<"song">) {
       if (!song) return;
-      var clonedSong: LocalSong = omit(song, "id");
+      const clonedSong: LocalSong = omit(song, "id");
 
       const { error } = await supabase
         .from("song")

@@ -57,6 +57,17 @@
             </q-item-section>
             <q-item-section> Setlists </q-item-section>
           </q-item>
+          <q-item
+            :active="$route.name === 'Rehearsal'"
+            clickable
+            v-ripple
+            @click="$router.push('/rehearsal')"
+          >
+            <q-item-section avatar>
+              <q-icon name="fa-solid fa-sliders" color="green-5" class="mini-icon" />
+            </q-item-section>
+            <q-item-section> Rehearsal </q-item-section>
+          </q-item>
           <q-item clickable v-ripple @click="openBrowserTab('http://www.steelerailband.com/shows')">
             <q-item-section avatar>
               <q-icon name="fa-solid fa-calendar-days" color="teal-4" class="mini-icon" />
@@ -85,7 +96,7 @@ const $route = useRoute();
 
 const leftDrawerOpen = ref(true);
 const miniLeftDrawer = ref(false);
-const isAdmin = false;
+const isAdmin = import.meta.env.DEV;
 
 provide(isAdminIK, isAdmin);
 </script>

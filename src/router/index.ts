@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Dashboard from "@/views/Dashboard.vue";
+import Dashboard from "@/views/DashboardView.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/songs",
     name: "Songs",
-    component: () => import("@/views/Songs.vue"),
+    component: () => import("@/views/SongsView.vue"),
     props: (route) => {
       return { pageTitle: "Songs", status: route.query.status };
     },
@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/sets",
     name: "Sets",
-    component: () => import("@/views/Sets.vue"),
+    component: () => import("@/views/SetsView.vue"),
     props: (route) => {
       return { pageTitle: "Sets", name: route.query.name };
     },
@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/setlists",
     name: "Setlists",
-    component: () => import("@/views/Setlists.vue"),
+    component: () => import("@/views/SetlistsView.vue"),
     props: (route) => {
       return { pageTitle: "Setlists", name: route.query.name };
     },
@@ -36,8 +36,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/settings",
     name: "Settings",
-    component: () => import("@/views/Settings.vue"),
+    component: () => import("@/views/SettingsView.vue"),
     props: { pageTitle: "Settings" },
+  },
+  {
+    path: "/rehearsal",
+    name: "Rehearsal",
+    component: () => import("@/views/RehearsalView.vue"),
+    props: { pageTitle: "Rehearsal" },
   },
   {
     path: "/:pathMatch(.*)*",

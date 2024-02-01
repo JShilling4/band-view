@@ -1,5 +1,5 @@
 <template>
-  <div class="setlist-wrapper">
+  <div v-if="set" class="setlist-wrapper">
     <div class="row items-center">
       <div class="set-name text-bold q-mr-auto">{{ set.name }}</div>
       <q-btn-dropdown
@@ -12,6 +12,7 @@
         <q-list dense separator>
           <q-item
             v-for="song in availableSongs"
+            :key="song.id"
             clickable
             v-close-popup
             @click="onAddSetSongClick(song.id)"
@@ -91,7 +92,7 @@ watch(
     if (!props.set) return;
     const songs: Tables<"song">[] = [];
     props.set.songs?.forEach((songId) => {
-      let song = songStore.getSongById(songId);
+      const song = songStore.getSongById(songId);
       if (song) songs.push(song);
     });
     localSetSongs.value = songs;

@@ -2,9 +2,7 @@
   <q-item v-if="song" :clickable="isAdmin">
     <q-item-section @click="isAdmin && $emit('song-clicked')">
       <q-item-label>
-        <span v-if="typeof index === 'number'" style="width: 1.5rem; display: inline-block"
-          >{{ index + 1 }}.
-        </span>
+        <span v-if="typeof index === 'number'" class="song-index">{{ index + 1 }}. </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
           <span class="text-bold text-grey-9">{{ song.title }}&nbsp;</span>
@@ -12,6 +10,7 @@
             [
             <span
               v-for="special in song.specials"
+              :key="special"
               class="specials-symbols text-grey-6 text-bold q-mr-xs"
             >
               {{ special }}
@@ -81,7 +80,7 @@ defineProps<{
   index?: number;
 }>();
 
-const emit = defineEmits<{
+defineEmits<{
   "song-clicked": [];
   delete: [id: number];
 }>();
@@ -103,4 +102,8 @@ const emit = defineEmits<{
 
 .song-metadata
   font-size: 13px
+
+.song-index
+  width: 1.5rem
+  display: inline-block
 </style>
