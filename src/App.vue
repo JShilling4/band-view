@@ -14,65 +14,23 @@
       <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: '0' }">
         <q-list>
           <q-item
-            :active="$route.name === 'Dashboard'"
+            v-for="(item, i) in navConfig"
+            :key="i"
+            :active="$route.name === item.routeName"
             clickable
             v-ripple
-            @click="$router.push('/')"
+            :to="item.routePath"
+            :href="item.link?.href"
+            :target="item.link?.target"
           >
             <q-item-section avatar>
-              <q-icon name="fa-solid fa-grip" color="red-6" class="mini-icon" />
+              <q-icon
+                :name="item.icon.classes.join(' ')"
+                :color="item.icon.color"
+                class="mini-icon"
+              />
             </q-item-section>
-            <q-item-section> Dashboard </q-item-section>
-          </q-item>
-          <q-item
-            :active="$route.name === 'Songs'"
-            clickable
-            v-ripple
-            @click="$router.push('/songs')"
-          >
-            <q-item-section avatar>
-              <q-icon name="fa-solid fa-music" color="blue-5" class="mini-icon" />
-            </q-item-section>
-            <q-item-section> Songs </q-item-section>
-          </q-item>
-          <q-item
-            :active="$route.name === 'Sets'"
-            clickable
-            v-ripple
-            @click="$router.push('/sets')"
-          >
-            <q-item-section avatar>
-              <q-icon name="fa-solid fa-file" color="orange-5" class="mini-icon" />
-            </q-item-section>
-            <q-item-section> Sets </q-item-section>
-          </q-item>
-          <q-item
-            :active="$route.name === 'Setlists'"
-            clickable
-            v-ripple
-            @click="$router.push('/setlists')"
-          >
-            <q-item-section avatar>
-              <q-icon name="fa-solid fa-paste" color="purple-4" class="mini-icon" />
-            </q-item-section>
-            <q-item-section> Setlists </q-item-section>
-          </q-item>
-          <q-item
-            :active="$route.name === 'Rehearsal'"
-            clickable
-            v-ripple
-            @click="$router.push('/rehearsal')"
-          >
-            <q-item-section avatar>
-              <q-icon name="fa-solid fa-sliders" color="green-5" class="mini-icon" />
-            </q-item-section>
-            <q-item-section> Rehearsal </q-item-section>
-          </q-item>
-          <q-item clickable v-ripple @click="openBrowserTab('http://www.steelerailband.com/shows')">
-            <q-item-section avatar>
-              <q-icon name="fa-solid fa-calendar-days" color="teal-4" class="mini-icon" />
-            </q-item-section>
-            <q-item-section> Calendar </q-item-section>
+            <q-item-section> {{ item.label }} </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -83,20 +41,20 @@
     </q-page-container>
   </q-layout>
 </template>
-
+javas
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useQuasar } from "quasar";
-import { openBrowserTab } from "@/utils/helpers";
-import { isAdminIK } from "./types";
+import navConfig from "@/router/navigationConfig";
+import { isAdminIK } from "@/types";
 
 const $q = useQuasar();
 const $route = useRoute();
 
 const leftDrawerOpen = ref(true);
 const miniLeftDrawer = ref(false);
-const isAdmin = import.meta.env.DEV;
+const isAdmin = false && import.meta.env.DEV;
 
 provide(isAdminIK, isAdmin);
 </script>
