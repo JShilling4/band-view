@@ -40,6 +40,12 @@ const routes: Array<RouteRecordRaw> = [
     props: { pageTitle: "Settings" },
   },
   {
+    path: "/rehearsal",
+    name: "Rehearsal",
+    component: () => import("@/views/RehearsalView.vue"),
+    props: { pageTitle: "Rehearsal" },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound,

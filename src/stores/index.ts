@@ -6,5 +6,6 @@ export * from "./member.store";
 export * from "./set.store";
 export * from "./song.store";
 export * from "./setlist.store";
+export * from "./rehearsal.store";
 
 export default pinia;
