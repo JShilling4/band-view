@@ -79,7 +79,9 @@ const availableSongs = computed(() => {
   const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id) => id) ?? []);
 
   return songStore.songs
-    .filter((s) => s.status === "active" && !setlistSongIds.includes(s.id))
+    .filter(
+      (s) => (s.status === "active" || s.status === "learning") && !setlistSongIds.includes(s.id)
+    )
     .sort((a, b) => {
       return a.title > b.title ? 1 : -1;
     });
