@@ -52,13 +52,10 @@ const navigationConfig: NavItem[] = [
     },
   },
   {
-    routeName: null,
-    label: "Calendar",
-    routePath: null,
-    link: {
-      href: "http://www.steelerailband.com/shows",
-      target: "_blank",
-    },
+    routeName: RouteNames.Shows,
+    label: RouteNames.Shows,
+    routePath: RoutePath.Shows,
+    link: null,
     icon: {
       classes: [...IconClasses.Calendar],
       color: "teal-4",
