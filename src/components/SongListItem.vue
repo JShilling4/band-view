@@ -32,7 +32,7 @@
       </q-item-label>
     </q-item-section>
     <q-item-section side top>
-      <div>
+      <div class="song-controls row items-center">
         <span v-if="song.link_url">
           <q-icon
             name="fa-brands fa-youtube"
@@ -92,6 +92,12 @@ defineEmits<{
   padding-right: 0 !important
   font-family: Roboto, sans-serif
   font-weight: 400
+
+.song-controls
+  iframe
+    width: 22px
+    height: 22px
+    border-radius: 5px
 
 .song-artist
   color: rgb(148, 148, 148)
