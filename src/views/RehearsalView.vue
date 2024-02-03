@@ -2,7 +2,7 @@
   <div class="page-container">
     <app-page-title>{{ pageTitle }}</app-page-title>
     <div class="page-content">
-      <div v-if="false">
+      <div v-if="rehearsalStore.rehearsals.length">
         <div v-for="rehearsal in rehearsalStore.rehearsals" :key="rehearsal.id" class="q-mb-sm">
           <h3 class="text-h6 text-white bg-green-9 q-px-sm q-py-xs q-mb-md">
             {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}

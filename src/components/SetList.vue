@@ -63,7 +63,7 @@ import { useSetStore, useSongStore } from "@/stores";
 
 // Types
 const props = defineProps<{
-  set: Tables<"set">;
+  set?: Tables<"set">;
 }>();
 
 // Dependency
@@ -75,7 +75,7 @@ const isAdmin = inject(isAdminIK);
 
 // State
 const availableSongs = computed(() => {
-  const setsOfType = setStore.sets.filter((s) => s.type === props.set.type);
+  const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
   const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id) => id) ?? []);
 
   return songStore.songs
