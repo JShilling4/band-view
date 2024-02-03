@@ -5,6 +5,7 @@ export enum RouteNames {
   Setlists = "Setlists",
   Settings = "Settings",
   Rehearsal = "Rehearsal",
+  Shows = "Shows",
 }
 
 export const RoutePath: { [key in RouteNames]: string } = {
@@ -14,4 +15,5 @@ export const RoutePath: { [key in RouteNames]: string } = {
   [RouteNames.Setlists]: "/setlists",
   [RouteNames.Settings]: "/settings",
   [RouteNames.Rehearsal]: "/rehearsal",
+  [RouteNames.Shows]: "/shows",
 };
