@@ -1,6 +1,7 @@
 import supabase from "@/supabase";
 import { Tables } from "@/types";
 import { defineStore } from "pinia";
+import { isAfter, isThisMonth, isThisYear, addMonths, isSameMonth } from "date-fns";
 
 interface State {
   shows: Tables<"show">[];
@@ -19,19 +20,6 @@ export const useShowStore = defineStore("shows", {
 
       this.shows = show;
     },
-
-    // async updateSetOrder(id: number, songOrder: number[]) {
-    //   const { data } = await supabase
-    //     .from("set")
-    //     .update({ songs: songOrder })
-    //     .eq("id", id)
-    //     .select();
-    //   if (!data) return;
-    //   const target = this.sets.findIndex((s) => s.id === id);
-    //   if (target !== -1) {
-    //     this.sets[target] = data[0];
-    //   }
-    // },
   },
 
   getters: {
@@ -39,6 +27,24 @@ export const useShowStore = defineStore("shows", {
       return (id: number | null) => {
         return state.shows.find((show) => show.id === id);
       };
+    },
+    getShowsAfterDate: (state) => {
+      return (date: string | Date | number = new Date()) => {
+        return state.shows.filter((show) => isAfter(show.date, date));
+      };
+    },
+    getShowsThisMonth: (state) => {
+      return state.shows.filter((show) => isThisMonth(show.date));
+    },
+    getShowsThisYear: (state) => {
+      return state.shows.filter((show) => isThisYear(show.date));
+    },
+    getShowsNextMonth: (state) => {
+      const nextMonth = addMonths(new Date(), 1);
+      return state.shows.filter((show) => isSameMonth(show.date, nextMonth));
+    },
+    getUpcomingShows(): Tables<"show">[] {
+      return this.getShowsAfterDate().slice(0, 4);
     },
   },
 });
