@@ -6,7 +6,7 @@ interface State {
   shows: Tables<"show">[];
 }
 
-export const useSetStore = defineStore("shows", {
+export const useShowStore = defineStore("shows", {
   state: (): State => ({
     shows: [],
   }),
@@ -14,7 +14,7 @@ export const useSetStore = defineStore("shows", {
   actions: {
     async fetchShows() {
       if (this.shows.length) return;
-      const { data: show } = await supabase.from("show").select("*").order("name");
+      const { data: show } = await supabase.from("show").select("*").order("date");
       if (!show) return;
 
       this.shows = show;
