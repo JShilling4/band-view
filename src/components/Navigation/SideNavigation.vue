@@ -45,7 +45,7 @@ import navConfig from "./navigationConfig";
 const $q = useQuasar();
 const $route = useRoute();
 
-const leftDrawerOpen = ref(true);
+const leftDrawerOpen = ref(false);
 const miniLeftDrawer = ref(false);
 </script>
 
