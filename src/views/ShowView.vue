@@ -1,6 +1,12 @@
 <template>
   <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
+    <div class="row items-center">
+      <app-page-title>{{ pageTitle }} </app-page-title>
+      <a href="http://www.steelerailband.com/shows" class="q-ml-auto" target="_blank">
+        Website Calendar
+      </a>
+    </div>
+
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
         <q-select
@@ -14,9 +20,17 @@
         />
       </div>
 
-      <div class="show-container">
-        <div v-for="show in activeShowFilter?.fn()" :key="show.id" class="show">
-          {{ show.date }}
+      <div class="show-container q-mt-md">
+        <div
+          v-for="show in activeShowFilter?.fn()"
+          :key="show.id"
+          class="show q-mb-md bg-teal q-pa-sm text-white"
+        >
+          <div class="show-date">
+            {{ format(new Date(show.date), "eeee, MMM do") }}
+          </div>
+          <div class="show-venue">Venue</div>
+          <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
         </div>
       </div>
     </div>
@@ -24,17 +38,22 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useShowStore } from "@/stores";
-import { ShowFilter } from "@/types";
+import { clone } from "lodash";
+import { format } from "date-fns";
+import { ShowFilter, ShowFilterNames } from "@/types";
 
 // Types
-defineProps<{
+const props = defineProps<{
   pageTitle: string;
+  range?: ShowFilterNames;
 }>();
 
 // Dependency
 const showStore = useShowStore();
+const router = useRouter();
 
 // State
 const showFilters: ShowFilter[] = [
@@ -55,7 +74,27 @@ const showFilters: ShowFilter[] = [
     fn: () => showStore.getUpcomingShows,
   },
 ];
-const activeShowFilter = ref<ShowFilter | null>(null);
+const activeShowFilter = ref<ShowFilter | null>({ ...showFilters[3] });
+
+// Watchers
+watch(
+  () => props.range,
+  () => {
+    const filterObj = showFilters.find((sf) => sf.label === props.range);
+    if (!filterObj) return;
+    activeShowFilter.value = clone(filterObj);
+  },
+  { immediate: true }
+);
+
+watch(
+  activeShowFilter,
+  (newVal) => {
+    if (!newVal) return;
+    router.push({ name: "Shows", query: { range: newVal.label } });
+  },
+  { immediate: true }
+);
 
 // Methods
 onMounted(async () => {
@@ -63,4 +102,8 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.show
+  max-width: 500px
+  border-radius: 5px
+</style>

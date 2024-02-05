@@ -51,7 +51,9 @@ export const routes: Array<RouteRecordRaw> = [
     path: RoutePath.Shows,
     name: RouteNames.Shows,
     component: () => import("@/views/ShowView.vue"),
-    props: { pageTitle: "Shows" },
+    props: (route) => {
+      return { pageTitle: "Shows", range: route.query.range };
+    },
   },
   {
     path: "/:pathMatch(.*)*",
