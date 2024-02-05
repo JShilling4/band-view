@@ -24,7 +24,7 @@
         <div
           v-for="show in activeShowFilter?.fn()"
           :key="show.id"
-          class="show q-mb-md bg-teal q-pa-sm text-white"
+          class="show q-mb-md bg-teal-10 q-pa-sm text-white"
         >
           <div class="show-date">
             {{ format(new Date(show.date), "eeee, MMM do") }}
@@ -106,4 +106,8 @@ onMounted(async () => {
 .show
   max-width: 500px
   border-radius: 5px
+
+  .show-date
+    font-weight: 600
+    letter-spacing: 1px
 </style>

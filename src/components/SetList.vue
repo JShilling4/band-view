@@ -4,7 +4,7 @@
       <div class="set-name text-bold q-mr-auto">{{ set.name }}</div>
       <q-btn-dropdown
         v-if="isAdmin && set && availableSongs.length"
-        color="green-8"
+        color="teal-10"
         class="q-mb-md"
         no-caps
         label="Add Song"

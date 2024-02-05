@@ -4,7 +4,7 @@
     <div class="page-content">
       <div v-if="rehearsalStore.rehearsals.length">
         <div v-for="rehearsal in rehearsalStore.rehearsals" :key="rehearsal.id" class="q-mb-sm">
-          <h3 class="text-h6 text-white bg-green-9 q-px-sm q-py-xs q-mb-md">
+          <h3 class="text-h6 text-white bg-teal-10 q-px-sm q-py-xs q-mb-md">
             {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
           </h3>
           <div v-if="rehearsal.include_new_songs" class="new-songs-container q-mb-sm">
