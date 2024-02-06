@@ -2,7 +2,7 @@
   <div class="page-container">
     <app-page-title>{{ pageTitle }}</app-page-title>
     <div class="page-content">
-      <div class="top-controls q-mb-md row">
+      <div class="top-controls q-mb-md row items-center">
         <q-select
           v-model="activeTab"
           :options="setlistStore.setlists.map((sl) => sl.name)"
@@ -14,6 +14,14 @@
           behavior="menu"
           class="app-select-filter col"
         />
+        <a v-if="selectedSetlist?.url" :href="selectedSetlist.url" target="_blank" rel="noreferrer">
+          <q-icon
+            name="fa-solid fa-download"
+            class="download-icon q-ml-lg"
+            color="green-7"
+            size="md"
+          />
+        </a>
       </div>
 
       <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
