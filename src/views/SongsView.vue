@@ -17,7 +17,7 @@
         />
         <q-btn
           v-if="isAdmin"
-          color="green-8"
+          color="teal-10"
           icon="fa-solid fa-plus"
           class="q-ml-md"
           no-caps

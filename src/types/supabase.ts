@@ -3,6 +3,27 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
   public: {
     Tables: {
+      contact: {
+        Row: {
+          email: string | null;
+          id: number;
+          name: string;
+          phone: string | null;
+        };
+        Insert: {
+          email?: string | null;
+          id?: number;
+          name: string;
+          phone?: string | null;
+        };
+        Update: {
+          email?: string | null;
+          id?: number;
+          name?: string;
+          phone?: string | null;
+        };
+        Relationships: [];
+      };
       member: {
         Row: {
           first_name: string;
@@ -186,27 +207,47 @@ export interface Database {
       };
       venue: {
         Row: {
+          address: string | null;
           city: string | null;
+          contact: number | null;
           id: number;
           name: string;
+          phone: string | null;
+          serves_food: boolean;
           state: string | null;
           website_url: string | null;
         };
         Insert: {
+          address?: string | null;
           city?: string | null;
+          contact?: number | null;
           id?: number;
           name: string;
+          phone?: string | null;
+          serves_food?: boolean;
           state?: string | null;
           website_url?: string | null;
         };
         Update: {
+          address?: string | null;
           city?: string | null;
+          contact?: number | null;
           id?: number;
           name?: string;
+          phone?: string | null;
+          serves_food?: boolean;
           state?: string | null;
           website_url?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "venue_contact_fkey";
+            columns: ["contact"];
+            isOneToOne: false;
+            referencedRelation: "contact";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {

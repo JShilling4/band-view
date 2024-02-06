@@ -17,7 +17,7 @@
         />
       </div>
 
-      <set-list :set="selectedSet" />
+      <set-list v-if="selectedSet" :set="selectedSet" />
     </div>
   </div>
 </template>

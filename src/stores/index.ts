@@ -7,5 +7,7 @@ export * from "./set.store";
 export * from "./song.store";
 export * from "./setlist.store";
 export * from "./rehearsal.store";
+export * from "./show.store";
+export * from "./venue.store";
 
 export default pinia;

@@ -48,6 +48,14 @@ export const routes: Array<RouteRecordRaw> = [
     props: { pageTitle: "Rehearsal" },
   },
   {
+    path: RoutePath.Shows,
+    name: RouteNames.Shows,
+    component: () => import("@/views/ShowView.vue"),
+    props: (route) => {
+      return { pageTitle: "Shows", range: route.query.range };
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound,

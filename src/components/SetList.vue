@@ -4,7 +4,7 @@
       <div class="set-name text-bold q-mr-auto">{{ set.name }}</div>
       <q-btn-dropdown
         v-if="isAdmin && set && availableSongs.length"
-        color="green-8"
+        color="teal-10"
         class="q-mb-md"
         no-caps
         label="Add Song"
@@ -63,7 +63,7 @@ import { useSetStore, useSongStore } from "@/stores";
 
 // Types
 const props = defineProps<{
-  set: Tables<"set">;
+  set?: Tables<"set">;
 }>();
 
 // Dependency
@@ -75,11 +75,13 @@ const isAdmin = inject(isAdminIK);
 
 // State
 const availableSongs = computed(() => {
-  const setsOfType = setStore.sets.filter((s) => s.type === props.set.type);
+  const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
   const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id) => id) ?? []);
 
   return songStore.songs
-    .filter((s) => s.status === "active" && !setlistSongIds.includes(s.id))
+    .filter(
+      (s) => (s.status === "active" || s.status === "learning") && !setlistSongIds.includes(s.id)
+    )
     .sort((a, b) => {
       return a.title > b.title ? 1 : -1;
     });

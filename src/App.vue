@@ -1,61 +1,18 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <app-header />
-    <app-drawer
-      v-model="leftDrawerOpen"
-      :mini="miniLeftDrawer"
-      side="left"
-      :width="$q.screen.width > 1024 ? 250 : 45"
-      class="app-left-drawer bg-grey-10 text-grey-3"
-      behavior="desktop"
-      show-if-above
-      persistent
-    >
-      <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: '0' }">
-        <q-list>
-          <q-item
-            v-for="(item, i) in navConfig"
-            :key="i"
-            :active="$route.name === item.routeName"
-            clickable
-            v-ripple
-            :to="item.routePath"
-            :href="item.link?.href"
-            :target="item.link?.target"
-          >
-            <q-item-section avatar>
-              <q-icon
-                :name="item.icon.classes.join(' ')"
-                :color="item.icon.color"
-                class="mini-icon"
-              />
-            </q-item-section>
-            <q-item-section> {{ item.label }} </q-item-section>
-          </q-item>
-        </q-list>
-      </q-scroll-area>
-    </app-drawer>
-
+    <side-navigation />
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
-javas
+
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { useRoute } from "vue-router";
-import { useQuasar } from "quasar";
-import navConfig from "@/router/navigationConfig";
+import { provide } from "vue";
 import { isAdminIK } from "@/types";
 
-const $q = useQuasar();
-const $route = useRoute();
-
-const leftDrawerOpen = ref(true);
-const miniLeftDrawer = ref(false);
-const isAdmin = false && import.meta.env.DEV;
-
+const isAdmin = import.meta.env.DEV;
 provide(isAdminIK, isAdmin);
 </script>
 
@@ -90,8 +47,11 @@ ul
 .page-container
   padding: 10px 15px
 
+.page-content
+  margin-top: 6px
+
 .app-select-filter
-  max-width: 300px !important
+  // max-width: 300px !important
 
 // Quasar overrides
 .q-drawer
