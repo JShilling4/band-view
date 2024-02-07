@@ -1,14 +1,20 @@
 <template>
   <div class="show q-mb-md bg-teal-10 q-pa-md text-white">
     <div class="show-date q-mb-sm row items-center">
-      {{ format(new Date(show.date), "eeee, MMM do") }}
+      <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
       <div class="venue-icon-row row q-ml-auto">
         <q-icon
           v-if="venue?.serves_food"
           name="fa-solid fa-utensils"
           class="icon q-ml-md text-grey-4"
+          size="sm"
         />
-        <q-icon v-if="venue?.address" name="fa-solid fa-globe" class="icon q-ml-md text-grey-4">
+        <q-icon
+          v-if="venue?.address"
+          name="fa-solid fa-globe"
+          class="icon q-ml-md text-grey-4"
+          size="sm"
+        >
           <q-popup-proxy
             transition-show="flip-up"
             transition-hide="flip-down"
@@ -81,4 +87,11 @@ async function copyVenueAddress() {
 }
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.show
+  font-size: 16px
+
+.date-text
+  font-weight: 600
+  letter-spacing: 1px
+</style>
