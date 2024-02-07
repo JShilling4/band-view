@@ -2,29 +2,29 @@
   <div v-if="set" class="setlist-wrapper">
     <div class="row items-center">
       <div class="set-name text-bold q-mr-auto">{{ set.name }}</div>
-      <q-btn-dropdown
+      <QBtnDropdown
         v-if="isAdmin && set && availableSongs.length"
         color="teal-10"
         class="q-mb-md"
         no-caps
         label="Add Song"
       >
-        <q-list dense separator>
-          <q-item
+        <QList dense separator>
+          <QItem
             v-for="song in availableSongs"
             :key="song.id"
             clickable
             v-close-popup
             @click="onAddSetSongClick(song.id)"
           >
-            <q-item-section>
-              <q-item-label header>{{ song.title }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
+            <QItemSection>
+              <QItemLabel header>{{ song.title }}</QItemLabel>
+            </QItemSection>
+          </QItem>
+        </QList>
+      </QBtnDropdown>
     </div>
-    <q-list>
+    <QList>
       <VueDraggable
         ref="el"
         v-model="localSetSongs"
@@ -32,25 +32,25 @@
         :disabled="!isAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
-          <song-list-item
+          <SongListItem
             :song="song"
             :index="i"
             hide-artist
             @delete="onSongListItemDelete(song.id)"
             @click="onSongClick(song.id)"
           />
-          <q-separator />
+          <QSeparator />
         </div>
       </VueDraggable>
 
-      <song-modal
+      <SongModal
         v-model:show-modal="showSongModal"
         v-model:song="localSong"
         action="Edit"
         persistent
         @hide="onHideSongModal"
       />
-    </q-list>
+    </QList>
   </div>
 </template>
 

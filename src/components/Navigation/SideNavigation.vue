@@ -1,5 +1,5 @@
 <template>
-  <app-drawer
+  <AppDrawer
     v-model="leftDrawerOpen"
     :mini="miniLeftDrawer"
     side="left"
@@ -9,9 +9,9 @@
     show-if-above
     persistent
   >
-    <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: '0' }">
-      <q-list>
-        <q-item
+    <QScrollArea class="fit" :horizontal-thumb-style="{ opacity: '0' }">
+      <QList>
+        <QItem
           v-for="(item, i) in navConfig"
           :key="i"
           :active="$route.name === item.routeName"
@@ -22,18 +22,14 @@
           :href="item.link?.href"
           :target="item.link?.target"
         >
-          <q-item-section avatar>
-            <q-icon
-              :name="item.icon.classes.join(' ')"
-              :color="item.icon.color"
-              class="mini-icon"
-            />
-          </q-item-section>
-          <q-item-section> {{ item.label }} </q-item-section>
-        </q-item>
-      </q-list>
-    </q-scroll-area>
-  </app-drawer>
+          <QItemSection avatar>
+            <QIcon :name="item.icon.classes.join(' ')" :color="item.icon.color" class="mini-icon" />
+          </QItemSection>
+          <QItemSection> {{ item.label }} </QItemSection>
+        </QItem>
+      </QList>
+    </QScrollArea>
+  </AppDrawer>
 </template>
 
 <script setup lang="ts">

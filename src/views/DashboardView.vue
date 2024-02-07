@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
+    <AppPageTitle>{{ pageTitle }}</AppPageTitle>
   </div>
 </template>
 

@@ -1,14 +1,14 @@
 <template>
-  <q-dialog v-model="showModal" persistent>
-    <q-card class="modal-content">
-      <q-card-section class="modal-heading row items-center bg-black text-white">
+  <QDialog v-model="showModal" persistent>
+    <QCard class="modal-content">
+      <QCardSection class="modal-heading row items-center bg-black text-white">
         <h6>{{ action }} Song</h6>
-      </q-card-section>
-      <q-card-section v-if="song" class="modal-body">
-        <q-input v-model="song.artist" label="Artist" />
-        <q-input v-model="song.title" label="Title" />
-        <q-select v-model="song.status" :options="SONG_STATUSES" label="Status" behavior="menu" />
-        <q-select
+      </QCardSection>
+      <QCardSection v-if="song" class="modal-body">
+        <QInput v-model="song.artist" label="Artist" />
+        <QInput v-model="song.title" label="Title" />
+        <QSelect v-model="song.status" :options="SONG_STATUSES" label="Status" behavior="menu" />
+        <QSelect
           v-model="song.vocal_lead"
           :options="memberStore.members"
           option-value="id"
@@ -18,23 +18,23 @@
           map-options
           behavior="menu"
         />
-        <q-input v-model="song.link_url" label="YouTube Link" />
-        <q-input v-model="song.download_url" label="Download Link" />
-        <q-select v-model="song.mood" :options="SONG_MOODS" label="Mood" behavior="menu" />
-        <q-select
+        <QInput v-model="song.link_url" label="YouTube Link" />
+        <QInput v-model="song.download_url" label="Download Link" />
+        <QSelect v-model="song.mood" :options="SONG_MOODS" label="Mood" behavior="menu" />
+        <QSelect
           v-model="song.specials"
           :options="SONG_SPECIALS"
           label="Specials"
           multiple
           behavior="menu"
         />
-      </q-card-section>
-      <q-card-actions align="right" class="modal-controls">
-        <q-btn outline label="Cancel" color="black" no-caps v-close-popup />
-        <q-btn label="Save" color="green-10" no-caps v-close-popup @click="onSaveSong" />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+      </QCardSection>
+      <QCardActions align="right" class="modal-controls">
+        <QBtn outline label="Cancel" color="black" no-caps v-close-popup />
+        <QBtn label="Save" color="green-10" no-caps v-close-popup @click="onSaveSong" />
+      </QCardActions>
+    </QCard>
+  </QDialog>
 </template>
 
 <script setup lang="ts">

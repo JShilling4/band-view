@@ -1,11 +1,11 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-    <app-header />
-    <side-navigation />
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <QLayout view="hHh lpR fFf">
+    <AppHeader />
+    <SideNavigation />
+    <QPageContainer>
+      <RouterView />
+    </QPageContainer>
+  </QLayout>
 </template>
 
 <script setup lang="ts">
@@ -57,11 +57,11 @@ ul
 .q-drawer
   position: fixed !important
 .app-left-drawer
-  .q-item
+  .QItem
     padding: 8px 10px
     &--active
       background-color: #3d3d3d
-.q-btn
+.QBtn
   letter-spacing: 1px
 
 .q-item__label, .q-field__native

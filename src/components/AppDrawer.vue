@@ -1,10 +1,10 @@
 <template>
-  <q-drawer v-model="model" v-bind="$attrs">
+  <QDrawer v-model="model" v-bind="$attrs">
     <template #mini>
       <slot name="mini" />
     </template>
     <slot />
-  </q-drawer>
+  </QDrawer>
 </template>
 
 <script setup lang="ts">

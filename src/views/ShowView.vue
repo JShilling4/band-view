@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <div class="row items-center">
-      <app-page-title>{{ pageTitle }} </app-page-title>
+      <AppPageTitle>{{ pageTitle }} </AppPageTitle>
       <a href="http://www.steelerailband.com/shows" class="q-ml-auto" target="_blank">
         Website Calendar
       </a>
@@ -9,7 +9,7 @@
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <q-select
+        <QSelect
           v-model="activeShowFilter"
           :options="showFilters"
           option-label="label"
@@ -21,7 +21,7 @@
       </div>
 
       <div class="show-container q-mt-md">
-        <show-item v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
+        <ShowItem v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
       </div>
     </div>
   </div>
