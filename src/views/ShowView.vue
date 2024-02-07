@@ -21,30 +21,7 @@
       </div>
 
       <div class="show-container q-mt-md">
-        <div
-          v-for="show in activeShowFilter?.fn()"
-          :key="show.id"
-          class="show q-mb-md bg-teal-10 q-pa-md text-white"
-        >
-          <div class="show-date q-mb-sm row items-center">
-            {{ format(new Date(show.date), "eeee, MMM do") }}
-            <div class="venue-icon-row row q-ml-auto">
-              <q-icon
-                v-if="getVenueById(show.venue)?.serves_food"
-                name="fa-solid fa-utensils q-ml-md text-grey-4"
-              />
-              <q-icon
-                v-if="getVenueById(show.venue)?.address"
-                name="fa-solid fa-globe q-ml-md text-grey-4"
-              />
-            </div>
-          </div>
-          <div class="show-venue q-mb-sm">
-            {{ getVenueById(show.venue)?.name }} -
-            {{ getVenueById(show.venue)?.city }}
-          </div>
-          <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
-        </div>
+        <show-item v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
       </div>
     </div>
   </div>
@@ -55,7 +32,6 @@ import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useShowStore, useVenueStore } from "@/stores";
 import { clone } from "lodash";
-import { format } from "date-fns";
 import { ShowFilter, ShowFilterNames } from "@/types";
 
 // Types
@@ -66,7 +42,7 @@ const props = defineProps<{
 
 // Dependency
 const showStore = useShowStore();
-const { getVenueById, fetchVenues } = useVenueStore();
+const { fetchVenues } = useVenueStore();
 const router = useRouter();
 
 // State
@@ -125,4 +101,8 @@ onMounted(async () => {
   .show-date
     font-weight: 600
     letter-spacing: 1px
+
+  .icon
+    font-size: 18px
+    cursor: pointer
 </style>
