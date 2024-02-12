@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       contact: {
@@ -30,24 +30,30 @@ export interface Database {
           id: number;
           image_url: string | null;
           last_name: string | null;
+          permission_level: string | null;
           profile_color: string | null;
           title: string;
+          user_id: string | null;
         };
         Insert: {
           first_name: string;
           id?: number;
           image_url?: string | null;
           last_name?: string | null;
+          permission_level?: string | null;
           profile_color?: string | null;
           title: string;
+          user_id?: string | null;
         };
         Update: {
           first_name?: string;
           id?: number;
           image_url?: string | null;
           last_name?: string | null;
+          permission_level?: string | null;
           profile_color?: string | null;
           title?: string;
+          user_id?: string | null;
         };
         Relationships: [];
       };
@@ -161,6 +167,27 @@ export interface Database {
           },
         ];
       };
+      show_images: {
+        Row: {
+          caption: string | null;
+          created_at: string;
+          id: number;
+          url: string;
+        };
+        Insert: {
+          caption?: string | null;
+          created_at?: string;
+          id?: number;
+          url: string;
+        };
+        Update: {
+          caption?: string | null;
+          created_at?: string;
+          id?: number;
+          url?: string;
+        };
+        Relationships: [];
+      };
       song: {
         Row: {
           artist: string;
@@ -265,7 +292,7 @@ export interface Database {
       [_ in never]: never;
     };
   };
-}
+};
 
 export type Tables<
   PublicTableNameOrOptions extends

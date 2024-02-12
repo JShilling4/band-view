@@ -65,13 +65,12 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import { useMemberStore } from "@/stores";
+import { computed } from "vue";
+import { useMemberStore, useUserStore } from "@/stores";
 import { openBrowserTab } from "@/utils/helpers";
-import { type Tables, isAdminIK } from "@/types";
+import { type Tables } from "@/types";
 
 const memberStore = useMemberStore();
-const isAdmin = inject(isAdminIK);
 
 defineProps<{
   song: Tables<"song">;
@@ -84,6 +83,9 @@ defineEmits<{
   "song-clicked": [];
   delete: [id: number];
 }>();
+
+const userStore = useUserStore();
+const isAdmin = computed(() => userStore.role === "admin");
 </script>
 
 <style lang="sass" scoped>

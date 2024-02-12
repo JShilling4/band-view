@@ -9,11 +9,14 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
-import { isAdminIK } from "@/types";
+import { useMemberStore } from "./stores";
+import { onMounted } from "vue";
 
-const isAdmin = import.meta.env.DEV;
-provide(isAdminIK, isAdmin);
+const { fetchMembers } = useMemberStore();
+
+onMounted(async () => {
+  await fetchMembers();
+});
 </script>
 
 <style lang="sass">
