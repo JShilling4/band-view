@@ -3,30 +3,30 @@
     <div class="show-date q-mb-sm row items-center">
       <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
       <div class="venue-icon-row row q-ml-auto">
-        <q-icon
+        <QIcon
           v-if="venue?.serves_food"
           name="fa-solid fa-utensils"
           class="icon q-ml-md text-grey-4"
           size="sm"
         />
-        <q-icon
+        <QIcon
           v-if="venue?.address"
           name="fa-solid fa-globe"
           class="icon q-ml-md text-grey-4"
           size="sm"
         >
-          <q-popup-proxy
+          <QPopupProxy
             transition-show="flip-up"
             transition-hide="flip-down"
             @hide="showCopiedNotice = false"
           >
-            <q-banner class="bg-teal-1 text-black q-pa-md">
+            <QBanner class="bg-teal-1 text-black q-pa-md">
               <div class="pop-address text-bold text-h6">
                 {{ venue?.address }} {{ venue?.city }},
                 {{ venue?.state }}
               </div>
               <div class="pop-controls row items-center">
-                <q-btn
+                <QBtn
                   label="Copy"
                   color="grey"
                   class="q-mt-sm"
@@ -37,9 +37,9 @@
                   Copied
                 </div>
               </div>
-            </q-banner>
-          </q-popup-proxy>
-        </q-icon>
+            </QBanner>
+          </QPopupProxy>
+        </QIcon>
       </div>
     </div>
     <div class="show-venue q-mb-sm">

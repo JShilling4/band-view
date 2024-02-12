@@ -10,7 +10,7 @@ export default defineConfig({
     vue({
       template: { transformAssetUrls },
     }),
-    quasar(),
+    quasar({ autoImportComponentCase: "pascal" }),
     Components({ dts: true }),
   ],
   define: {

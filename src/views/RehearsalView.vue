@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
+    <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     <div class="page-content">
       <div v-if="rehearsalStore.rehearsals.length">
         <div v-for="rehearsal in rehearsalStore.rehearsals" :key="rehearsal.id" class="q-mb-sm">
@@ -8,31 +8,31 @@
             {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
           </h3>
           <div v-if="rehearsal.include_new_songs" class="new-songs-container q-mb-sm">
-            <q-separator color="grey-4" spaced />
+            <QSeparator color="grey-4" spaced />
             <div class="section-header text-grey-6">New Songs</div>
-            <q-separator color="grey-4" spaced />
-            <q-list class="song-list">
+            <QSeparator color="grey-4" spaced />
+            <QList class="song-list">
               <div>
-                <song-list-item
+                <SongListItem
                   v-for="song in songStore.getSongsByStatus('learning')"
                   :key="song.id"
                   :song="song"
                 />
               </div>
-            </q-list>
+            </QList>
           </div>
 
           <div class="agenda-container">
-            <q-separator color="grey-4" spaced />
+            <QSeparator color="grey-4" spaced />
             <div class="section-header text-grey-6">Agenda Items</div>
-            <q-separator color="grey-4" spaced />
-            <q-list class="agenda-list">
-              <q-item v-for="item in rehearsal.agenda" :key="item">
-                <q-item-section>
-                  <q-item-label class="text-body2 text-bold text-grey-9">{{ item }}</q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
+            <QSeparator color="grey-4" spaced />
+            <QList class="agenda-list">
+              <QItem v-for="item in rehearsal.agenda" :key="item">
+                <QItemSection>
+                  <QItemLabel class="text-body2 text-bold text-grey-9">{{ item }}</QItemLabel>
+                </QItemSection>
+              </QItem>
+            </QList>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@ onMounted(async () => {
 
 <style lang="sass" scoped>
 
-.q-item
+.QItem
   padding-left: 0 !important
   padding-right: 0 !important
   font-family: Roboto, sans-serif

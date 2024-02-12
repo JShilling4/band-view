@@ -1,7 +1,7 @@
 <template>
-  <q-item v-if="song" :clickable="isAdmin">
-    <q-item-section @click="isAdmin && $emit('song-clicked')">
-      <q-item-label>
+  <QItem v-if="song" :clickable="isAdmin">
+    <QItemSection @click="isAdmin && $emit('song-clicked')">
+      <QItemLabel>
         <span v-if="typeof index === 'number'" class="song-index">{{ index + 1 }}. </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
@@ -18,8 +18,8 @@
             ]
           </span>
         </span>
-      </q-item-label>
-      <q-item-label v-if="song.vocal_lead" lines="1" class="song-metadata">
+      </QItemLabel>
+      <QItemLabel v-if="song.vocal_lead" lines="1" class="song-metadata">
         Vocal:
         <span
           :style="{
@@ -29,12 +29,12 @@
         >
           {{ memberStore.getMemberById(song.vocal_lead)?.first_name ?? "" }}
         </span>
-      </q-item-label>
-    </q-item-section>
-    <q-item-section side top>
+      </QItemLabel>
+    </QItemSection>
+    <QItemSection side top>
       <div class="song-controls row items-center">
         <span v-if="song.link_url">
-          <q-icon
+          <QIcon
             name="fa-brands fa-youtube"
             color="red-9"
             class="song-link-icon"
@@ -43,7 +43,7 @@
           />
         </span>
         <span v-if="song.download_url" class="q-ml-md">
-          <q-icon
+          <QIcon
             name="fa-solid fa-download"
             color="green-9"
             class="song-link-icon"
@@ -52,7 +52,7 @@
           />
         </span>
         <span v-if="isAdmin" class="admin-controls q-ml-md">
-          <q-icon
+          <QIcon
             name="fa-solid fa-trash-alt"
             color="red-10"
             size="sm"
@@ -60,8 +60,8 @@
           />
         </span>
       </div>
-    </q-item-section>
-  </q-item>
+    </QItemSection>
+  </QItem>
 </template>
 
 <script setup lang="ts">
@@ -87,7 +87,7 @@ defineEmits<{
 </script>
 
 <style lang="sass" scoped>
-.q-item
+.QItem
   padding-left: 0 !important
   padding-right: 0 !important
   font-family: Roboto, sans-serif

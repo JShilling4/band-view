@@ -1,10 +1,10 @@
 <template>
   <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
+    <AppPageTitle>{{ pageTitle }}</AppPageTitle>
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <q-select
+        <QSelect
           v-model="activeTab"
           :options="setStore.sets.map((set) => set.name)"
           emit-value
@@ -17,7 +17,7 @@
         />
       </div>
 
-      <set-list v-if="selectedSet" :set="selectedSet" />
+      <SetList v-if="selectedSet" :set="selectedSet" />
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-  <q-btn>
+  <QBtn>
     <slot></slot>
-  </q-btn>
+  </QBtn>
 </template>
 
 <script setup lang="ts"></script>

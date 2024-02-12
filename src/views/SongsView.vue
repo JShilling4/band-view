@@ -1,10 +1,10 @@
 <template>
   <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
+    <AppPageTitle>{{ pageTitle }}</AppPageTitle>
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <q-select
+        <QSelect
           v-model="activeTab"
           :options="SONG_STATUSES"
           emit-value
@@ -15,7 +15,7 @@
           behavior="menu"
           filled
         />
-        <q-btn
+        <QBtn
           v-if="isAdmin"
           color="teal-10"
           icon="fa-solid fa-plus"
@@ -24,7 +24,7 @@
           dense
           @click="onAddSongClick"
         />
-        <song-modal
+        <SongModal
           v-model:show-modal="showSongModal"
           v-model:song="localSong"
           :action="songModalAction"
@@ -35,8 +35,8 @@
 
       <div class="song-container q-mb-lg">
         <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
-        <q-list separator>
-          <song-list-item
+        <QList separator>
+          <SongListItem
             v-for="song in selectedSongs"
             :song="song"
             :key="song.id"
@@ -44,7 +44,7 @@
             @song-clicked="onSongClick(song.id)"
             @delete="onDeleteSongClick(song.id)"
           />
-        </q-list>
+        </QList>
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
       So you might want to return to your last page.
     </h1>
 
-    <q-btn
+    <QBtn
       class="q-mt-xl"
       rounded
       no-caps
@@ -15,7 +15,7 @@
       @click="$router.replace('/')"
     >
       Return
-    </q-btn>
+    </QBtn>
   </div>
 </template>
 

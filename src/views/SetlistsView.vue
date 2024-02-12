@@ -1,9 +1,9 @@
 <template>
   <div class="page-container">
-    <app-page-title>{{ pageTitle }}</app-page-title>
+    <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <q-select
+        <QSelect
           v-model="activeTab"
           :options="setlistStore.setlists.map((sl) => sl.name)"
           emit-value
@@ -15,7 +15,7 @@
           class="app-select-filter col"
         />
         <a v-if="selectedSetlist?.url" :href="selectedSetlist.url" target="_blank" rel="noreferrer">
-          <q-icon
+          <QIcon
             name="fa-solid fa-download"
             class="download-icon q-ml-lg"
             color="green-7"
@@ -25,7 +25,7 @@
       </div>
 
       <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
-        <set-list
+        <SetList
           v-for="setId in selectedSetlist.sets"
           :key="setId"
           :set="setStore.getSetById(setId)"
