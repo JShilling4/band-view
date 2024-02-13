@@ -45,12 +45,8 @@ const password = ref<string | null>(null);
 async function onFormSubmit() {
   // console.log("checking login creds...", email.value, password.value);
   if (!email.value || !password.value) return;
-  const success = await userStore.logIn({ email: email.value, password: password.value });
-  if (success) {
-    showModal.value = false;
-  } else {
-    console.log("login failed...");
-  }
+  await userStore.logIn({ email: email.value, password: password.value });
+  showModal.value = false;
 }
 </script>
 

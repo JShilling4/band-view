@@ -85,7 +85,7 @@ defineEmits<{
 }>();
 
 const userStore = useUserStore();
-const isAdmin = computed(() => userStore.role === "admin");
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 </script>
 
 <style lang="sass" scoped>

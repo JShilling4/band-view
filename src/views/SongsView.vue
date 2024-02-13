@@ -77,7 +77,7 @@ const {
 } = useSongUtility();
 
 const activeTab = ref<SongStatus>("learning");
-const isAdmin = computed(() => userStore.role === "admin");
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(activeTab.value);
 });

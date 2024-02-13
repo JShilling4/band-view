@@ -72,7 +72,7 @@ const setStore = useSetStore();
 const userStore = useUserStore();
 const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtility();
 const { localSetSongs, updateSetOrder, onDeleteSetSongClick, addLocalSetSong } = useSetUtility();
-const isAdmin = computed(() => userStore.role === "admin");
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // State
 const availableSongs = computed(() => {

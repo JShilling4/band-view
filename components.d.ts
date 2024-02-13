@@ -20,5 +20,6 @@ declare module 'vue' {
     SideNavigation: typeof import('./src/components/Navigation/SideNavigation.vue')['default']
     SongListItem: typeof import('./src/components/SongListItem.vue')['default']
     SongModal: typeof import('./src/components/SongModal.vue')['default']
+    UserMenu: typeof import('./src/components/UserMenu.vue')['default']
   }
 }

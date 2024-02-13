@@ -5,7 +5,10 @@
       <QSpace />
       <ul>
         <li v-if="!userStore.user" class="toolbar-link" @click="onLoginClick">Login</li>
-        <li v-if="userStore.user" class="toolbar-link" @click="onLogoutClick">Logout</li>
+        <li v-if="userStore.user" class="toolbar-link" @click="$emit('toggle-user-menu')">
+          <span class="member-name q-mr-md">{{ userStore.activeMember?.first_name }}</span>
+          <QIcon name="fa-solid fa-user" size="sm" />
+        </li>
       </ul>
     </QToolbar>
   </QHeader>
@@ -16,16 +19,16 @@
 import { ref } from "vue";
 import { useUserStore } from "@/stores";
 
+defineEmits<{
+  "toggle-user-menu": [];
+}>();
+
 const userStore = useUserStore();
 
 const showLoginModal = ref(false);
 
 function onLoginClick() {
   showLoginModal.value = true;
-}
-
-function onLogoutClick() {
-  userStore.logOut();
 }
 </script>
 

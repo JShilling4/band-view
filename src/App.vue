@@ -1,7 +1,8 @@
 <template>
-  <QLayout view="hHh lpR fFf">
-    <AppHeader />
+  <QLayout view="hHh Lpr lff">
+    <AppHeader @toggle-user-menu="showRightDrawer = !showRightDrawer" />
     <SideNavigation />
+    <UserMenu v-model:right-drawer-open="showRightDrawer" />
     <QPageContainer>
       <RouterView />
     </QPageContainer>
@@ -9,13 +10,18 @@
 </template>
 
 <script setup lang="ts">
-import { useMemberStore } from "./stores";
 import { onMounted } from "vue";
+import { useMemberStore, useUserStore } from "./stores";
+import { ref } from "vue";
 
 const { fetchMembers } = useMemberStore();
+const { getSession } = useUserStore();
+
+const showRightDrawer = ref(false);
 
 onMounted(async () => {
   await fetchMembers();
+  await getSession();
 });
 </script>
 
