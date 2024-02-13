@@ -89,7 +89,7 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 </script>
 
 <style lang="sass" scoped>
-.QItem
+.q-item
   padding-left: 0 !important
   padding-right: 0 !important
   font-family: Roboto, sans-serif
@@ -104,6 +104,7 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 .song-artist
   color: rgb(148, 148, 148)
   font-weight: 500
+  line-height: 1.75
 
 .song-link-icon
   cursor: pointer
