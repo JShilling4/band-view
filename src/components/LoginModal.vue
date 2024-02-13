@@ -1,7 +1,7 @@
 <template>
   <QDialog v-model="showModal" persistent>
     <QCard class="modal-content">
-      <QForm @submit.prevent="onFormSubmit">
+      <QForm @submit.prevent="onFormSubmit" ref="loginForm">
         <QCardSection class="modal-heading row items-center bg-black text-white">
           <h6>Login</h6>
         </QCardSection>
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useUserStore } from "@/stores";
+import { type QForm } from "quasar";
 
 const userStore = useUserStore();
 
@@ -43,10 +44,15 @@ const email = ref<string | null>(null);
 const password = ref<string | null>(null);
 
 async function onFormSubmit() {
-  // console.log("checking login creds...", email.value, password.value);
   if (!email.value || !password.value) return;
-  await userStore.logIn({ email: email.value, password: password.value });
-  showModal.value = false;
+  const success = await userStore.logIn({ email: email.value, password: password.value });
+
+  if (success) {
+    showModal.value = false;
+  }
+
+  email.value = null;
+  password.value = null;
 }
 </script>
 

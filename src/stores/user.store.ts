@@ -3,29 +3,36 @@ import supabase from "@/supabase";
 import { User } from "@supabase/supabase-js";
 import { useMemberStore } from "@/stores";
 import { Tables } from "@/types";
+import { Notify } from "quasar";
 
 interface State {
   user: User | null;
   activeMember: Tables<"member"> | null;
-  userLoading: boolean;
+  loading: boolean;
 }
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
     user: null,
     activeMember: null,
-    userLoading: false,
+    loading: false,
   }),
 
   actions: {
     async logIn(creds: { email: string; password: string }) {
       if (!creds.email || !creds.password) return;
       try {
-        this.userLoading = true;
+        this.loading = true;
         const { data, error } = await supabase.auth.signInWithPassword(creds);
-        if (error) throw error;
 
-        if (data) {
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+        }
+
+        if (data.user) {
           this.setUser(data.user);
           return true;
         }
@@ -33,15 +40,21 @@ export const useUserStore = defineStore("user", {
         console.log(error);
         return false;
       } finally {
-        this.userLoading = false;
+        this.loading = false;
       }
     },
 
     async getSession() {
       try {
-        this.userLoading = true;
+        this.loading = true;
         const { data, error } = await supabase.auth.getSession();
-        if (error) throw error;
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+        }
 
         if (data.session) {
           this.setUser(data.session.user);
@@ -49,7 +62,7 @@ export const useUserStore = defineStore("user", {
       } catch (error) {
         console.log(error);
       } finally {
-        this.userLoading = false;
+        this.loading = false;
       }
     },
 

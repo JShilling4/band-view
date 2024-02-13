@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "@/router";
 import pinia from "@/stores";
-import { Quasar } from "quasar";
+import { Quasar, Notify } from "quasar";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faPencil, faTrash, faTimes, faBars, faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -17,5 +17,13 @@ const app = createApp(App);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.use(router);
 app.use(pinia);
-app.use(Quasar, { iconSet: iconSet });
+app.use(Quasar, {
+  plugins: { Notify },
+  iconSet: iconSet,
+  config: {
+    notify: {
+      position: "top",
+    },
+  },
+});
 app.mount("#app");
