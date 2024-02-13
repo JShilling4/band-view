@@ -65,13 +65,12 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import { useMemberStore } from "@/stores";
+import { computed } from "vue";
+import { useMemberStore, useUserStore } from "@/stores";
 import { openBrowserTab } from "@/utils/helpers";
-import { type Tables, isAdminIK } from "@/types";
+import { type Tables } from "@/types";
 
 const memberStore = useMemberStore();
-const isAdmin = inject(isAdminIK);
 
 defineProps<{
   song: Tables<"song">;
@@ -84,10 +83,13 @@ defineEmits<{
   "song-clicked": [];
   delete: [id: number];
 }>();
+
+const userStore = useUserStore();
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 </script>
 
 <style lang="sass" scoped>
-.QItem
+.q-item
   padding-left: 0 !important
   padding-right: 0 !important
   font-family: Roboto, sans-serif
@@ -102,6 +104,7 @@ defineEmits<{
 .song-artist
   color: rgb(148, 148, 148)
   font-weight: 500
+  line-height: 1.75
 
 .song-link-icon
   cursor: pointer

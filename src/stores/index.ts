@@ -9,5 +9,6 @@ export * from "./setlist.store";
 export * from "./rehearsal.store";
 export * from "./show.store";
 export * from "./venue.store";
+export * from "./user.store";
 
 export default pinia;

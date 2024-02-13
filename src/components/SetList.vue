@@ -55,11 +55,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, watch } from "vue";
+import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
-import { type Tables, isAdminIK } from "@/types";
-import { useSetStore, useSongStore } from "@/stores";
+import { type Tables } from "@/types";
+import { useSetStore, useSongStore, useUserStore } from "@/stores";
 
 // Types
 const props = defineProps<{
@@ -69,9 +69,10 @@ const props = defineProps<{
 // Dependency
 const songStore = useSongStore();
 const setStore = useSetStore();
+const userStore = useUserStore();
 const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtility();
 const { localSetSongs, updateSetOrder, onDeleteSetSongClick, addLocalSetSong } = useSetUtility();
-const isAdmin = inject(isAdminIK);
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // State
 const availableSongs = computed(() => {

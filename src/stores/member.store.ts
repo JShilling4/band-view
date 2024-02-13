@@ -1,22 +1,41 @@
 import supabase from "@/supabase";
 import { Tables } from "@/types";
 import { defineStore } from "pinia";
+import { Notify } from "quasar";
 
 interface State {
   members: Tables<"member">[];
+  loading: boolean;
 }
 
 export const useMemberStore = defineStore("members", {
   state: (): State => ({
     members: [],
+    loading: false,
   }),
 
   actions: {
     async fetchMembers() {
-      if (this.members.length) return;
-      const { data: member } = await supabase.from("member").select("*");
-      if (!member) return;
-      this.members = member;
+      if (this.loading || this.members.length) return;
+      this.loading = true;
+      try {
+        const { data, error } = await supabase.from("member").select("*");
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+        }
+
+        if (data) {
+          this.members = data;
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     },
   },
 

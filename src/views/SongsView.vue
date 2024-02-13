@@ -51,11 +51,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, inject } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useSongStore, useMemberStore } from "@/stores";
+import { useSongStore, useMemberStore, useUserStore } from "@/stores";
 import { useSongUtility } from "@/composables";
-import { SONG_STATUSES, isAdminIK, type SongStatus } from "@/types";
+import { SONG_STATUSES, type SongStatus } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -65,6 +65,7 @@ const props = defineProps<{
 const router = useRouter();
 const songStore = useSongStore();
 const memberStore = useMemberStore();
+const userStore = useUserStore();
 const {
   localSong,
   onDeleteSongClick,
@@ -74,10 +75,9 @@ const {
   onHideSongModal,
   onAddSongClick,
 } = useSongUtility();
-const isAdmin = inject(isAdminIK);
 
 const activeTab = ref<SongStatus>("learning");
-
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(activeTab.value);
 });
