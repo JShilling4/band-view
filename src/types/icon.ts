@@ -5,6 +5,7 @@ export enum IconNames {
   Paste = "Paste",
   R = "R",
   Calendar = "Calendar",
+  Landmark = "Landmark",
 }
 
 export const IconClasses: { [key in IconNames]: string[] } = {
@@ -14,6 +15,7 @@ export const IconClasses: { [key in IconNames]: string[] } = {
   [IconNames.Paste]: ["fa-solid", "fa-paste"],
   [IconNames.R]: ["fa-solid", "fa-registered"],
   [IconNames.Calendar]: ["fa-solid", "fa-calendar-days"],
+  [IconNames.Landmark]: ["fa-solid", "fa-landmark"],
 };
 
 export interface AppIcon {

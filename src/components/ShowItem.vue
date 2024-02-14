@@ -12,7 +12,7 @@
         <QIcon
           v-if="venue?.address"
           name="fa-solid fa-globe"
-          class="icon q-ml-md text-grey-4"
+          class="icon q-ml-md text-grey-4 cursor-pointer"
           size="sm"
         >
           <QPopupProxy
