@@ -13,7 +13,7 @@
             <QSeparator color="grey-4" spaced />
             <QList class="song-list">
               <div>
-                <SongListItem
+                <SongItem
                   v-for="song in songStore.getSongsByStatus('learning')"
                   :key="song.id"
                   :song="song"

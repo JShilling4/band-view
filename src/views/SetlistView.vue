@@ -25,7 +25,7 @@
       </div>
 
       <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
-        <SetList
+        <SetItem
           v-for="setId in selectedSetlist.sets"
           :key="setId"
           :set="setStore.getSetById(setId)"

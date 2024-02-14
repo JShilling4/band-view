@@ -32,7 +32,7 @@
         :disabled="!isAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
-          <SongListItem
+          <SongItem
             :song="song"
             :index="i"
             hide-artist

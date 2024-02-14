@@ -36,7 +36,7 @@
       <div class="song-container q-mb-lg">
         <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
         <QList separator>
-          <SongListItem
+          <SongItem
             v-for="song in selectedSongs"
             :song="song"
             :key="song.id"
