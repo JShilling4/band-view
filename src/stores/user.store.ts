@@ -30,6 +30,7 @@ export const useUserStore = defineStore("user", {
             type: "negative",
             message: error.message,
           });
+          throw error;
         }
 
         if (data.user) {
@@ -54,6 +55,7 @@ export const useUserStore = defineStore("user", {
             type: "negative",
             message: error.message,
           });
+          throw error;
         }
 
         if (data.session) {

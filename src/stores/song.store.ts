@@ -2,15 +2,18 @@ import supabase from "@/supabase";
 import omit from "lodash/omit";
 import { defineStore } from "pinia";
 import { type SongStatus, Tables, type LocalSong } from "@/types";
+import { Notify } from "quasar";
 
 interface State {
   songs: Tables<"song">[];
+  loading: boolean;
 }
 
 export const useSongStore = defineStore("songs", {
   state: (): State => {
     return {
       songs: [],
+      loading: false,
     };
   },
 
@@ -18,10 +21,24 @@ export const useSongStore = defineStore("songs", {
     async fetchSongs() {
       if (this.songs.length) return;
 
-      const { data: song } = await supabase.from("song").select("*");
+      try {
+        this.loading = true;
+        const { data: song, error } = await supabase.from("song").select("*");
 
-      if (!song) return;
-      this.songs = song;
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (song) this.songs = song;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     },
 
     async deleteSong(id: number) {

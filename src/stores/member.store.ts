@@ -17,8 +17,8 @@ export const useMemberStore = defineStore("members", {
   actions: {
     async fetchMembers() {
       if (this.loading || this.members.length) return;
-      this.loading = true;
       try {
+        this.loading = true;
         const { data, error } = await supabase.from("member").select("*");
 
         if (error) {
@@ -26,6 +26,7 @@ export const useMemberStore = defineStore("members", {
             type: "negative",
             message: error.message,
           });
+          throw error;
         }
 
         if (data) {
