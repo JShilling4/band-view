@@ -1,53 +1,55 @@
 <template>
-  <div class="show q-mb-md bg-teal-10 q-pa-md text-white">
-    <div class="show-date q-mb-sm row items-center">
-      <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
-      <div class="venue-icon-row row q-ml-auto">
-        <QIcon
-          v-if="venue?.serves_food"
-          name="fa-solid fa-utensils"
-          class="icon q-ml-md text-grey-4"
-          size="sm"
-        />
-        <QIcon
-          v-if="venue?.address"
-          name="fa-solid fa-globe"
-          class="icon q-ml-md text-grey-4 cursor-pointer"
-          size="sm"
-        >
-          <QPopupProxy
-            transition-show="flip-up"
-            transition-hide="flip-down"
-            @hide="showCopiedNotice = false"
+  <QItem class="show q-mb-md bg-teal-3 q-pa-md text-black">
+    <QItemSection>
+      <div class="show-date q-mb-sm row items-center">
+        <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
+        <div class="venue-icon-row row q-ml-auto">
+          <QIcon
+            v-if="venue?.serves_food"
+            name="fa-solid fa-utensils"
+            class="icon q-ml-md text-black"
+            size="sm"
+          />
+          <QIcon
+            v-if="venue?.address"
+            name="fa-solid fa-map"
+            class="icon q-ml-md text-black cursor-pointer"
+            size="sm"
           >
-            <QBanner class="bg-teal-1 text-black q-pa-md">
-              <div class="pop-address text-bold text-h6">
-                {{ venue?.address }} {{ venue?.city }},
-                {{ venue?.state }}
-              </div>
-              <div class="pop-controls row items-center">
-                <QBtn
-                  label="Copy"
-                  color="grey"
-                  class="q-mt-sm"
-                  size="md"
-                  @click="copyVenueAddress()"
-                />
-                <div v-if="showCopiedNotice" class="copied-notice q-ml-md text-h6 text-grey-8">
-                  Copied
+            <QPopupProxy
+              transition-show="flip-up"
+              transition-hide="flip-down"
+              @hide="showCopiedNotice = false"
+            >
+              <QBanner class="bg-teal-1 text-black q-pa-md">
+                <div class="pop-address text-bold text-h6">
+                  {{ venue?.address }} {{ venue?.city }},
+                  {{ venue?.state }}
                 </div>
-              </div>
-            </QBanner>
-          </QPopupProxy>
-        </QIcon>
+                <div class="pop-controls row items-center">
+                  <QBtn
+                    label="Copy"
+                    color="grey"
+                    class="q-mt-sm"
+                    size="md"
+                    @click="copyVenueAddress()"
+                  />
+                  <div v-if="showCopiedNotice" class="copied-notice q-ml-md text-h6 text-grey-8">
+                    Copied
+                  </div>
+                </div>
+              </QBanner>
+            </QPopupProxy>
+          </QIcon>
+        </div>
       </div>
-    </div>
-    <div class="show-venue q-mb-sm">
-      {{ venue?.name }} -
-      {{ venue?.city }}
-    </div>
-    <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
-  </div>
+      <div class="show-venue q-mb-sm">
+        {{ venue?.name }} -
+        {{ venue?.city }}
+      </div>
+      <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
+    </QItemSection>
+  </QItem>
 </template>
 
 <script setup lang="ts">

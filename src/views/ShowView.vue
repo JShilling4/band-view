@@ -20,9 +20,9 @@
         />
       </div>
 
-      <div class="show-container q-mt-md">
+      <QList class="show-container q-mt-md">
         <ShowItem v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
-      </div>
+      </QList>
     </div>
   </div>
 </template>

@@ -17,11 +17,13 @@
         />
       </div> -->
 
-      <div class="show-container q-mt-md">
-        <div v-for="venue in venueStore.venues" :key="venue.id" class="venue q-mb-md">
-          <div class="venue-name">{{ venue.name }}</div>
-          <div class="venue-city">{{ venue.city ?? "Unknown address" }}</div>
-        </div>
+      <div class="venue-container q-mt-md flex q-gutter-sm">
+        <VenueItem
+          v-for="venue in venueStore.venues"
+          :key="venue.id"
+          class="venue q-mb-md"
+          :venue="venue"
+        />
       </div>
     </div>
   </div>
@@ -46,14 +48,10 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
+.venue-container
+  display: flex
 .venue
-  max-width: 500px
+  width: 300px
   border-radius: 5px
   font-size: 18px
-
-.venue-name
-  font-weight: 500
-
-.venue-city
-  font-size: 15px
 </style>
