@@ -70,31 +70,55 @@ export const useSongStore = defineStore("songs", {
     async createSong(song: LocalSong) {
       if (!song) return;
 
-      const { data, error } = await supabase
-        .from("song")
-        .insert(song)
-        .select()
-        .returns<Tables<"song">[]>();
+      try {
+        const { data, error } = await supabase
+          .from("song")
+          .insert(song)
+          .select()
+          .returns<Tables<"song">[]>();
 
-      if (!error) {
-        this.songs.push(data[0]);
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (data) {
+          this.songs.push(data[0]);
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
 
     async updateSong(song: Tables<"song">) {
       if (!song) return;
-      const clonedSong: LocalSong = omit(song, "id");
 
-      const { error } = await supabase
-        .from("song")
-        .update({ ...clonedSong })
-        .eq("id", song.id);
+      try {
+        const clonedSong: LocalSong = omit(song, "id");
+        const { error } = await supabase
+          .from("song")
+          .update({ ...clonedSong })
+          .eq("id", song.id);
 
-      if (!error) {
-        const target = this.songs.findIndex((s) => s.id === song.id);
-        if (target !== -1) {
-          this.songs.splice(target, 1, song);
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
         }
+
+        if (!error) {
+          const target = this.songs.findIndex((s) => s.id === song.id);
+          if (target !== -1) {
+            this.songs.splice(target, 1, song);
+          }
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   },
