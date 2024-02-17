@@ -18,11 +18,13 @@ declare module 'vue' {
     SetItem: typeof import('./src/components/SetItem.vue')['default']
     SetList: typeof import('./src/components/SetList.vue')['default']
     ShowItem: typeof import('./src/components/ShowItem.vue')['default']
+    ShowModal: typeof import('./src/components/ShowModal.vue')['default']
     SideNavigation: typeof import('./src/components/Navigation/SideNavigation.vue')['default']
     SongItem: typeof import('./src/components/SongItem.vue')['default']
     SongListItem: typeof import('./src/components/SongListItem.vue')['default']
     SongModal: typeof import('./src/components/SongModal.vue')['default']
     UserMenu: typeof import('./src/components/UserMenu.vue')['default']
     VenueItem: typeof import('./src/components/VenueItem.vue')['default']
+    VenueModal: typeof import('./src/components/VenueModal.vue')['default']
   }
 }
