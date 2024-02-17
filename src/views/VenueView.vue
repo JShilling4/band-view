@@ -6,7 +6,7 @@
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <QSelect
+        <!-- <QSelect
           v-model="cityFilter"
           :options="venueStore.getVenueCities"
           emit-value
@@ -16,7 +16,7 @@
           class="app-select-filter col"
           behavior="menu"
           filled
-        />
+        /> -->
         <QBtn
           v-if="isAdmin"
           color="teal-10"
@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useVenueUtility } from "@/composables";
 import { useUserStore, useVenueStore } from "@/stores";
 
@@ -78,7 +78,7 @@ const {
 } = useVenueUtility();
 
 // State
-const cityFilter = ref<string | null>(null);
+// const cityFilter = ref<string | null>(null);
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // Methods
