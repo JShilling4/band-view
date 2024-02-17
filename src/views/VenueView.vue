@@ -93,6 +93,4 @@ onMounted(async () => {
 .venue
   width: 300px
   flex-grow: 1
-  border-radius: 5px
-  font-size: 18px
 </style>

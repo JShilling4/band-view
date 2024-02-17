@@ -1,19 +1,19 @@
 <template>
-  <QItem class="show q-mb-md bg-teal-3 q-pa-md text-black">
+  <QItem class="show q-mb-md bg-teal-2 q-pa-md text-black">
     <QItemSection>
-      <div class="show-date q-mb-sm row items-center">
+      <div class="show-header q-mb-sm row items-center">
         <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
         <div class="venue-icon-row row q-ml-auto">
           <QIcon
             v-if="venue?.serves_food"
             name="fa-solid fa-utensils"
-            class="icon q-ml-md text-black"
+            class="icon q-ml-md text-grey-8"
             size="sm"
           />
           <QIcon
             v-if="venue?.address"
             name="fa-solid fa-map"
-            class="icon q-ml-md text-black cursor-pointer"
+            class="icon q-ml-md text-grey-8 cursor-pointer"
             size="sm"
           >
             <QPopupProxy
@@ -32,7 +32,7 @@
                     color="grey"
                     class="q-mt-sm"
                     size="md"
-                    @click="copyVenueAddress()"
+                    @click="copyVenueAddress"
                   />
                   <div v-if="showCopiedNotice" class="copied-notice q-ml-md text-h6 text-grey-8">
                     Copied
@@ -54,8 +54,8 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { copyToClipboard } from "quasar";
 import { format } from "date-fns";
-import { useClipboard } from "@/composables";
 import { useVenueStore } from "@/stores";
 import { Tables } from "@/types";
 
@@ -64,7 +64,6 @@ const props = defineProps<{
 }>();
 
 const { getVenueById } = useVenueStore();
-const { toClipboard } = useClipboard();
 
 const venue = ref<Tables<"venue">>();
 watch(
@@ -80,7 +79,7 @@ const showCopiedNotice = ref(false);
 async function copyVenueAddress() {
   if (!venue.value) return;
   try {
-    await toClipboard(`${venue.value.address} ${venue.value.city}, ${venue.value.state}`);
+    await copyToClipboard(`${venue.value.address} ${venue.value.city}, ${venue.value.state}`);
     showCopiedNotice.value = true;
   } catch (e) {
     console.error(e);
@@ -90,9 +89,16 @@ async function copyVenueAddress() {
 
 <style lang="sass" scoped>
 .show
+  width: 300px
+  flex-grow: 1
+  border-radius: 5px
   font-size: 16px
 
-.date-text
-  font-weight: 600
-  letter-spacing: 1px
+  .show-header
+    font-weight: 600
+    letter-spacing: 1px
+
+  .icon
+    font-size: 18px
+    cursor: pointer
 </style>

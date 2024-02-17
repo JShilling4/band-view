@@ -34,9 +34,9 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { clone } from "lodash";
 import { useShowStore, useVenueStore } from "@/stores";
 import { ShowFilter, ShowFilterNames } from "@/types";
-import { clone } from "lodash";
 
 // Types
 const props = defineProps<{
@@ -101,13 +101,4 @@ onMounted(async () => {
 .show
   width: 300px
   flex-grow: 1
-  border-radius: 5px
-
-  .show-date
-    font-weight: 600
-    letter-spacing: 1px
-
-  .icon
-    font-size: 18px
-    cursor: pointer
 </style>

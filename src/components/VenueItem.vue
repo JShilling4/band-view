@@ -5,7 +5,7 @@
       <div class="venue-address">
         {{ formatAddress(venue.address, venue.city, venue.state) }}
       </div>
-      <div class="venue-phone">{{ venue.phone }}</div>
+      <!-- <div class="venue-phone">{{ venue.phone }}</div> -->
     </QItemSection>
   </QItem>
 </template>
@@ -37,6 +37,12 @@ function formatAddress(address: string | null, city: string | null, state: strin
 </script>
 
 <style lang="sass" scoped>
+.venue
+  width: 300px
+  flex-grow: 1
+  border-radius: 5px
+  font-size: 18px
+
 .venue-name
   font-weight: 500
 
