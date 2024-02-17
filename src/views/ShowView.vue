@@ -20,8 +20,12 @@
         />
       </div>
 
-      <QList class="show-container q-mt-md">
+      <QList class="show-container flex q-mt-md q-gutter-sm">
         <ShowItem v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
+        <div class="show"></div>
+        <div class="show"></div>
+        <div class="show"></div>
+        <div class="show"></div>
       </QList>
     </div>
   </div>
@@ -31,8 +35,8 @@
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useShowStore, useVenueStore } from "@/stores";
-import { clone } from "lodash";
 import { ShowFilter, ShowFilterNames } from "@/types";
+import { clone } from "lodash";
 
 // Types
 const props = defineProps<{
@@ -95,7 +99,8 @@ onMounted(async () => {
 
 <style lang="sass" scoped>
 .show
-  max-width: 500px
+  width: 300px
+  flex-grow: 1
   border-radius: 5px
 
   .show-date

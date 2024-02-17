@@ -58,8 +58,8 @@
 import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
-import { type Tables } from "@/types";
 import { useSetStore, useSongStore, useUserStore } from "@/stores";
+import { type Tables } from "@/types";
 
 // Types
 const props = defineProps<{

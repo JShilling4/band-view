@@ -43,8 +43,8 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useMemberStore, useRehearsalStore, useSongStore } from "@/stores";
 import { useDateUtility } from "@/composables";
+import { useMemberStore, useRehearsalStore, useSongStore } from "@/stores";
 
 defineProps<{
   pageTitle: string;

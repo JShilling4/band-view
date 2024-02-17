@@ -53,12 +53,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from "vue";
+import { format } from "date-fns";
 import { useClipboard } from "@/composables";
 import { useVenueStore } from "@/stores";
 import { Tables } from "@/types";
-import { format } from "date-fns";
-import { watch } from "vue";
-import { ref } from "vue";
 
 const props = defineProps<{
   show: Tables<"show">;

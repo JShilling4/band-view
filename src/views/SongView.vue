@@ -55,8 +55,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useSongStore, useMemberStore, useUserStore } from "@/stores";
 import { useSongUtility } from "@/composables";
+import { useMemberStore, useSongStore, useUserStore } from "@/stores";
 import { SONG_STATUSES, type SongStatus } from "@/types";
 
 const props = defineProps<{

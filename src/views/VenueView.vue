@@ -28,7 +28,7 @@
         />
       </div>
 
-      <div class="venue-container q-mt-md flex q-gutter-sm">
+      <QList class="venue-container q-mt-md flex q-gutter-sm">
         <VenueItem
           v-for="venue in venueStore.venues"
           :key="venue.id"
@@ -37,7 +37,11 @@
           @venue-clicked="onVenueClick(venue.id)"
           @delete="onDeleteVenueClick(venue.id)"
         />
-      </div>
+        <div class="venue"></div>
+        <div class="venue"></div>
+        <div class="venue"></div>
+        <div class="venue"></div>
+      </QList>
 
       <VenueModal
         v-model:show-modal="showVenueModal"
@@ -51,9 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue";
-import { useUserStore, useVenueStore } from "@/stores";
+import { computed, onMounted, ref } from "vue";
 import { useVenueUtility } from "@/composables";
+import { useUserStore, useVenueStore } from "@/stores";
 
 // Types
 defineProps<{
@@ -88,6 +92,7 @@ onMounted(async () => {
   display: flex
 .venue
   width: 300px
+  flex-grow: 1
   border-radius: 5px
   font-size: 18px
 </style>
