@@ -14,7 +14,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: RoutePath.Songs,
     name: RouteNames.Songs,
-    component: () => import("@/views/SongsView.vue"),
+    component: () => import("@/views/SongView.vue"),
     props: (route) => {
       return { pageTitle: "Songs", status: route.query.status };
     },
@@ -22,7 +22,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: RoutePath.Sets,
     name: RouteNames.Sets,
-    component: () => import("@/views/SetsView.vue"),
+    component: () => import("@/views/SetView.vue"),
     props: (route) => {
       return { pageTitle: "Sets", name: route.query.name };
     },
@@ -30,7 +30,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: RoutePath.Setlists,
     name: RouteNames.Setlists,
-    component: () => import("@/views/SetlistsView.vue"),
+    component: () => import("@/views/SetlistView.vue"),
     props: (route) => {
       return { pageTitle: "Setlists", name: route.query.name };
     },
@@ -53,6 +53,14 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/ShowView.vue"),
     props: (route) => {
       return { pageTitle: "Shows", range: route.query.range };
+    },
+  },
+  {
+    path: RoutePath.Venues,
+    name: RouteNames.Venues,
+    component: () => import("@/views/VenueView.vue"),
+    props: () => {
+      return { pageTitle: "Venues" };
     },
   },
   {

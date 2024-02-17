@@ -2,23 +2,41 @@ import supabase from "@/supabase";
 import { Tables } from "@/types";
 import { defineStore } from "pinia";
 import { isAfter, isThisMonth, isThisYear, addMonths, isSameMonth } from "date-fns";
+import { Notify } from "quasar";
 
 interface State {
   shows: Tables<"show">[];
+  loading: boolean;
 }
 
 export const useShowStore = defineStore("shows", {
   state: (): State => ({
     shows: [],
+    loading: false,
   }),
 
   actions: {
     async fetchShows() {
-      if (this.shows.length) return;
-      const { data: show } = await supabase.from("show").select("*").order("date");
-      if (!show) return;
+      if (this.loading || this.shows.length) return;
 
-      this.shows = show;
+      try {
+        this.loading = true;
+        const { data: show, error } = await supabase.from("show").select("*").order("date");
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (show) this.shows = show;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     },
   },
 

@@ -32,7 +32,7 @@
         :disabled="!isAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
-          <SongListItem
+          <SongItem
             :song="song"
             :index="i"
             hide-artist
@@ -58,8 +58,8 @@
 import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
-import { type Tables } from "@/types";
 import { useSetStore, useSongStore, useUserStore } from "@/stores";
+import { type Tables } from "@/types";
 
 // Types
 const props = defineProps<{

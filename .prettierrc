@@ -5,5 +5,18 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "useTabs": false,
-  "vueIndentScriptAndStyle": false
+  "vueIndentScriptAndStyle": false,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "vue",
+    "vue-router",
+    "quasar",
+    "<THIRD_PARTY_MODULES>",
+    "^@/composables(.*)$",
+    "^@/stores(.*)$",
+    "^@/types(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
 }

@@ -5,7 +5,7 @@
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
         <QSelect
-          v-model="activeTab"
+          v-model="statusFilter"
           :options="SONG_STATUSES"
           emit-value
           option-value="name"
@@ -34,9 +34,11 @@
       </div>
 
       <div class="song-container q-mb-lg">
-        <div class="results-text">{{ songStore.getSongsByStatus(activeTab).length }} results</div>
+        <div class="results-text">
+          {{ songStore.getSongsByStatus(statusFilter).length }} results
+        </div>
         <QList separator>
-          <SongListItem
+          <SongItem
             v-for="song in selectedSongs"
             :song="song"
             :key="song.id"
@@ -53,8 +55,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useSongStore, useMemberStore, useUserStore } from "@/stores";
 import { useSongUtility } from "@/composables";
+import { useMemberStore, useSongStore, useUserStore } from "@/stores";
 import { SONG_STATUSES, type SongStatus } from "@/types";
 
 const props = defineProps<{
@@ -76,22 +78,22 @@ const {
   onAddSongClick,
 } = useSongUtility();
 
-const activeTab = ref<SongStatus>("learning");
+const statusFilter = ref<SongStatus>("learning");
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const selectedSongs = computed(() => {
-  return songStore.getSongsByStatus(activeTab.value);
+  return songStore.getSongsByStatus(statusFilter.value);
 });
 
 watch(
   () => props.status,
   () => {
     if (!props.status) return;
-    activeTab.value = props.status;
+    statusFilter.value = props.status;
   },
   { immediate: true }
 );
 
-watch(activeTab, (newVal) => {
+watch(statusFilter, (newVal) => {
   router.push({ name: "Songs", query: { status: newVal } });
 });
 

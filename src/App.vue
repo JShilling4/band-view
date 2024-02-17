@@ -10,9 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useMemberStore, useUserStore } from "./stores";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { useMemberStore, useUserStore } from "@/stores";
 
 const { fetchMembers } = useMemberStore();
 const { getSession } = useUserStore();

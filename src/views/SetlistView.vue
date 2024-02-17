@@ -25,7 +25,7 @@
       </div>
 
       <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
-        <SetList
+        <SetItem
           v-for="setId in selectedSetlist.sets"
           :key="setId"
           :set="setStore.getSetById(setId)"
@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useMemberStore, useSetStore, useSongStore, useSetlistStore } from "@/stores";
+import { useMemberStore, useSetStore, useSetlistStore, useSongStore } from "@/stores";
 
 const props = defineProps<{
   pageTitle: string;

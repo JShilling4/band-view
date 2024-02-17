@@ -66,8 +66,8 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useMemberStore, useUserStore } from "@/stores";
 import { openBrowserTab } from "@/utils/helpers";
+import { useMemberStore, useUserStore } from "@/stores";
 import { type Tables } from "@/types";
 
 const memberStore = useMemberStore();

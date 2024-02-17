@@ -61,6 +61,16 @@ const navigationConfig: NavItem[] = [
       color: "teal-4",
     },
   },
+  {
+    routeName: RouteNames.Venues,
+    label: RouteNames.Venues,
+    routePath: RoutePath.Venues,
+    link: null,
+    icon: {
+      classes: [...IconClasses.Landmark],
+      color: "red-4",
+    },
+  },
 ];
 
 export default navigationConfig;

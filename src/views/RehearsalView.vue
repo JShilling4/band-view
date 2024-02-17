@@ -13,7 +13,7 @@
             <QSeparator color="grey-4" spaced />
             <QList class="song-list">
               <div>
-                <SongListItem
+                <SongItem
                   v-for="song in songStore.getSongsByStatus('learning')"
                   :key="song.id"
                   :song="song"
@@ -43,8 +43,8 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useMemberStore, useRehearsalStore, useSongStore } from "@/stores";
 import { useDateUtility } from "@/composables";
+import { useMemberStore, useRehearsalStore, useSongStore } from "@/stores";
 
 defineProps<{
   pageTitle: string;

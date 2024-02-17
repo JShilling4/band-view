@@ -6,3 +6,4 @@ export * from "./route";
 export * from "./icon";
 export * from "./externalLink";
 export * from "./show";
+export * from "./venue";

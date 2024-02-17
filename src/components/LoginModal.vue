@@ -34,8 +34,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useUserStore } from "@/stores";
 import { type QForm } from "quasar";
+import { useUserStore } from "@/stores";
 
 const userStore = useUserStore();
 

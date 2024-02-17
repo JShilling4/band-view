@@ -1,35 +1,67 @@
 import supabase from "@/supabase";
 import { Tables } from "@/types";
 import { defineStore } from "pinia";
+import { Notify } from "quasar";
 
 interface State {
   sets: Tables<"set">[];
+  loading: boolean;
 }
 
 export const useSetStore = defineStore("sets", {
   state: (): State => ({
     sets: [],
+    loading: false,
   }),
 
   actions: {
     async fetchSets() {
-      if (this.sets.length) return;
-      const { data: set } = await supabase.from("set").select("*").order("name");
-      if (!set) return;
+      if (this.loading || this.sets.length) return;
 
-      this.sets = set;
+      try {
+        this.loading = true;
+        const { data: set, error } = await supabase.from("set").select("*").order("name");
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (set) this.sets = set;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     },
 
     async updateSetOrder(id: number, songOrder: number[]) {
-      const { data } = await supabase
-        .from("set")
-        .update({ songs: songOrder })
-        .eq("id", id)
-        .select();
-      if (!data) return;
-      const target = this.sets.findIndex((s) => s.id === id);
-      if (target !== -1) {
-        this.sets[target] = data[0];
+      try {
+        const { data, error } = await supabase
+          .from("set")
+          .update({ songs: songOrder })
+          .eq("id", id)
+          .select();
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (data) {
+          const target = this.sets.findIndex((s) => s.id === id);
+          if (target !== -1) {
+            this.sets[target] = data[0];
+          }
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   },

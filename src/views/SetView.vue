@@ -17,7 +17,7 @@
         />
       </div>
 
-      <SetList v-if="selectedSet" :set="selectedSet" />
+      <SetItem v-if="selectedSet" :set="selectedSet" />
     </div>
   </div>
 </template>
