@@ -34,6 +34,8 @@
           :key="venue.id"
           class="venue"
           :venue="venue"
+          @venue-clicked="onVenueClick(venue.id)"
+          @delete="onDeleteVenueClick(venue.id)"
         />
       </div>
 
@@ -61,8 +63,15 @@ defineProps<{
 // Dependency
 const venueStore = useVenueStore();
 const userStore = useUserStore();
-const { onHideVenueModal, venueModalAction, localVenue, showVenueModal, onAddVenueClick } =
-  useVenueUtility();
+const {
+  onHideVenueModal,
+  venueModalAction,
+  localVenue,
+  showVenueModal,
+  onAddVenueClick,
+  onVenueClick,
+  onDeleteVenueClick,
+} = useVenueUtility();
 
 // State
 const cityFilter = ref<string | null>(null);
