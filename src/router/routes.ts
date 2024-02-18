@@ -1,6 +1,6 @@
-import { RouteRecordRaw } from "vue-router";
 // import Dashboard from "@/views/DashboardView.vue";
 import NotFound from "@/views/NotFound.vue";
+import { RouteRecordRaw } from "vue-router";
 import { RouteNames, RoutePath } from "@/types";
 
 export const routes: Array<RouteRecordRaw> = [

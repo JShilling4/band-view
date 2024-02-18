@@ -9,7 +9,8 @@ export function NewVenue(
   phone: string = "",
   contact: number | null = null,
   serves_food: boolean = false,
-  website_url: string = ""
+  website_url: string = "",
+  is_private: boolean = false
 ): LocalVenue {
   return {
     name,
@@ -20,5 +21,6 @@ export function NewVenue(
     contact,
     serves_food,
     website_url,
+    is_private,
   };
 }

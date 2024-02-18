@@ -1,6 +1,6 @@
+import { ref } from "vue";
 import { useSongStore } from "@/stores";
 import { LocalSong, NewSong, Tables } from "@/types";
-import { ref } from "vue";
 
 export function useSongUtility() {
   // Dependency

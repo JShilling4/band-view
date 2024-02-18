@@ -1,9 +1,9 @@
-import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
 import omit from "lodash/omit";
+import { defineStore } from "pinia";
 import { useArrayUtility } from "@/composables";
-import type { Tables, LocalVenue } from "@/types";
+import type { LocalVenue, Tables } from "@/types";
 
 interface State {
   venues: Tables<"venue">[];
