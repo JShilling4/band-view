@@ -20,14 +20,28 @@
         />
       </div>
 
-      <QList class="show-container flex q-mt-md q-gutter-sm">
-        <ShowItem v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
-        <div class="show"></div>
-        <div class="show"></div>
-        <div class="show"></div>
-        <div class="show"></div>
-      </QList>
+      <div>
+        <div class="results-text">{{ activeShowFilter?.fn().length }} results</div>
+        <QList class="show-container flex q-mt-xs q-gutter-sm">
+          <ShowItem
+            v-for="show in activeShowFilter?.fn()"
+            :key="show.id"
+            :show="show"
+            @venue-info-clicked="onVenueInfoClick(show.venue)"
+          />
+          <div class="show"></div>
+          <div class="show"></div>
+          <div class="show"></div>
+          <div class="show"></div>
+        </QList>
+      </div>
     </div>
+
+    <VenueInfoDisplay
+      v-model:show-venue-detail="showVenueDetail"
+      v-model:venue-detail="venueDetail"
+      @hide="onHideVenueDetail"
+    />
   </div>
 </template>
 
@@ -35,6 +49,7 @@
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { clone } from "lodash";
+import { useVenueUtility } from "@/composables";
 import { useShowStore, useVenueStore } from "@/stores";
 import { ShowFilter, ShowFilterNames } from "@/types";
 
@@ -48,6 +63,7 @@ const props = defineProps<{
 const showStore = useShowStore();
 const { fetchVenues } = useVenueStore();
 const router = useRouter();
+const { onVenueInfoClick, showVenueDetail, venueDetail, onHideVenueDetail } = useVenueUtility();
 
 // State
 const showFilters: ShowFilter[] = [

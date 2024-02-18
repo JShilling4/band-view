@@ -1,30 +1,42 @@
 <template>
-  <QItem class="venue bg-red-2 q-pa-md text-black items-start" :clickable="isAdmin">
-    <QItemSection @click="isAdmin && $emit('venue-clicked')">
-      <div class="venue-name">{{ venue.name }}</div>
+  <QItem class="venue bg-red-1 text-black items-start" clickable>
+    <QItemSection class="item-content" @click="onItemClick">
+      <QItemLabel class="venue-name">
+        {{ venue.name }}
+        <span v-if="venue.is_private" class="text-grey-6">
+          {{ `(${contactStore.getContactById(venue.contact)?.name ?? "Uknown Value"})` }}
+        </span>
+      </QItemLabel>
       <div class="venue-address">
         {{ formatAddress(venue.address, venue.city, venue.state) }}
       </div>
-      <!-- <div class="venue-phone">{{ venue.phone }}</div> -->
+      <div class="venue-showcount q-mt-auto text-grey-8">
+        Shows this year: {{ showStore.getShowsThisYearByVenue(venue.id) }}
+      </div>
+    </QItemSection>
+    <QItemSection v-if="isAdmin" side @click="onEditClick">
+      <QIcon name="fa-solid fa-edit text-blue-4" class="edit-icon" />
     </QItemSection>
   </QItem>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useUserStore } from "@/stores";
+import { useContactStore, useShowStore, useUserStore } from "@/stores";
 import type { Tables } from "@/types";
 
 defineProps<{
   venue: Tables<"venue">;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   "venue-clicked": [];
-  delete: [id: number];
+  "edit-clicked": [];
 }>();
 
 const userStore = useUserStore();
+const showStore = useShowStore();
+const contactStore = useContactStore();
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 function formatAddress(address: string | null, city: string | null, state: string | null) {
@@ -34,18 +46,46 @@ function formatAddress(address: string | null, city: string | null, state: strin
 
   return addressStr + cityStr + stateStr;
 }
+
+function onItemClick() {
+  emit("venue-clicked");
+}
+
+function onEditClick() {
+  isAdmin.value && emit("edit-clicked");
+}
 </script>
 
-<style lang="sass" scoped>
-.venue
-  width: 300px
-  flex-grow: 1
-  border-radius: 5px
-  font-size: 18px
+<style lang="scss" scoped>
+.venue {
+  width: 300px;
+  flex-grow: 1;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 11px;
+}
 
-.venue-name
-  font-weight: 500
+.item-content {
+  height: 80px;
+}
 
-.venue-address, .venue-phone
-  font-size: 15px
+.venue-name {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.venue-address,
+.venue-phone,
+.venue-showcount {
+  font-size: 14px;
+}
+
+.q-icon.edit-icon {
+  transition: color 0.3s;
+
+  &:hover {
+    color: $blue-10 !important;
+  }
+}
 </style>

@@ -31,6 +31,7 @@ export type Database = {
           image_url: string | null;
           last_name: string | null;
           permission_level: string | null;
+          phone: string | null;
           profile_color: string | null;
           title: string;
           user_id: string | null;
@@ -41,6 +42,7 @@ export type Database = {
           image_url?: string | null;
           last_name?: string | null;
           permission_level?: string | null;
+          phone?: string | null;
           profile_color?: string | null;
           title: string;
           user_id?: string | null;
@@ -51,6 +53,7 @@ export type Database = {
           image_url?: string | null;
           last_name?: string | null;
           permission_level?: string | null;
+          phone?: string | null;
           profile_color?: string | null;
           title?: string;
           user_id?: string | null;
@@ -238,6 +241,7 @@ export type Database = {
           city: string | null;
           contact: number | null;
           id: number;
+          is_private: boolean;
           name: string;
           phone: string | null;
           serves_food: boolean;
@@ -249,6 +253,7 @@ export type Database = {
           city?: string | null;
           contact?: number | null;
           id?: number;
+          is_private?: boolean;
           name: string;
           phone?: string | null;
           serves_food?: boolean;
@@ -260,6 +265,7 @@ export type Database = {
           city?: string | null;
           contact?: number | null;
           id?: number;
+          is_private?: boolean;
           name?: string;
           phone?: string | null;
           serves_food?: boolean;

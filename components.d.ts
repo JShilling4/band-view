@@ -21,6 +21,7 @@ declare module 'vue' {
     SongItem: typeof import('./src/components/SongItem.vue')['default']
     SongModal: typeof import('./src/components/SongModal.vue')['default']
     UserMenu: typeof import('./src/components/UserMenu.vue')['default']
+    VenueInfoDisplay: typeof import('./src/components/VenueInfoDisplay.vue')['default']
     VenueItem: typeof import('./src/components/VenueItem.vue')['default']
     VenueModal: typeof import('./src/components/VenueModal.vue')['default']
   }

@@ -10,5 +10,6 @@ export * from "./rehearsal.store";
 export * from "./show.store";
 export * from "./venue.store";
 export * from "./user.store";
+export * from "./contact.store";
 
 export default pinia;
