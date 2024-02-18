@@ -20,13 +20,16 @@
         />
       </div>
 
-      <QList class="show-container flex q-mt-md q-gutter-sm">
-        <ShowItem v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
-        <div class="show"></div>
-        <div class="show"></div>
-        <div class="show"></div>
-        <div class="show"></div>
-      </QList>
+      <div>
+        <div class="results-text">{{ activeShowFilter?.fn().length }} results</div>
+        <QList class="show-container flex q-mt-xs q-gutter-sm">
+          <ShowItem v-for="show in activeShowFilter?.fn()" :key="show.id" :show="show" />
+          <div class="show"></div>
+          <div class="show"></div>
+          <div class="show"></div>
+          <div class="show"></div>
+        </QList>
+      </div>
     </div>
   </div>
 </template>

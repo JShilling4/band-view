@@ -74,4 +74,9 @@ ul
 
 .q-item__label, .q-field__native
   text-transform: capitalize
+
+.results-text
+  font-size: 18px
+  font-weight: 600
+  color: gray
 </style>

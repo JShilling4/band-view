@@ -109,12 +109,6 @@ onMounted(async () => {
   font-weight: 300
   letter-spacing: 1px
 
-.results-text
-  font-size: 18px
-  margin-bottom: 1rem
-  font-weight: 600
-  color: gray
-
 .song-container
   max-width: 500px
 

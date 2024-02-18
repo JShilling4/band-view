@@ -38,9 +38,11 @@
         </div>
       </div>
       <div class="show-venue q-mb-sm row items-center">
-        {{ venue?.name }} -
-        {{ venue?.city }}
+        {{ venue?.name }}
         <QIcon name="fa-regular fa-circle-question" class="icon q-ml-sm text-grey-8" size="sm" />
+      </div>
+      <div class="show-venue q-mb-sm row items-center">
+        {{ venue?.city }}{{ `${venue?.state ? ", " + venue.state : ""}` }}
       </div>
       <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
     </QItemSection>
@@ -82,18 +84,25 @@ async function copyVenueAddress() {
 }
 </script>
 
-<style lang="sass" scoped>
-.show
-  width: 300px
-  flex-grow: 1
-  border-radius: 5px
-  font-size: 16px
+<style lang="scss" scoped>
+.show {
+  width: 300px;
+  flex-grow: 1;
+  border-radius: 5px;
+  font-size: 16px;
 
-  .show-header
-    font-weight: 600
-    letter-spacing: 1px
+  .show-venue {
+    font-size: 15px;
+  }
+}
 
-  .icon
-    font-size: 18px
-    cursor: pointer
+.show-header {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.icon {
+  font-size: 18px;
+  cursor: pointer;
+}
 </style>
