@@ -1,8 +1,8 @@
-import supabase from "@/supabase";
-import { Tables } from "@/types";
-import { defineStore } from "pinia";
-import { isAfter, isThisMonth, isThisYear, addMonths, isSameMonth } from "date-fns";
 import { Notify } from "quasar";
+import supabase from "@/supabase";
+import { addMonths, isAfter, isSameMonth, isThisMonth, isThisYear } from "date-fns";
+import { defineStore } from "pinia";
+import { Tables } from "@/types";
 
 interface State {
   shows: Tables<"show">[];
@@ -63,6 +63,12 @@ export const useShowStore = defineStore("shows", {
     },
     getUpcomingShows(): Tables<"show">[] {
       return this.getShowsAfterDate().slice(0, 4);
+    },
+    getShowsThisYearByVenue: (state) => {
+      const showsThisYear = state.shows.filter((show) => isThisYear(show.date));
+      return (venueId: number) => {
+        return showsThisYear.filter((s) => s.venue === venueId).length;
+      };
     },
   },
 });
