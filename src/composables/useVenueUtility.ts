@@ -25,6 +25,11 @@ export function useVenueUtility() {
     showVenueModal.value = true;
   }
 
+  function onVenueInfoClick(venueId: number) {
+    venueDetail.value = venueStore.getVenueById(venueId) ?? null;
+    showVenueDetail.value = true;
+  }
+
   function onDeleteVenueClick(id: number) {
     venueStore.deleteVenue(id);
   }
@@ -56,5 +61,6 @@ export function useVenueUtility() {
     onEditVenueClick,
     showVenueDetail,
     onHideVenueDetail,
+    onVenueInfoClick,
   };
 }

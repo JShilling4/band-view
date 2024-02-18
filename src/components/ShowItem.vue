@@ -1,5 +1,5 @@
 <template>
-  <QItem class="show q-mb-md bg-teal-1 q-pa-md text-black">
+  <QItem class="show q-mb-md bg-teal-1 text-black">
     <QItemSection>
       <div class="show-header q-mb-sm row items-center">
         <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
@@ -39,7 +39,12 @@
       </div>
       <div class="show-venue q-mb-sm row items-center">
         {{ venue?.name }}
-        <QIcon name="fa-regular fa-circle-question" class="icon q-ml-sm text-grey-8" size="sm" />
+        <QIcon
+          name="fa-regular fa-circle-question"
+          class="icon q-ml-sm text-grey-8"
+          size="sm"
+          @click="$emit('venue-info-clicked')"
+        />
       </div>
       <div class="show-venue q-mb-sm row items-center">
         {{ venue?.city }}{{ `${venue?.state ? ", " + venue.state : ""}` }}
@@ -58,6 +63,10 @@ import { Tables } from "@/types";
 
 const props = defineProps<{
   show: Tables<"show">;
+}>();
+
+defineEmits<{
+  "venue-info-clicked": [];
 }>();
 
 const { getVenueById } = useVenueStore();
@@ -90,6 +99,7 @@ async function copyVenueAddress() {
   flex-grow: 1;
   border-radius: 5px;
   font-size: 16px;
+  padding: 11px;
 
   .show-venue {
     font-size: 15px;

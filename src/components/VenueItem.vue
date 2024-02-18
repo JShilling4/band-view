@@ -32,7 +32,6 @@ defineProps<{
 const emit = defineEmits<{
   "venue-clicked": [];
   "edit-clicked": [];
-  delete: [id: number];
 }>();
 
 const userStore = useUserStore();
