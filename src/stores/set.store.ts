@@ -1,7 +1,7 @@
-import supabase from "@/supabase";
-import { Tables } from "@/types";
-import { defineStore } from "pinia";
 import { Notify } from "quasar";
+import supabase from "@/supabase";
+import { defineStore } from "pinia";
+import { Tables } from "@/types";
 
 interface State {
   sets: Tables<"set">[];

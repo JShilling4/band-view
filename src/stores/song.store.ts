@@ -1,8 +1,8 @@
+import { Notify } from "quasar";
 import supabase from "@/supabase";
 import omit from "lodash/omit";
 import { defineStore } from "pinia";
-import { type SongStatus, Tables, type LocalSong } from "@/types";
-import { Notify } from "quasar";
+import { type LocalSong, type SongStatus, Tables } from "@/types";
 
 interface State {
   songs: Tables<"song">[];

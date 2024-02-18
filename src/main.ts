@@ -1,15 +1,15 @@
-import { createApp } from "vue";
 import App from "./App.vue";
-import router from "@/router";
-import pinia from "@/stores";
-import { Quasar, Notify } from "quasar";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faPencil, faTrash, faTimes, faBars, faCircle } from "@fortawesome/free-solid-svg-icons";
-import { faHand } from "@fortawesome/free-regular-svg-icons";
-import iconSet from "quasar/icon-set/fontawesome-v6";
+import { createApp } from "vue";
 import "@quasar/extras/fontawesome-v6/fontawesome-v6.css";
+import { Notify, Quasar } from "quasar";
 import "quasar/dist/quasar.css";
+import iconSet from "quasar/icon-set/fontawesome-v6";
+import router from "@/router";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHand } from "@fortawesome/free-regular-svg-icons";
+import { faBars, faCircle, faPencil, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons";
+import pinia from "@/stores";
 
 library.add(faPencil, faTrash, faTimes, faBars, faCircle, faHand);
 
