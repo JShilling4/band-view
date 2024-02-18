@@ -1,19 +1,13 @@
 <template>
-  <QItem class="show q-mb-md bg-teal-2 q-pa-md text-black">
+  <QItem class="show q-mb-md bg-teal-1 q-pa-md text-black">
     <QItemSection>
       <div class="show-header q-mb-sm row items-center">
         <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
         <div class="venue-icon-row row q-ml-auto">
           <QIcon
-            v-if="venue?.serves_food"
-            name="fa-solid fa-utensils"
-            class="icon q-ml-md text-grey-8"
-            size="sm"
-          />
-          <QIcon
             v-if="venue?.address"
-            name="fa-solid fa-map"
-            class="icon q-ml-md text-grey-8 cursor-pointer"
+            name="fa-solid fa-signs-post"
+            class="icon q-ml-md text-blue-5 cursor-pointer"
             size="sm"
           >
             <QPopupProxy
@@ -43,9 +37,10 @@
           </QIcon>
         </div>
       </div>
-      <div class="show-venue q-mb-sm">
+      <div class="show-venue q-mb-sm row items-center">
         {{ venue?.name }} -
         {{ venue?.city }}
+        <QIcon name="fa-regular fa-circle-question" class="icon q-ml-sm text-grey-8" size="sm" />
       </div>
       <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
     </QItemSection>
