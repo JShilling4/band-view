@@ -136,5 +136,11 @@ export const useVenueStore = defineStore("venues", {
       const venueCities = state.venues.map((v) => (v.city !== null ? v.city : ""));
       return removeNullAndEmpty(removeDuplicateStrings(venueCities)).sort();
     },
+
+    getVenuesByCity: (state) => {
+      return (city: string) => {
+        return state.venues.filter((venue) => venue.city === city);
+      };
+    },
   },
 });

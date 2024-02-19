@@ -1,5 +1,11 @@
 <template>
-  <QSelect v-model="model" v-bind="$attrs" behavior="menu" class="app-select-filter col" />
+  <QSelect
+    v-model="model"
+    v-bind="$attrs"
+    behavior="menu"
+    clearable
+    class="app-select-filter col"
+  />
 </template>
 
 <script setup lang="ts">
