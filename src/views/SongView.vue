@@ -4,26 +4,24 @@
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <QSelect
+        <QBtn
+          v-if="isAdmin"
+          color="teal-10"
+          icon="fa-solid fa-plus"
+          class="q-mr-md"
+          no-caps
+          dense
+          @click="onAddSongClick"
+        />
+        <AppSelect
           v-model="statusFilter"
           :options="SONG_STATUSES"
           emit-value
           option-value="name"
           option-label="name"
           label="Status"
-          class="app-select-filter col"
-          behavior="menu"
-          filled
         />
-        <QBtn
-          v-if="isAdmin"
-          color="teal-10"
-          icon="fa-solid fa-plus"
-          class="q-ml-md"
-          no-caps
-          dense
-          @click="onAddSongClick"
-        />
+
         <SongModal
           v-model:show-modal="showSongModal"
           v-model:song="localSong"

@@ -9,14 +9,11 @@
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <QSelect
+        <AppSelect
           v-model="activeShowFilter"
           :options="showFilters"
           option-label="label"
           label="Date Range"
-          filled
-          behavior="menu"
-          class="app-select-filter col"
         />
       </div>
 

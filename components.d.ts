@@ -12,6 +12,7 @@ declare module 'vue' {
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
     AppPageTitle: typeof import('./src/components/AppPageTitle.vue')['default']
+    AppSelect: typeof import('./src/components/AppSelect.vue')['default']
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
