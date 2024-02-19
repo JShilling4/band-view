@@ -7,6 +7,14 @@
           {{ `(${contactStore.getContactById(venue.contact)?.name ?? "Uknown Value"})` }}
         </span>
       </QItemLabel>
+  <QItem class="venue bg-red-1 text-black items-start" clickable>
+    <QItemSection class="item-content" @click="onItemClick">
+      <QItemLabel class="venue-name">
+        {{ venue.name }}
+        <span v-if="venue.is_private" class="text-grey-6">
+          {{ `(${contactStore.getContactById(venue.contact)?.name ?? "Uknown Value"})` }}
+        </span>
+      </QItemLabel>
       <div class="venue-address">
         {{ formatAddress(venue.address, venue.city, venue.state) }}
       </div>
@@ -30,6 +38,7 @@ defineProps<{
   venue: Tables<"venue">;
 }>();
 
+const emit = defineEmits<{
 const emit = defineEmits<{
   "venue-clicked": [];
   edit: [];
