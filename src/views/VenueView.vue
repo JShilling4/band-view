@@ -15,17 +15,14 @@
           dense
           @click="onAddVenueClick"
         />
-        <!-- <QSelect
+        <AppSelect
           v-model="cityFilter"
           :options="venueStore.getVenueCities"
           emit-value
           option-value="name"
           option-label="name"
           label="City"
-          class="app-select-filter col"
-          behavior="menu"
-          filled
-        /> -->
+        />
       </div>
 
       <div>
@@ -34,7 +31,7 @@
         </div> -->
         <QList class="venue-container q-mt-md flex q-gutter-sm">
           <VenueItem
-            v-for="venue in venueStore.venues"
+            v-for="venue in filteredVenues"
             :key="venue.id"
             class="venue"
             :venue="venue"
@@ -67,9 +64,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
+import clone from "lodash/clone";
 import { useVenueUtility } from "@/composables";
 import { useContactStore, useShowStore, useUserStore, useVenueStore } from "@/stores";
+import { Tables } from "@/types";
 
 // Types
 defineProps<{
@@ -96,14 +95,28 @@ const {
 } = useVenueUtility();
 
 // State
-// const cityFilter = ref<string | null>(null);
+const cityFilter = ref<string | null>(null);
+const filteredVenues = ref<Tables<"venue">[]>([]);
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
+
+// Watchers
+watch(
+  () => cityFilter.value,
+  () => {
+    if (cityFilter.value) {
+      filteredVenues.value = venueStore.getVenuesByCity(cityFilter.value);
+    } else {
+      filteredVenues.value = clone(venueStore.venues);
+    }
+  }
+);
 
 // Methods
 onMounted(async () => {
   await contactStore.fetchContacts();
   await showStore.fetchShows();
   await venueStore.fetchVenues();
+  filteredVenues.value = clone(venueStore.venues);
 });
 </script>
 
