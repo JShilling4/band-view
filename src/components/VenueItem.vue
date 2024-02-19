@@ -14,8 +14,9 @@
         Shows this year: {{ showStore.getShowsThisYearByVenue(venue.id) }}
       </div>
     </QItemSection>
-    <QItemSection v-if="isAdmin" side @click="onEditClick">
-      <QIcon name="fa-solid fa-edit text-blue-4" class="edit-icon" />
+    <QItemSection v-if="isAdmin" side>
+      <QIcon name="fa-solid fa-edit text-blue-4" class="edit-icon q-mb-sm" @click="onEditClick" />
+      <QIcon name="fa-solid fa-trash-alt text-red-4" class="delete-icon" @click="onDeleteClick" />
     </QItemSection>
   </QItem>
 </template>
@@ -31,7 +32,8 @@ defineProps<{
 
 const emit = defineEmits<{
   "venue-clicked": [];
-  "edit-clicked": [];
+  edit: [];
+  delete: [];
 }>();
 
 const userStore = useUserStore();
@@ -52,7 +54,11 @@ function onItemClick() {
 }
 
 function onEditClick() {
-  isAdmin.value && emit("edit-clicked");
+  isAdmin.value && emit("edit");
+}
+
+function onDeleteClick() {
+  isAdmin.value && emit("delete");
 }
 </script>
 

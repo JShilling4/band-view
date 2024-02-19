@@ -39,7 +39,7 @@
             class="venue"
             :venue="venue"
             @venue-clicked="onVenueClick(venue.id)"
-            @edit-clicked="onEditVenueClick(venue.id)"
+            @edit="onEditVenueClick(venue.id)"
             @delete="onDeleteVenueClick(venue.id)"
           />
           <div class="venue"></div>

@@ -15,20 +15,20 @@
         </div>
         <div class="row q-mt-sm">
           <QInput v-model="localVenue.phone" label="Phone" class="col q-mr-lg" />
-          <div class="col">
-            <span class="radio-label">Serves food?</span>
-            <QOptionGroup
-              v-model="localVenue.serves_food"
-              :options="[
-                { label: 'Yes', value: true },
-                { label: 'No', value: false },
-              ]"
-              color="primary"
-              inline
-            />
-          </div>
+          <QInput v-model="localVenue.website_url" label="Website Url" class="col" />
         </div>
-        <QInput v-model="localVenue.website_url" label="Website Url" class="col" />
+        <div class="row q-mt-md items-center">
+          <span class="radio-label q-field__label q-mr-sm">Serves food?</span>
+          <QOptionGroup
+            v-model="localVenue.serves_food"
+            :options="[
+              { label: 'Yes', value: true },
+              { label: 'No', value: false },
+            ]"
+            color="primary"
+            inline
+          />
+        </div>
       </QCardSection>
       <QCardActions align="right" class="modal-controls">
         <QBtn outline label="Cancel" color="black" no-caps v-close-popup />
@@ -62,17 +62,25 @@ async function onSaveVenue() {
 }
 </script>
 
-<style lang="sass" scoped>
-@import "../scss/breakpoints"
-.modal-content
-  width: 100%
+<style lang="scss" scoped>
+@import "../scss/breakpoints";
 
-  @include md
-    width: 500px
+.modal-content {
+  width: 100%;
 
-.modal-body
-  padding: 0 1.5rem 2rem
+  @include md {
+    width: 500px;
+  }
+}
+.modal-body {
+  padding: 0 1.5rem 2rem;
+}
 
-.radio-label
-  color: rgba(0, 0, 0, 0.6)
+.radio-label {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-controls {
+  margin-bottom: 1rem;
+}
 </style>
