@@ -4,16 +4,13 @@
 
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <QSelect
+        <AppSelect
           v-model="activeTab"
           :options="setStore.sets.map((set) => set.name)"
           emit-value
           option-value="name"
           option-label="name"
           label="Select Set"
-          filled
-          behavior="menu"
-          class="app-select-filter col"
         />
       </div>
 

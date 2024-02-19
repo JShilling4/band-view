@@ -54,8 +54,9 @@
         <span v-if="isAdmin" class="admin-controls q-ml-md">
           <QIcon
             name="fa-solid fa-trash-alt"
-            color="red-10"
+            color="red-5"
             size="sm"
+            class="delete-icon"
             @click="$emit('delete', song.id)"
           />
         </span>
