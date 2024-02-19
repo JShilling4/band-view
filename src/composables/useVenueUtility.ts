@@ -20,7 +20,9 @@ export function useVenueUtility() {
   }
 
   function onEditVenueClick(venueId: number) {
-    localVenue.value = venueStore.getVenueById(venueId) ?? NewVenue();
+    const venue = venueStore.getVenueById(venueId);
+    if (!venue) return;
+    localVenue.value = venue;
     venueModalAction.value = "Edit";
     showVenueModal.value = true;
   }

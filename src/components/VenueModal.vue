@@ -56,7 +56,8 @@ async function onSaveVenue() {
   if (!localVenue.value) return;
   if (props.action === "Add") {
     await venueStore.createVenue(localVenue.value);
-  } else {
+  }
+  if (props.action === "Edit") {
     await venueStore.updateVenue(localVenue.value as Tables<"venue">);
   }
 }
