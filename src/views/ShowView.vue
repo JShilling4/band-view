@@ -19,7 +19,7 @@
 
       <div>
         <div class="results-text">{{ activeShowFilter?.fn().length }} results</div>
-        <QList class="show-container flex q-mt-xs q-gutter-sm">
+        <QList class="show-container flex q-mt-xs q-gutter-md">
           <ShowItem
             v-for="show in activeShowFilter?.fn()"
             :key="show.id"

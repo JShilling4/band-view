@@ -1,5 +1,5 @@
 <template>
-  <QItem class="show q-mb-md bg-teal-1 text-black">
+  <QItem class="show bg-teal-1 text-black shadow-2">
     <QItemSection>
       <div class="show-header q-mb-sm row items-center">
         <div class="date-text">{{ format(new Date(show.date), "eeee, MMM do") }}</div>
@@ -100,6 +100,7 @@ async function copyVenueAddress() {
   border-radius: 5px;
   font-size: 16px;
   padding: 11px;
+  border: 1px solid $teal-2;
 
   .show-venue {
     font-size: 15px;

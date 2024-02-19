@@ -29,7 +29,7 @@
         <!-- <div class="results-text">
           {{ showStore.getSongsByStatus(statusFilter).length }} results
         </div> -->
-        <QList class="venue-container q-mt-md flex q-gutter-sm">
+        <QList class="venue-container q-mt-md flex q-gutter-md">
           <VenueItem
             v-for="venue in filteredVenues"
             :key="venue.id"
