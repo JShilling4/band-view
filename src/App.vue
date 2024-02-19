@@ -94,4 +94,20 @@ ul {
 .q-dialog__inner--minimized {
   padding: 14px !important;
 }
+
+.q-icon.edit-icon {
+  transition: color 0.3s;
+
+  &:hover {
+    color: $blue-10 !important;
+  }
+}
+
+.q-icon.delete-icon {
+  transition: color 0.3s;
+
+  &:hover {
+    color: $red-10 !important;
+  }
+}
 </style>

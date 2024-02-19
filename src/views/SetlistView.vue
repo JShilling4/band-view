@@ -3,16 +3,13 @@
     <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
-        <QSelect
+        <AppSelect
           v-model="activeTab"
           :options="setlistStore.setlists.map((sl) => sl.name)"
           emit-value
           option-value="name"
           option-label="name"
           label="Select Setlist"
-          filled
-          behavior="menu"
-          class="app-select-filter col"
         />
         <a v-if="selectedSetlist?.url" :href="selectedSetlist.url" target="_blank" rel="noreferrer">
           <QIcon
@@ -85,18 +82,23 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="sass" scoped>
-@import "../scss/breakpoints"
-.setlist-container
-  flex-wrap: wrap
-.set-container
-  width: 100%
+<style lang="scss" scoped>
+@import "../scss/breakpoints";
+.setlist-container {
+  flex-wrap: wrap;
+}
+.set-container {
+  width: 100%;
 
-  @include md
-    flex: 50%
-  @include lg
-    flex: 25%
-.set-name
-  font-weight: 600
-  font-size: 18px
+  @include md {
+    flex: 50%;
+  }
+  @include lg {
+    flex: 25%;
+  }
+}
+.set-name {
+  font-weight: 600;
+  font-size: 18px;
+}
 </style>
