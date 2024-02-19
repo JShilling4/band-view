@@ -32,11 +32,6 @@ export function useVenueUtility() {
     showVenueDetail.value = true;
   }
 
-  function onVenueInfoClick(venueId: number) {
-    venueDetail.value = venueStore.getVenueById(venueId) ?? null;
-    showVenueDetail.value = true;
-  }
-
   function onDeleteVenueClick(id: number) {
     venueStore.deleteVenue(id);
   }
