@@ -14,7 +14,7 @@
       <QScrollArea class="fit" :horizontal-thumb-style="{ opacity: '0' }">
         <QList>
           <QItem
-            v-for="(item, i) in navConfig"
+            v-for="(item, i) in authorizedRoutes"
             :key="i"
             :active="$route.name === item.routeName"
             active-class="active-route"
@@ -39,7 +39,7 @@
     <QScrollArea class="fit" :horizontal-thumb-style="{ opacity: '0' }">
       <QList>
         <QItem
-          v-for="(item, i) in navConfig"
+          v-for="(item, i) in authorizedRoutes"
           :key="i"
           :active="$route.name === item.routeName"
           active-class="active-route"
@@ -61,15 +61,23 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useQuasar } from "quasar";
+import { useUserStore } from "@/stores";
 import navConfig from "./navigationConfig";
 
 const $q = useQuasar();
 const $route = useRoute();
+const userStore = useUserStore();
 
 const leftDrawerOpen = ref(false);
 const miniLeftDrawer = ref(true);
+const authorizedRoutes = computed(() => {
+  return navConfig.filter(
+    (nc) => !nc.requiresAuth || userStore.activeMember?.permission_level === "admin"
+  );
+});
 </script>
 
 <style lang="sass" scoped>

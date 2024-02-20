@@ -20,6 +20,7 @@ const navigationConfig: NavItem[] = [
       classes: [...IconClasses.R],
       color: "green-5",
     },
+    requiresAuth: false,
   },
   {
     routeName: RouteNames.Songs,
@@ -30,6 +31,7 @@ const navigationConfig: NavItem[] = [
       classes: [...IconClasses.Music],
       color: "blue-5",
     },
+    requiresAuth: false,
   },
   {
     routeName: RouteNames.Sets,
@@ -40,6 +42,7 @@ const navigationConfig: NavItem[] = [
       classes: [...IconClasses.File],
       color: "orange-5",
     },
+    requiresAuth: true,
   },
   {
     routeName: RouteNames.Setlists,
@@ -50,6 +53,7 @@ const navigationConfig: NavItem[] = [
       classes: [...IconClasses.Paste],
       color: "purple-4",
     },
+    requiresAuth: false,
   },
   {
     routeName: RouteNames.Shows,
@@ -60,6 +64,7 @@ const navigationConfig: NavItem[] = [
       classes: [...IconClasses.Calendar],
       color: "teal-4",
     },
+    requiresAuth: false,
   },
   {
     routeName: RouteNames.Venues,
@@ -70,6 +75,7 @@ const navigationConfig: NavItem[] = [
       classes: [...IconClasses.Landmark],
       color: "red-4",
     },
+    requiresAuth: false,
   },
 ];
 
