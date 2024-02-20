@@ -1,16 +1,16 @@
 import { Tables } from "@/types";
 
-export type ShowFilterNames = "This Month" | "Next Month" | "This Year" | "Last Month" | "Upcoming";
+type ShowFilterNames = "This Month" | "Next Month" | "This Year" | "Last Month" | "Upcoming";
 
-export interface ShowFilter {
+interface ShowFilter {
   label: ShowFilterNames;
   fn(date?: string | Date | number): Tables<"show">[];
 }
 
-export interface LocalShow extends Omit<Tables<"show">, "id" | "venue"> {
+interface LocalShow extends Omit<Tables<"show">, "id" | "venue"> {
   venue: number | null;
 }
-export function NewShow(
+function NewShow(
   venue: number | null = null,
   date: string = "",
   end_time: string = "",
@@ -27,3 +27,5 @@ export function NewShow(
     fb_url,
   };
 }
+
+export { NewShow, type ShowFilter, type ShowFilterNames, type LocalShow };

@@ -1,7 +1,7 @@
 import { type Tables } from "@/types";
 
-export type LocalVenue = Omit<Tables<"venue">, "id">;
-export function NewVenue(
+type LocalVenue = Omit<Tables<"venue">, "id">;
+function NewVenue(
   name: string = "",
   address: string = "",
   city: string = "",
@@ -24,3 +24,5 @@ export function NewVenue(
     is_private,
   };
 }
+
+export { type LocalVenue, NewVenue };
