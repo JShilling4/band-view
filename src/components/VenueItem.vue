@@ -69,7 +69,7 @@ function onDeleteClick() {
   border-radius: 5px;
   font-size: 18px;
   padding: 11px;
-  border: 1px solid $red-3;
+  border: 1px solid $red-2;
 }
 
 .item-content {

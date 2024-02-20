@@ -18,6 +18,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SetItem: typeof import('./src/components/SetItem.vue')['default']
     ShowItem: typeof import('./src/components/ShowItem.vue')['default']
+    ShowModal: typeof import('./src/components/ShowModal.vue')['default']
     SideNavigation: typeof import('./src/components/Navigation/SideNavigation.vue')['default']
     SongItem: typeof import('./src/components/SongItem.vue')['default']
     SongModal: typeof import('./src/components/SongModal.vue')['default']
