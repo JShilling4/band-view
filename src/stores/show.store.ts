@@ -2,7 +2,7 @@ import { Notify } from "quasar";
 import supabase from "@/supabase";
 import { addMonths, isAfter, isSameMonth, isThisMonth, isThisYear } from "date-fns";
 import { defineStore } from "pinia";
-import { Tables } from "@/types";
+import { type Tables } from "@/types";
 
 interface State {
   shows: Tables<"show">[];
@@ -32,6 +32,86 @@ export const useShowStore = defineStore("shows", {
         }
 
         if (show) this.shows = show;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async createShow(show: Omit<Tables<"show">, "id">) {
+      if (!show.venue) return;
+
+      try {
+        const { data, error } = await supabase
+          .from("show")
+          .insert(show)
+          .select()
+          .returns<Tables<"show">[]>();
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (data) {
+          this.shows.push(data[0]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async updateShow(show: Tables<"show">) {
+      if (!show) return;
+
+      try {
+        const { error } = await supabase
+          .from("show")
+          .update({ ...show })
+          .eq("id", show.id);
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (!error) {
+          const target = this.shows.findIndex((s) => s.id === show.id);
+          if (target !== -1) {
+            this.shows.splice(target, 1, show);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async deleteShow(id: number) {
+      this.loading = true;
+      try {
+        const { error } = await supabase.from("show").delete().eq("id", id);
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (!error) {
+          const target = this.shows.findIndex((v) => v.id === id);
+          if (target !== -1) {
+            this.shows.splice(target, 1);
+          }
+        }
       } catch (error) {
         console.log(error);
       } finally {

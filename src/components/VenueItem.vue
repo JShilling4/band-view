@@ -1,5 +1,5 @@
 <template>
-  <QItem class="venue bg-red-1 text-black items-start" clickable>
+  <QItem class="venue bg-red-1 text-black items-start shadow-2" clickable>
     <QItemSection class="item-content" @click="onItemClick">
       <QItemLabel class="venue-name">
         {{ venue.name }}
@@ -69,6 +69,7 @@ function onDeleteClick() {
   border-radius: 5px;
   font-size: 18px;
   padding: 11px;
+  border: 1px solid $red-2;
 }
 
 .item-content {
