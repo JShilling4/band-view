@@ -25,26 +25,22 @@
         />
       </div>
 
-      <div>
-        <!-- <div class="results-text">
-          {{ showStore.getSongsByStatus(statusFilter).length }} results
-        </div> -->
-        <QList class="venue-container q-mt-md flex q-gutter-md">
-          <VenueItem
-            v-for="venue in filteredVenues"
-            :key="venue.id"
-            class="venue"
-            :venue="venue"
-            @venue-clicked="onVenueClick(venue.id)"
-            @edit="onEditVenueClick(venue.id)"
-            @delete="onDeleteVenueClick(venue.id)"
-          />
-          <div class="venue"></div>
-          <div class="venue"></div>
-          <div class="venue"></div>
-          <div class="venue"></div>
-        </QList>
-      </div>
+      <div class="results-text">{{ filteredVenues.length }} results</div>
+      <QList class="venue-container q-mt-xs flex q-gutter-md">
+        <VenueItem
+          v-for="venue in filteredVenues"
+          :key="venue.id"
+          class="venue"
+          :venue="venue"
+          @venue-clicked="onVenueClick(venue.id)"
+          @edit="onEditVenueClick(venue.id)"
+          @delete="onDeleteVenueClick(venue.id)"
+        />
+        <div class="venue"></div>
+        <div class="venue"></div>
+        <div class="venue"></div>
+        <div class="venue"></div>
+      </QList>
 
       <VenueModal
         v-model:show-modal="showVenueModal"

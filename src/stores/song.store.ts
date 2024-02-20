@@ -1,6 +1,5 @@
 import { Notify } from "quasar";
 import supabase from "@/supabase";
-import omit from "lodash/omit";
 import { defineStore } from "pinia";
 import { type LocalSong, type SongStatus, Tables } from "@/types";
 
@@ -97,10 +96,9 @@ export const useSongStore = defineStore("songs", {
       if (!song) return;
 
       try {
-        const clonedSong: LocalSong = omit(song, "id");
         const { error } = await supabase
           .from("song")
-          .update({ ...clonedSong })
+          .update({ ...song })
           .eq("id", song.id);
 
         if (error) {

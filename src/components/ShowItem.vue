@@ -7,7 +7,7 @@
           <QIcon
             v-if="venue?.address"
             name="fa-solid fa-signs-post"
-            class="icon q-ml-md text-blue-5 cursor-pointer"
+            class="icon q-ml-md text-brown-5 cursor-pointer"
             size="sm"
           >
             <QPopupProxy
@@ -51,25 +51,33 @@
       </div>
       <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
     </QItemSection>
+    <QItemSection v-if="isAdmin" side>
+      <QIcon name="fa-solid fa-edit text-blue-5" class="edit-icon q-mb-sm" @click="onEditClick" />
+      <QIcon name="fa-solid fa-trash-alt text-red-5" class="delete-icon" @click="onDeleteClick" />
+    </QItemSection>
   </QItem>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { copyToClipboard } from "quasar";
 import { format } from "date-fns";
-import { useVenueStore } from "@/stores";
+import { useUserStore, useVenueStore } from "@/stores";
 import { Tables } from "@/types";
 
 const props = defineProps<{
   show: Tables<"show">;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   "venue-info-clicked": [];
+  edit: [];
+  delete: [];
 }>();
 
 const { getVenueById } = useVenueStore();
+const userStore = useUserStore();
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 const venue = ref<Tables<"venue">>();
 watch(
@@ -90,6 +98,14 @@ async function copyVenueAddress() {
   } catch (e) {
     console.error(e);
   }
+}
+
+function onEditClick() {
+  isAdmin.value && emit("edit");
+}
+
+function onDeleteClick() {
+  isAdmin.value && emit("delete");
 }
 </script>
 

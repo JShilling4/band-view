@@ -37,6 +37,13 @@ body {
   font-size: 16px;
 }
 
+a {
+  color: $blue-8;
+  &:visited {
+    color: inherit;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -96,6 +103,7 @@ ul {
 }
 
 .q-icon.edit-icon {
+  cursor: pointer;
   transition: color 0.3s;
 
   &:hover {
@@ -104,10 +112,15 @@ ul {
 }
 
 .q-icon.delete-icon {
+  cursor: pointer;
   transition: color 0.3s;
 
   &:hover {
     color: $red-10 !important;
   }
+}
+
+#app .q-item__section--side {
+  justify-content: start;
 }
 </style>
