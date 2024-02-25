@@ -7,32 +7,37 @@
           <h3 class="text-h6 text-white bg-teal-10 q-px-sm q-py-xs q-mb-md">
             {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
           </h3>
-          <div v-if="rehearsal.include_new_songs" class="new-songs-container q-mb-sm">
+          <div class="new-songs-container q-mb-sm">
             <QSeparator color="grey-4" spaced />
             <div class="section-header text-grey-6">New Songs</div>
             <QSeparator color="grey-4" spaced />
             <QList class="song-list">
-              <div>
-                <SongItem
-                  v-for="song in songStore.getSongsByStatus('learning')"
-                  :key="song.id"
-                  :song="song"
-                />
-              </div>
+              <SongItem
+                v-for="songId in rehearsal.new_songs"
+                :key="songId"
+                :song="songStore.getSongById(songId)"
+              />
+            </QList>
+          </div>
+
+          <div class="new-songs-container q-mb-sm">
+            <QSeparator color="grey-4" spaced />
+            <div class="section-header text-grey-6">Review Songs</div>
+            <QSeparator color="grey-4" spaced />
+            <QList class="song-list">
+              <SongItem
+                v-for="songId in rehearsal.review_songs"
+                :key="songId"
+                :song="songStore.getSongById(songId)"
+              />
             </QList>
           </div>
 
           <div class="agenda-container">
             <QSeparator color="grey-4" spaced />
-            <div class="section-header text-grey-6">Agenda Items</div>
+            <div class="section-header text-grey-6">Notes:</div>
             <QSeparator color="grey-4" spaced />
-            <QList class="agenda-list">
-              <QItem v-for="item in rehearsal.agenda" :key="item">
-                <QItemSection>
-                  <QItemLabel class="text-body2 text-bold text-grey-9">{{ item }}</QItemLabel>
-                </QItemSection>
-              </QItem>
-            </QList>
+            <p class="rehearsal-notes">{{ rehearsal.notes }}</p>
           </div>
         </div>
       </div>

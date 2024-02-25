@@ -74,7 +74,7 @@ import { type Tables } from "@/types";
 const memberStore = useMemberStore();
 
 defineProps<{
-  song: Tables<"song">;
+  song?: Tables<"song">;
   hideArtist?: boolean;
   hideSpecials?: boolean;
   index?: number;
