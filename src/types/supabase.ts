@@ -96,22 +96,25 @@ export type Database = {
         Row: {
           date: string
           id: number
-          notes: string
-          songs: number[] | null
+          new_songs: number[] | null
+          notes: string | null
+          review_songs: number[] | null
           start_time: string | null
         }
         Insert: {
           date: string
           id?: number
-          notes: string
-          songs?: number[] | null
+          new_songs?: number[] | null
+          notes?: string | null
+          review_songs?: number[] | null
           start_time?: string | null
         }
         Update: {
           date?: string
           id?: number
-          notes?: string
-          songs?: number[] | null
+          new_songs?: number[] | null
+          notes?: string | null
+          review_songs?: number[] | null
           start_time?: string | null
         }
         Relationships: []
