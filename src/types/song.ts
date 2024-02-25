@@ -1,18 +1,11 @@
 import { type Tables } from "@/types";
 
-export const SONG_STATUSES = [
-  "learning",
-  "active",
-  "next",
-  "suggested",
-  "burner",
-  "killed",
-] as const;
+const SONG_STATUSES = ["learning", "active", "next", "suggested", "burner", "killed"] as const;
 type SongStatusTuple = typeof SONG_STATUSES;
-export type SongStatus = SongStatusTuple[number];
+type SongStatus = SongStatusTuple[number];
 
-export type LocalSong = Omit<Tables<"song">, "id">;
-export function NewSong(
+type LocalSong = Omit<Tables<"song">, "id">;
+function NewSong(
   artist: string = "",
   title: string = "",
   status: SongStatus = "suggested",
@@ -34,10 +27,21 @@ export function NewSong(
   };
 }
 
-export const SONG_SPECIALS = ["D", "B↑", "B↓", "Acc", "Mand"] as const;
+const SONG_SPECIALS = ["D", "B↑", "B↓", "Acc", "Mand"] as const;
 type SongSpecialTuple = typeof SONG_SPECIALS;
-export type SongSpecial = SongSpecialTuple[number];
+type SongSpecial = SongSpecialTuple[number];
 
-export const SONG_MOODS = ["fast dance", "slow dance", "singalong", "drink"] as const;
+const SONG_MOODS = ["fast dance", "slow dance", "singalong", "drink"] as const;
 type SongMoodTuple = typeof SONG_MOODS;
-export type SongMood = SongMoodTuple[number];
+type SongMood = SongMoodTuple[number];
+
+export {
+  type SongMood,
+  type SongSpecial,
+  type LocalSong,
+  type SongStatus,
+  SONG_STATUSES,
+  SONG_SPECIALS,
+  SONG_MOODS,
+  NewSong,
+};

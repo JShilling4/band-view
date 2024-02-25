@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { useShowStore } from "@/stores";
-import { type LocalShow, NewShow, type Tables } from "@/types";
+import { NewShow } from "@/types";
+import { type LocalShow, type Tables } from "@/types";
 
 export function useShowUtility() {
   // Dependency

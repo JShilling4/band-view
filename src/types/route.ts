@@ -1,4 +1,4 @@
-export enum RouteNames {
+enum RouteNames {
   Dashboard = "Dashboard",
   Songs = "Songs",
   Sets = "Sets",
@@ -9,7 +9,7 @@ export enum RouteNames {
   Venues = "Venues",
 }
 
-export const RoutePath: { [key in RouteNames]: string } = {
+const RoutePath: { [key in RouteNames]: string } = {
   [RouteNames.Dashboard]: "/",
   [RouteNames.Songs]: "/songs",
   [RouteNames.Sets]: "/sets",
@@ -19,3 +19,5 @@ export const RoutePath: { [key in RouteNames]: string } = {
   [RouteNames.Shows]: "/shows",
   [RouteNames.Venues]: "/venues",
 };
+
+export { RouteNames, RoutePath };

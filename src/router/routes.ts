@@ -10,6 +10,9 @@ export const routes: Array<RouteRecordRaw> = [
     // component: Dashboard,
     // props: { pageTitle: "Dashboard" },
     redirect: { name: RouteNames.Rehearsal },
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: RoutePath.Songs,
@@ -17,6 +20,9 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/SongView.vue"),
     props: (route) => {
       return { pageTitle: "Songs", status: route.query.status };
+    },
+    meta: {
+      requiresAuth: false,
     },
   },
   {
@@ -26,6 +32,9 @@ export const routes: Array<RouteRecordRaw> = [
     props: (route) => {
       return { pageTitle: "Sets", name: route.query.name };
     },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: RoutePath.Setlists,
@@ -34,18 +43,27 @@ export const routes: Array<RouteRecordRaw> = [
     props: (route) => {
       return { pageTitle: "Setlists", name: route.query.name };
     },
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: RoutePath.Settings,
     name: RouteNames.Settings,
     component: () => import("@/views/SettingsView.vue"),
     props: { pageTitle: "Settings" },
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: RoutePath.Rehearsal,
     name: RouteNames.Rehearsal,
     component: () => import("@/views/RehearsalView.vue"),
     props: { pageTitle: "Rehearsal" },
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: RoutePath.Shows,
@@ -54,6 +72,9 @@ export const routes: Array<RouteRecordRaw> = [
     props: (route) => {
       return { pageTitle: "Shows", range: route.query.range };
     },
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: RoutePath.Venues,
@@ -61,6 +82,9 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/VenueView.vue"),
     props: () => {
       return { pageTitle: "Venues" };
+    },
+    meta: {
+      requiresAuth: false,
     },
   },
   {

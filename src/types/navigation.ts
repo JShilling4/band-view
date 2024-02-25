@@ -6,4 +6,5 @@ export interface NavItem {
   routePath: string | null;
   link: ExternalLink | null;
   icon: AppIcon;
+  requiresAuth: boolean;
 }
