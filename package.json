@@ -8,7 +8,8 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint . --fix --ignore-path .eslintignore"
+    "lint": "eslint . --fix --ignore-path .eslintignore",
+    "gentypes": "npx supabase gen types typescript --linked > ./src/types/supabase.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
