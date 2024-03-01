@@ -28,6 +28,7 @@
               <SongItem
                 v-for="songId in rehearsal.review_songs"
                 :key="songId"
+                hide-admin
                 :song="songStore.getSongById(songId)"
               />
             </QList>
