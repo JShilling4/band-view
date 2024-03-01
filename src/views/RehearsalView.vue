@@ -2,8 +2,12 @@
   <div class="page-container">
     <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     <div class="page-content">
-      <div v-if="rehearsalStore.rehearsals.length">
-        <div v-for="rehearsal in rehearsalStore.rehearsals" :key="rehearsal.id" class="q-mb-sm">
+      <div v-if="rehearsalStore.getRehearsalsAfterDate(new Date()).length">
+        <div
+          v-for="rehearsal in rehearsalStore.getRehearsalsAfterDate(new Date())"
+          :key="rehearsal.id"
+          class="q-mb-sm"
+        >
           <h3 class="text-h6 text-white bg-teal-10 q-px-sm q-py-xs q-mb-md">
             {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
           </h3>

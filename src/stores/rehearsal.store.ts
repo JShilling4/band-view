@@ -1,8 +1,9 @@
+import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
+import { isAfter } from "date-fns/isAfter";
 import omit from "lodash/omit";
-import { defineStore } from "pinia";
-import { type LocalRehearsal, type Tables } from "@/types";
+import type { LocalRehearsal, Tables } from "@/types";
 
 interface State {
   rehearsals: Tables<"rehearsal">[];
@@ -123,6 +124,14 @@ export const useRehearsalStore = defineStore("rehearsal", {
       } catch (error) {
         console.log(error);
       }
+    },
+  },
+
+  getters: {
+    getRehearsalsAfterDate: (state) => {
+      return (date: string | Date | number = new Date()) => {
+        return state.rehearsals.filter((r) => isAfter(r.date, date));
+      };
     },
   },
 });
