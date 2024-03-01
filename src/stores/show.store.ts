@@ -1,7 +1,7 @@
+import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
 import { addMonths, isAfter, isSameMonth, isThisMonth, isThisYear } from "date-fns";
-import { defineStore } from "pinia";
 import { type Tables } from "@/types";
 
 interface State {
