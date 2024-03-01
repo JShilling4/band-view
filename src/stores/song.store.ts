@@ -1,6 +1,6 @@
+import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
-import { defineStore } from "pinia";
 import { type LocalSong, type SongStatus, Tables } from "@/types";
 
 interface State {

@@ -1,7 +1,7 @@
+import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
 import { User } from "@supabase/supabase-js";
-import { defineStore } from "pinia";
 import { useMemberStore } from "@/stores";
 import { Tables } from "@/types";
 

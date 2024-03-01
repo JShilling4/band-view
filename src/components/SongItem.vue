@@ -51,7 +51,7 @@
             @click="openBrowserTab(song.download_url)"
           />
         </span>
-        <span v-if="isAdmin" class="admin-controls q-ml-md">
+        <span v-if="!hideAdmin && isAdmin" class="admin-controls q-ml-md">
           <QIcon
             name="fa-solid fa-trash-alt"
             color="red-5"
@@ -73,12 +73,21 @@ import { type Tables } from "@/types";
 
 const memberStore = useMemberStore();
 
-defineProps<{
+interface PropTypes {
   song?: Tables<"song">;
   hideArtist?: boolean;
   hideSpecials?: boolean;
+  hideAdmin?: boolean;
   index?: number;
-}>();
+}
+
+withDefaults(defineProps<PropTypes>(), {
+  song: undefined,
+  hideArtist: false,
+  hideSpecials: false,
+  hideAdmin: false,
+  index: undefined,
+});
 
 defineEmits<{
   "song-clicked": [];

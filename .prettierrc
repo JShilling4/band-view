@@ -10,6 +10,7 @@
   "importOrder": [
     "vue",
     "vue-router",
+    "pinia",
     "quasar",
     "<THIRD_PARTY_MODULES>",
     "^@/composables(.*)$",
