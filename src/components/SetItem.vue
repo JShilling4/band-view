@@ -36,7 +36,6 @@
             :song="song"
             :index="i"
             hide-artist
-            hide-links
             @delete="onSongListItemDelete(song.id)"
             @click="onSongClick(song.id)"
           />
@@ -78,7 +77,7 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 // State
 const availableSongs = computed(() => {
   const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
-  const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id) => id) ?? []);
+  const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id: number) => id) ?? []);
 
   return songStore.songs
     .filter(
@@ -95,7 +94,7 @@ watch(
   () => {
     if (!props.set) return;
     const songs: Tables<"song">[] = [];
-    props.set.songs?.forEach((songId) => {
+    props.set.songs?.forEach((songId: number) => {
       const song = songStore.getSongById(songId);
       if (song) songs.push(song);
     });

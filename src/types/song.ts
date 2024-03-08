@@ -12,7 +12,7 @@ function NewSong(
   vocal_lead: number | null = null,
   download_url: string | null = null,
   link_url: string | null = null,
-  mood: SongMood | null = null,
+  is_highlighted: boolean = false,
   specials: SongSpecial[] | null = null
 ): LocalSong {
   return {
@@ -22,7 +22,7 @@ function NewSong(
     vocal_lead,
     download_url,
     link_url,
-    mood,
+    is_highlighted,
     specials,
   };
 }

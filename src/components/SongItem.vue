@@ -1,5 +1,5 @@
 <template>
-  <QItem v-if="song" :clickable="isAdmin">
+  <QItem v-if="song" :clickable="isAdmin" :class="{ highlight: song.is_highlighted }">
     <QItemSection @click="isAdmin && $emit('song-clicked')">
       <QItemLabel>
         <span v-if="typeof index === 'number'" class="song-index">{{ index + 1 }}. </span>
@@ -100,31 +100,36 @@ const userStore = useUserStore();
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 </script>
 
-<style lang="sass" scoped>
-.q-item
-  padding-left: 0 !important
-  padding-right: 0 !important
-  font-family: Roboto, sans-serif
-  font-weight: 400
-
-.song-controls
-  iframe
-    width: 22px
-    height: 22px
-    border-radius: 5px
-
-.song-artist
-  color: rgb(148, 148, 148)
-  font-weight: 500
-  line-height: 1.75
-
-.song-link-icon
-  cursor: pointer
-
-.song-metadata
-  font-size: 13px
-
-.song-index
-  width: 1.5rem
-  display: inline-block
+<style lang="scss" scoped>
+.q-item {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+.song-controls {
+  iframe {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+  }
+}
+.song-artist {
+  color: rgb(148, 148, 148);
+  font-weight: 500;
+  line-height: 1.75;
+}
+.song-link-icon {
+  cursor: pointer;
+}
+.song-metadata {
+  font-size: 13px;
+}
+.song-index {
+  width: 1.5rem;
+  display: inline-block;
+}
+.highlight {
+  background-color: #fefed2;
+}
 </style>

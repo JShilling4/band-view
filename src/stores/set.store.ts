@@ -38,6 +38,30 @@ export const useSetStore = defineStore("sets", {
       }
     },
 
+    async createSet(set: Omit<Tables<"set">, "id">) {
+      try {
+        const { data, error } = await supabase
+          .from("set")
+          .insert(set)
+          .select()
+          .returns<Tables<"set">[]>();
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (data) {
+          this.sets.push(data[0]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async updateSetOrder(id: number, songOrder: number[]) {
       try {
         const { data, error } = await supabase

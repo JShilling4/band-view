@@ -21,7 +21,18 @@
         />
         <QInput v-model="song.link_url" label="YouTube Link" />
         <QInput v-model="song.download_url" label="Download Link" />
-        <QSelect v-model="song.mood" :options="SONG_MOODS" label="Mood" behavior="menu" />
+        <div class="row q-mt-md items-center">
+          <span class="radio-label q-field__label q-mr-sm">Highlighted?</span>
+          <QOptionGroup
+            v-model="song.is_highlighted"
+            :options="[
+              { label: 'Yes', value: true },
+              { label: 'No', value: false },
+            ]"
+            color="primary"
+            inline
+          />
+        </div>
         <QSelect
           v-model="song.specials"
           :options="SONG_SPECIALS"
@@ -41,7 +52,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useMemberStore, useSongStore, useUserStore } from "@/stores";
-import { type LocalSong, SONG_MOODS, SONG_SPECIALS, SONG_STATUSES, type Tables } from "@/types";
+import { type LocalSong, SONG_SPECIALS, SONG_STATUSES, type Tables } from "@/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
