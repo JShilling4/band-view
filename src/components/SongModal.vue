@@ -5,6 +5,7 @@
         <h6>{{ action }} Song</h6>
       </QCardSection>
       <QCardSection v-if="song" class="modal-body">
+        <QInput v-if="isAdmin && 'id' in song" v-model="song.id" label="ID" readonly />
         <QInput v-model="song.artist" label="Artist" />
         <QInput v-model="song.title" label="Title" />
         <QSelect v-model="song.status" :options="SONG_STATUSES" label="Status" behavior="menu" />
@@ -20,7 +21,18 @@
         />
         <QInput v-model="song.link_url" label="YouTube Link" />
         <QInput v-model="song.download_url" label="Download Link" />
-        <QSelect v-model="song.mood" :options="SONG_MOODS" label="Mood" behavior="menu" />
+        <div class="row q-mt-md items-center">
+          <span class="radio-label q-field__label q-mr-sm">Highlighted?</span>
+          <QOptionGroup
+            v-model="song.is_highlighted"
+            :options="[
+              { label: 'Yes', value: true },
+              { label: 'No', value: false },
+            ]"
+            color="primary"
+            inline
+          />
+        </div>
         <QSelect
           v-model="song.specials"
           :options="SONG_SPECIALS"
@@ -38,8 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import { useMemberStore, useSongStore } from "@/stores";
-import { type LocalSong, SONG_MOODS, SONG_SPECIALS, SONG_STATUSES, type Tables } from "@/types";
+import { computed } from "vue";
+import { useMemberStore, useSongStore, useUserStore } from "@/stores";
+import { type LocalSong, SONG_SPECIALS, SONG_STATUSES, type Tables } from "@/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
@@ -49,6 +62,9 @@ const song = defineModel<LocalSong | Tables<"song">>("song");
 const showModal = defineModel<boolean>("showModal");
 const memberStore = useMemberStore();
 const songStore = useSongStore();
+const userStore = useUserStore();
+
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 async function onSaveSong() {
   if (!song.value) return;

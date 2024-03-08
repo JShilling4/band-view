@@ -224,8 +224,8 @@ export type Database = {
           artist: string;
           download_url: string | null;
           id: number;
+          is_highlighted: boolean;
           link_url: string | null;
-          mood: Database["public"]["Enums"]["song_mood"] | null;
           specials: string[] | null;
           status: Database["public"]["Enums"]["song_status"];
           title: string;
@@ -235,8 +235,8 @@ export type Database = {
           artist: string;
           download_url?: string | null;
           id?: number;
+          is_highlighted?: boolean;
           link_url?: string | null;
-          mood?: Database["public"]["Enums"]["song_mood"] | null;
           specials?: string[] | null;
           status: Database["public"]["Enums"]["song_status"];
           title: string;
@@ -246,8 +246,8 @@ export type Database = {
           artist?: string;
           download_url?: string | null;
           id?: number;
+          is_highlighted?: boolean;
           link_url?: string | null;
-          mood?: Database["public"]["Enums"]["song_mood"] | null;
           specials?: string[] | null;
           status?: Database["public"]["Enums"]["song_status"];
           title?: string;
@@ -318,7 +318,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      set_type: "3h" | "4h" | "Country";
+      set_type: "3h" | "4h" | "4h Rock";
       song_mood: "fast dance" | "slow dance" | "drink" | "singalong";
       song_status: "suggested" | "next" | "learning" | "active" | "burner" | "killed";
     };
