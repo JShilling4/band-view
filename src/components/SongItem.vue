@@ -39,7 +39,7 @@
             color="red-9"
             class="song-link-icon"
             size="sm"
-            @click="openBrowserTab(song.link_url)"
+            @click.stop="openBrowserTab(song.link_url)"
           />
         </span>
         <span v-if="!hideLinks && song.download_url" class="q-ml-md">
@@ -48,7 +48,7 @@
             color="green-9"
             class="song-link-icon"
             size="sm"
-            @click="openBrowserTab(song.download_url)"
+            @click.stop="openBrowserTab(song.download_url)"
           />
         </span>
         <span v-if="!hideAdmin && isAdmin" class="admin-controls q-ml-md">
@@ -57,7 +57,7 @@
             color="red-5"
             size="sm"
             class="delete-icon"
-            @click="$emit('delete', song.id)"
+            @click.stop="$emit('delete', song.id)"
           />
         </span>
       </div>
