@@ -32,7 +32,6 @@
         :disabled="!isAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
-          <QIcon :name="IconClasses.Handle.join(' ')" />
           <SongItem
             :song="song"
             :index="i"
@@ -60,7 +59,7 @@ import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
 import { useSetStore, useSongStore, useUserStore } from "@/stores";
-import { IconClasses, type Tables } from "@/types";
+import type { Tables } from "@/types";
 
 // Types
 const props = defineProps<{

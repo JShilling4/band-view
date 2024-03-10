@@ -2,6 +2,7 @@
   <QItem v-if="song" :clickable="isAdmin" :class="{ highlight: song.is_highlighted }">
     <QItemSection @click="isAdmin && $emit('song-clicked')">
       <QItemLabel>
+        <QIcon :name="IconClasses.Handle.join(' ')" class="q-mr-sm handle" />
         <span v-if="typeof index === 'number'" class="song-index">{{ index + 1 }}. </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
