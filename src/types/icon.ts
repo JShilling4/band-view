@@ -3,7 +3,7 @@ export enum IconNames {
   Music = "Music",
   File = "File",
   Paste = "Paste",
-  R = "R",
+  Register = "R",
   Calendar = "Calendar",
   Landmark = "Landmark",
 }
@@ -13,7 +13,7 @@ export const IconClasses: { [key in IconNames]: string[] } = {
   [IconNames.Music]: ["fa-solid", "fa-music"],
   [IconNames.File]: ["fa-solid", "fa-file"],
   [IconNames.Paste]: ["fa-solid", "fa-paste"],
-  [IconNames.R]: ["fa-solid", "fa-registered"],
+  [IconNames.Register]: ["fa-solid", "fa-registered"],
   [IconNames.Calendar]: ["fa-solid", "fa-calendar-days"],
   [IconNames.Landmark]: ["fa-solid", "fa-landmark"],
 };

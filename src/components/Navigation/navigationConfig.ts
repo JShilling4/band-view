@@ -17,7 +17,7 @@ const navigationConfig: NavItem[] = [
     routePath: RoutePath.Rehearsal,
     link: null,
     icon: {
-      classes: [...IconClasses.R],
+      classes: [...IconClasses.Register],
       color: "green-5",
     },
     requiresAuth: false,
