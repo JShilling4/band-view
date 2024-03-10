@@ -7,7 +7,7 @@
         <li v-if="!userStore.user" class="toolbar-link" @click="onLoginClick">Login</li>
         <li v-if="userStore.user" class="toolbar-link" @click="$emit('toggle-user-menu')">
           <span class="member-name q-mr-md">{{ userStore.activeMember?.first_name }}</span>
-          <QIcon name="fa-solid fa-user" size="sm" />
+          <QIcon :name="IconClasses.User.join(' ')" size="sm" />
         </li>
       </ul>
     </QToolbar>
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useUserStore } from "@/stores";
+import { IconClasses } from "@/types";
 
 defineEmits<{
   "toggle-user-menu": [];

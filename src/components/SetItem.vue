@@ -26,12 +26,13 @@
     </div>
     <QList>
       <VueDraggable
-        ref="el"
+        handle=".handle"
         v-model="localSetSongs"
         :on-update="onSongDragUpdate"
         :disabled="!isAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
+          <QIcon :name="IconClasses.Handle.join(' ')" />
           <SongItem
             :song="song"
             :index="i"
@@ -59,7 +60,7 @@ import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
 import { useSetStore, useSongStore, useUserStore } from "@/stores";
-import { type Tables } from "@/types";
+import { IconClasses, type Tables } from "@/types";
 
 // Types
 const props = defineProps<{

@@ -35,7 +35,7 @@
       <div class="song-controls row items-center">
         <span v-if="!hideLinks && song.link_url">
           <QIcon
-            name="fa-brands fa-youtube"
+            :name="IconClasses.YouTube.join(' ')"
             color="red-9"
             class="song-link-icon"
             size="sm"
@@ -69,7 +69,7 @@
 import { computed } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
 import { useMemberStore, useUserStore } from "@/stores";
-import { type Tables } from "@/types";
+import { IconClasses, type Tables } from "@/types";
 
 const memberStore = useMemberStore();
 
