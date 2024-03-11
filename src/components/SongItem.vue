@@ -2,6 +2,11 @@
   <QItem v-if="song" :clickable="isAdmin" :class="{ highlight: song.is_highlighted }">
     <QItemSection @click="isAdmin && $emit('song-clicked')">
       <QItemLabel>
+        <QIcon
+          v-if="showHandle && isAdmin"
+          :name="IconClasses.Handle.join(' ')"
+          class="q-mr-sm handle"
+        />
         <span v-if="typeof index === 'number'" class="song-index">{{ index + 1 }}. </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
@@ -35,11 +40,11 @@
       <div class="song-controls row items-center">
         <span v-if="!hideLinks && song.link_url">
           <QIcon
-            name="fa-brands fa-youtube"
+            :name="IconClasses.YouTube.join(' ')"
             color="red-9"
             class="song-link-icon"
             size="sm"
-            @click="openBrowserTab(song.link_url)"
+            @click.stop="openBrowserTab(song.link_url)"
           />
         </span>
         <span v-if="!hideLinks && song.download_url" class="q-ml-md">
@@ -48,7 +53,7 @@
             color="green-9"
             class="song-link-icon"
             size="sm"
-            @click="openBrowserTab(song.download_url)"
+            @click.stop="openBrowserTab(song.download_url)"
           />
         </span>
         <span v-if="!hideAdmin && isAdmin" class="admin-controls q-ml-md">
@@ -57,7 +62,7 @@
             color="red-5"
             size="sm"
             class="delete-icon"
-            @click="$emit('delete', song.id)"
+            @click.stop="$emit('delete', song.id)"
           />
         </span>
       </div>
@@ -69,7 +74,7 @@
 import { computed } from "vue";
 import { openBrowserTab } from "@/utils/helpers";
 import { useMemberStore, useUserStore } from "@/stores";
-import { type Tables } from "@/types";
+import { IconClasses, type Tables } from "@/types";
 
 const memberStore = useMemberStore();
 
@@ -80,6 +85,7 @@ interface PropTypes {
   hideAdmin?: boolean;
   hideLinks?: boolean;
   index?: number;
+  showHandle?: boolean;
 }
 
 withDefaults(defineProps<PropTypes>(), {
@@ -89,6 +95,7 @@ withDefaults(defineProps<PropTypes>(), {
   hideLinks: false,
   hideAdmin: false,
   index: undefined,
+  showHandle: false,
 });
 
 defineEmits<{

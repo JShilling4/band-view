@@ -21,7 +21,7 @@
           emit-value
           option-value="name"
           option-label="name"
-          label="City"
+          label="Select City"
         />
       </div>
 

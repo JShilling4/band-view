@@ -40,7 +40,7 @@ const setStore = useSetStore();
 const selectedSet = computed(() => {
   return setStore.sets.find((set) => set.name === activeTab.value);
 });
-const activeTab = ref("Set 1 (4h)");
+const activeTab = ref("");
 
 // Watchers
 watch(

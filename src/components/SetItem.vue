@@ -26,7 +26,7 @@
     </div>
     <QList>
       <VueDraggable
-        ref="el"
+        handle=".handle"
         v-model="localSetSongs"
         :on-update="onSongDragUpdate"
         :disabled="!isAdmin"
@@ -36,6 +36,7 @@
             :song="song"
             :index="i"
             hide-artist
+            show-handle
             @delete="onSongListItemDelete(song.id)"
             @click="onSongClick(song.id)"
           />
@@ -59,7 +60,7 @@ import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
 import { useSetStore, useSongStore, useUserStore } from "@/stores";
-import { type Tables } from "@/types";
+import type { Tables } from "@/types";
 
 // Types
 const props = defineProps<{

@@ -42,7 +42,7 @@ const props = defineProps<{
   name: string | undefined;
 }>();
 
-// Dependency
+// Dependencies
 const router = useRouter();
 const memberStore = useMemberStore();
 const songStore = useSongStore();
@@ -50,7 +50,7 @@ const setStore = useSetStore();
 const setlistStore = useSetlistStore();
 
 // State
-const activeTab = ref("4h Standard");
+const activeTab = ref("");
 const selectedSetlist = computed(() => {
   return setlistStore.setlists.find((setlist) => setlist.name === activeTab.value);
 });
