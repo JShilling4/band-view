@@ -19,7 +19,7 @@
           emit-value
           option-value="name"
           option-label="name"
-          label="Status"
+          label="Select Status"
         />
 
         <SongModal
@@ -32,7 +32,7 @@
       </div>
 
       <div class="song-container q-mb-lg">
-        <div class="results-text">
+        <div v-if="statusFilter" class="results-text">
           {{ songStore.getSongsByStatus(statusFilter).length }} results
         </div>
         <QList separator>
@@ -76,9 +76,10 @@ const {
   onAddSongClick,
 } = useSongUtility();
 
-const statusFilter = ref<SongStatus>("learning");
+const statusFilter = ref<SongStatus | null>(null);
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const selectedSongs = computed(() => {
+  if (!statusFilter.value) return;
   return songStore.getSongsByStatus(statusFilter.value);
 });
 
