@@ -20,7 +20,7 @@ export const useSetStore = defineStore("sets", {
 
       try {
         this.loading = true;
-        const { data: set, error } = await supabase.from("set").select("*").order("name");
+        const { data: set, error } = await supabase.from("set").select("*");
 
         if (error) {
           Notify.create({
