@@ -11,7 +11,7 @@
         <div class="row">
           <QInput v-model="localSetlist.url" label="Download Url" class="col" />
         </div>
-        <div class="row">
+        <div v-if="action === 'Add'" class="row">
           <QInput v-model="setsToCreate" label="How many sets?" class="col" />
         </div>
       </QCardSection>
