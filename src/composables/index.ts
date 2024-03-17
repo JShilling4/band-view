@@ -5,3 +5,4 @@ export * from "./useClipboard";
 export * from "./useVenueUtility";
 export * from "./arrayUtility";
 export * from "./useShowUtility";
+export * from "./useSetlistUtility";

@@ -15,8 +15,8 @@
       </div>
     </QItemSection>
     <QItemSection v-if="isAdmin" side>
-      <QIcon name="fa-solid fa-edit text-blue-5" class="edit-icon q-mb-sm" @click="onEditClick" />
-      <QIcon name="fa-solid fa-trash-alt text-red-5" class="delete-icon" @click="onDeleteClick" />
+      <QIcon :name="IconClasses.Edit.join(' ')" class="edit-icon q-mb-sm" @click="onEditClick" />
+      <QIcon :name="IconClasses.Delete.join(' ')" class="delete-icon" @click="onDeleteClick" />
     </QItemSection>
   </QItem>
 </template>
@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useContactStore, useShowStore, useUserStore } from "@/stores";
-import type { Tables } from "@/types";
+import { IconClasses, type Tables } from "@/types";
 
 defineProps<{
   venue: Tables<"venue">;
