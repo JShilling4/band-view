@@ -34,17 +34,6 @@ const navigationConfig: NavItem[] = [
     requiresAuth: false,
   },
   {
-    routeName: RouteNames.Sets,
-    label: RouteNames.Sets,
-    routePath: RoutePath.Sets,
-    link: null,
-    icon: {
-      classes: [...IconClasses.File],
-      color: "orange-5",
-    },
-    requiresAuth: true,
-  },
-  {
     routeName: RouteNames.Setlists,
     label: RouteNames.Setlists,
     routePath: RoutePath.Setlists,

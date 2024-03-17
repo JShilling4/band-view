@@ -8,3 +8,4 @@ export * from "./externalLink";
 export * from "./show";
 export * from "./venue";
 export * from "./rehearsal";
+export * from "./setlist";

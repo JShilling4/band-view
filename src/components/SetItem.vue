@@ -1,11 +1,12 @@
 <template>
   <div v-if="set" class="setlist-wrapper">
     <div class="row items-center">
-      <div class="set-name text-bold q-mr-auto">{{ set.name }}</div>
+      <!-- <div class="set-name text-bold q-mr-auto">{{ set.name }}</div> -->
       <QBtnDropdown
         v-if="isAdmin && set && availableSongs.length"
         color="teal-10"
         class="q-mb-md"
+        outline
         no-caps
         label="Add Song"
       >
@@ -77,8 +78,8 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 
 // State
 const availableSongs = computed(() => {
-  const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
-  const setlistSongIds = setsOfType.flatMap((s) => s.songs?.map((id: number) => id) ?? []);
+  // const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
+  const setlistSongIds = setStore.sets.flatMap((s) => s.songs?.map((id: number) => id) ?? []);
 
   return songStore.songs
     .filter(

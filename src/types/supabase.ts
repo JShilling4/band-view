@@ -115,27 +115,15 @@ export type Database = {
       set: {
         Row: {
           id: number;
-          name: string;
-          notes: string | null;
           songs: number[] | null;
-          sort_order: number;
-          type: Database["public"]["Enums"]["set_type"] | null;
         };
         Insert: {
           id?: number;
-          name: string;
-          notes?: string | null;
           songs?: number[] | null;
-          sort_order?: number;
-          type?: Database["public"]["Enums"]["set_type"] | null;
         };
         Update: {
           id?: number;
-          name?: string;
-          notes?: string | null;
           songs?: number[] | null;
-          sort_order?: number;
-          type?: Database["public"]["Enums"]["set_type"] | null;
         };
         Relationships: [];
       };
@@ -143,19 +131,19 @@ export type Database = {
         Row: {
           id: number;
           name: string;
-          sets: number[];
+          sets: number[] | null;
           url: string | null;
         };
         Insert: {
           id?: number;
           name: string;
-          sets?: number[];
+          sets?: number[] | null;
           url?: string | null;
         };
         Update: {
           id?: number;
           name?: string;
-          sets?: number[];
+          sets?: number[] | null;
           url?: string | null;
         };
         Relationships: [];

@@ -3,6 +3,15 @@
     <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
+        <QBtn
+          v-if="isAdmin"
+          color="teal-10"
+          icon="fa-solid fa-plus"
+          class="q-mr-md"
+          no-caps
+          dense
+          @click="onAddSetlistClick"
+        />
         <AppSelect
           v-model="activeTab"
           :options="setlistStore.setlists.map((sl) => sl.name)"
@@ -12,13 +21,24 @@
           label="Select Setlist"
         />
         <a v-if="selectedSetlist?.url" :href="selectedSetlist.url" target="_blank" rel="noreferrer">
-          <QIcon
-            name="fa-solid fa-download"
-            class="download-icon q-ml-lg"
-            color="green-7"
-            size="md"
-          />
+          <QIcon :name="IconClasses.Download.join(' ')" class="download-icon q-ml-lg" size="sm" />
         </a>
+
+        <div v-if="selectedSetlist && isAdmin" class="admin-controls q-ml-lg">
+          <QIcon
+            :name="IconClasses.Edit.join(' ')"
+            color="blue-5"
+            size="sm"
+            class="edit-icon q-mr-sm"
+            @click.stop="onEditSetlistClick(selectedSetlist.id)"
+          />
+          <QIcon
+            :name="IconClasses.Delete.join(' ')"
+            size="sm"
+            class="delete-icon"
+            @click.stop="onDeleteSetlistClick(selectedSetlist.id)"
+          />
+        </div>
       </div>
 
       <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
@@ -29,13 +49,24 @@
         />
       </div>
     </div>
+
+    <SetlistModal
+      v-model:show-modal="showSetlistModal"
+      v-model:setlist="localSetlist"
+      v-model:sets-to-create="setsToCreate"
+      :action="setlistModalAction"
+      persistent
+      @hide="onHideSetlistModal"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useMemberStore, useSetStore, useSetlistStore, useSongStore } from "@/stores";
+import { useSetlistUtility } from "@/composables";
+import { useMemberStore, useSetStore, useSetlistStore, useSongStore, useUserStore } from "@/stores";
+import { IconClasses } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -48,12 +79,24 @@ const memberStore = useMemberStore();
 const songStore = useSongStore();
 const setStore = useSetStore();
 const setlistStore = useSetlistStore();
+const userStore = useUserStore();
+const {
+  onAddSetlistClick,
+  showSetlistModal,
+  localSetlist,
+  setsToCreate,
+  setlistModalAction,
+  onHideSetlistModal,
+  onDeleteSetlist,
+  onEditSetlistClick,
+} = useSetlistUtility();
 
 // State
 const activeTab = ref("");
 const selectedSetlist = computed(() => {
   return setlistStore.setlists.find((setlist) => setlist.name === activeTab.value);
 });
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // Watch
 watch(
@@ -80,6 +123,16 @@ onMounted(async () => {
   await setStore.fetchSets();
   await setlistStore.fetchSetlists();
 });
+
+async function onDeleteSetlistClick(id: number) {
+  const setlist = setlistStore.getSetlistById(id);
+  if (!setlist) return;
+
+  const success = await onDeleteSetlist(setlist);
+  if (success) {
+    activeTab.value = "";
+  }
+}
 </script>
 
 <style lang="scss" scoped>

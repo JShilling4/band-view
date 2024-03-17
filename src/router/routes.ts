@@ -26,17 +26,6 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: RoutePath.Sets,
-    name: RouteNames.Sets,
-    component: () => import("@/views/SetView.vue"),
-    props: (route) => {
-      return { pageTitle: "Sets", name: route.query.name };
-    },
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
     path: RoutePath.Setlists,
     name: RouteNames.Setlists,
     component: () => import("@/views/SetlistView.vue"),

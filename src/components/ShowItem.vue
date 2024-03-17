@@ -52,8 +52,8 @@
       <div class="show-time">{{ show.start_time }} - {{ show.end_time }}</div>
     </QItemSection>
     <QItemSection v-if="isAdmin" side>
-      <QIcon name="fa-solid fa-edit text-blue-5" class="edit-icon q-mb-sm" @click="onEditClick" />
-      <QIcon name="fa-solid fa-trash-alt text-red-5" class="delete-icon" @click="onDeleteClick" />
+      <QIcon :name="IconClasses.Edit.join(' ')" class="edit-icon q-mb-sm" @click="onEditClick" />
+      <QIcon :name="IconClasses.Delete.join(' ')" class="delete-icon" @click="onDeleteClick" />
     </QItemSection>
   </QItem>
 </template>
@@ -63,7 +63,7 @@ import { computed, ref, watch } from "vue";
 import { copyToClipboard } from "quasar";
 import { format } from "date-fns";
 import { useUserStore, useVenueStore } from "@/stores";
-import { Tables } from "@/types";
+import { IconClasses, Tables } from "@/types";
 
 const props = defineProps<{
   show: Tables<"show">;

@@ -20,7 +20,7 @@ export const useSetStore = defineStore("sets", {
 
       try {
         this.loading = true;
-        const { data: set, error } = await supabase.from("set").select("*").order("name");
+        const { data: set, error } = await supabase.from("set").select("*");
 
         if (error) {
           Notify.create({
@@ -38,7 +38,14 @@ export const useSetStore = defineStore("sets", {
       }
     },
 
-    async createSet(set: Omit<Tables<"set">, "id">) {
+    async createSet(set: Omit<Tables<"set">, "id">): Promise<
+      | {
+          id: number;
+          songs: number[] | null;
+        }
+      | null
+      | undefined
+    > {
       try {
         const { data, error } = await supabase
           .from("set")
@@ -56,9 +63,39 @@ export const useSetStore = defineStore("sets", {
 
         if (data) {
           this.sets.push(data[0]);
+          return data[0];
         }
       } catch (error) {
         console.log(error);
+        return null;
+      }
+    },
+
+    async deleteSet(id: number): Promise<boolean | undefined> {
+      this.loading = true;
+      try {
+        const { error } = await supabase.from("set").delete().eq("id", id);
+
+        if (error) {
+          Notify.create({
+            type: "negative",
+            message: error.message,
+          });
+          throw error;
+        }
+
+        if (!error) {
+          const target = this.sets.findIndex((v) => v.id === id);
+          if (target !== -1) {
+            this.sets.splice(target, 1);
+          }
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
+      } finally {
+        this.loading = false;
       }
     },
 

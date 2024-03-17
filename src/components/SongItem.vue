@@ -49,8 +49,7 @@
         </span>
         <span v-if="!hideLinks && song.download_url" class="q-ml-md">
           <QIcon
-            name="fa-solid fa-download"
-            color="green-9"
+            :name="IconClasses.Download.join(' ')"
             class="song-link-icon"
             size="sm"
             @click.stop="openBrowserTab(song.download_url)"
@@ -58,8 +57,7 @@
         </span>
         <span v-if="!hideAdmin && isAdmin" class="admin-controls q-ml-md">
           <QIcon
-            name="fa-solid fa-trash-alt"
-            color="red-5"
+            :name="IconClasses.Delete.join(' ')"
             size="sm"
             class="delete-icon"
             @click.stop="$emit('delete', song.id)"
