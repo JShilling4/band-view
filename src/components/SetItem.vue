@@ -60,16 +60,18 @@
 import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import { useSetUtility, useSongUtility } from "@/composables";
-import { useSongStore, useUserStore } from "@/stores";
+import { useSetStore, useSongStore, useUserStore } from "@/stores";
 import type { Tables } from "@/types";
 
 // Types
 const props = defineProps<{
+  setlistId: number;
   set?: Tables<"set">;
 }>();
 
 // Dependency
 const songStore = useSongStore();
+const setStore = useSetStore();
 const userStore = useUserStore();
 const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtility();
 const { localSetSongs, updateSetOrder, onDeleteSetSongClick, addLocalSetSong } = useSetUtility();
@@ -77,8 +79,15 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 
 // State
 const availableSongs = computed(() => {
+  // const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
+  const setlistSongIds = setStore.sets
+    .filter((s) => s.id === props.set?.id)
+    .flatMap((s) => s.songs?.map((id: number) => id) ?? []);
+
   return songStore.songs
-    .filter((s) => s.status === "active" || s.status === "learning")
+    .filter(
+      (s) => (s.status === "active" || s.status === "learning") && !setlistSongIds.includes(s.id)
+    )
     .sort((a, b) => {
       return a.title > b.title ? 1 : -1;
     });
