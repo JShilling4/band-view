@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
+import { useSetlistStore } from "@/stores";
 import { Tables } from "@/types";
 
 interface State {
@@ -132,6 +133,10 @@ export const useSetStore = defineStore("sets", {
       return (id: number | null) => {
         return state.sets.find((set) => set.id === id);
       };
+    },
+    getSetsBySetlistId: (state) => (setlistId: number) => {
+      const { getSetlistById } = useSetlistStore();
+      return state.sets.filter((s) => getSetlistById(setlistId)?.sets?.includes(s.id));
     },
   },
 });

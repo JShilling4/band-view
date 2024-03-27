@@ -13,7 +13,6 @@ export function useSongUtility() {
 
   // Methods
   function onSongClick(songId: number) {
-    // console.log("song clicked...");
     localSong.value = songStore.getSongById(songId) ?? NewSong();
     songModalAction.value = "Edit";
     showSongModal.value = true;

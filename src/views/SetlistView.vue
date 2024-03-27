@@ -45,6 +45,7 @@
         <SetItem
           v-for="setId in selectedSetlist.sets"
           :key="setId"
+          :setlist-id="selectedSetlist.id"
           :set="setStore.getSetById(setId)"
         />
       </div>

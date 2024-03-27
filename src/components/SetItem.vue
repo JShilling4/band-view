@@ -65,6 +65,7 @@ import type { Tables } from "@/types";
 
 // Types
 const props = defineProps<{
+  setlistId: number;
   set?: Tables<"set">;
 }>();
 
@@ -78,8 +79,9 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 
 // State
 const availableSongs = computed(() => {
-  // const setsOfType = setStore.sets.filter((s) => s.type === props.set?.type);
-  const setlistSongIds = setStore.sets.flatMap((s) => s.songs?.map((id: number) => id) ?? []);
+  const setlistSongIds = setStore
+    .getSetsBySetlistId(props.setlistId)
+    .flatMap((s) => s.songs?.map((id: number) => id) ?? []);
 
   return songStore.songs
     .filter(
