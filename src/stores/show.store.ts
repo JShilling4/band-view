@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
-import { addMonths, isAfter, isSameMonth, isThisMonth, isThisYear } from "date-fns";
+import { addMonths, isAfter, isEqual, isSameMonth, isThisMonth, isThisYear } from "date-fns";
 import { type Tables } from "@/types";
 
 interface State {
@@ -128,7 +128,13 @@ export const useShowStore = defineStore("shows", {
     },
     getShowsAfterDate: (state) => {
       return (date: string | Date | number = new Date()) => {
-        return state.shows.filter((show) => isAfter(show.date, date));
+        return state.shows.filter((show) => {
+          const today = new Date(date).toDateString();
+          return (
+            isAfter(new Date(show.date).toDateString(), today) ||
+            isEqual(new Date(show.date).toDateString(), today)
+          );
+        });
       };
     },
     getShowsThisMonth: (state) => {
