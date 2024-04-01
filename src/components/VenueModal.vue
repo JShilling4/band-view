@@ -18,6 +18,18 @@
           <QInput v-model="localVenue.website_url" label="Website Url" class="col" />
         </div>
         <div class="row q-mt-md items-center">
+          <span class="radio-label q-field__label q-mr-sm">Private Venue?</span>
+          <QOptionGroup
+            v-model="localVenue.is_private"
+            :options="[
+              { label: 'Yes', value: true },
+              { label: 'No', value: false },
+            ]"
+            color="primary"
+            inline
+          />
+        </div>
+        <div class="row q-mt-md items-center">
           <span class="radio-label q-field__label q-mr-sm">Serves food?</span>
           <QOptionGroup
             v-model="localVenue.serves_food"
