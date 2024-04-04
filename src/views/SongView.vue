@@ -40,7 +40,6 @@
             v-for="song in selectedSongs"
             :song="song"
             :key="song.id"
-            hide-specials
             @song-clicked="onSongClick(song.id)"
             @delete="onDeleteSongClick(song.id)"
           />

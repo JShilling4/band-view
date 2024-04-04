@@ -17,17 +17,31 @@
           <QInput v-model="localVenue.phone" label="Phone" class="col q-mr-lg" />
           <QInput v-model="localVenue.website_url" label="Website Url" class="col" />
         </div>
-        <div class="row q-mt-md items-center">
-          <span class="radio-label q-field__label q-mr-sm">Serves food?</span>
-          <QOptionGroup
-            v-model="localVenue.serves_food"
-            :options="[
-              { label: 'Yes', value: true },
-              { label: 'No', value: false },
-            ]"
-            color="primary"
-            inline
-          />
+        <div class="row q-mt-lg">
+          <div class="q-mr-md col">
+            <div class="radio-label q-field__label q-mr-sm">Private Venue?</div>
+            <QOptionGroup
+              v-model="localVenue.is_private"
+              :options="[
+                { label: 'Yes', value: true },
+                { label: 'No', value: false },
+              ]"
+              color="primary"
+              inline
+            />
+          </div>
+          <div class="col">
+            <div class="radio-label q-field__label q-mr-sm">Serves food?</div>
+            <QOptionGroup
+              v-model="localVenue.serves_food"
+              :options="[
+                { label: 'Yes', value: true },
+                { label: 'No', value: false },
+              ]"
+              color="primary"
+              inline
+            />
+          </div>
         </div>
       </QCardSection>
       <QCardActions align="right" class="modal-controls">
@@ -84,4 +98,8 @@ async function onSaveVenue() {
 .modal-controls {
   margin-bottom: 1rem;
 }
+
+/* .q-option-group {
+  margin-left: -20px;
+} */
 </style>
