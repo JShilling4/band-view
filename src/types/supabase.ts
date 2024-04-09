@@ -308,7 +308,7 @@ export type Database = {
     Enums: {
       set_type: "3h" | "4h" | "4h Rock";
       song_mood: "fast dance" | "slow dance" | "drink" | "singalong";
-      song_status: "suggested" | "next" | "learning" | "active" | "burner" | "killed";
+      song_status: "suggested" | "learning" | "active" | "burner" | "killed";
     };
     CompositeTypes: {
       [_ in never]: never;

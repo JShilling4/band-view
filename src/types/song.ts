@@ -1,6 +1,6 @@
 import { type Tables } from "@/types";
 
-const SONG_STATUSES = ["learning", "active", "next", "suggested", "burner", "killed"] as const;
+const SONG_STATUSES = ["learning", "active", "suggested", "burner", "killed"] as const;
 type SongStatusTuple = typeof SONG_STATUSES;
 type SongStatus = SongStatusTuple[number];
 
