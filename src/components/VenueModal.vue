@@ -45,8 +45,8 @@
         </div>
       </QCardSection>
       <QCardActions align="right" class="modal-controls">
-        <QBtn outline label="Cancel" color="black" no-caps v-close-popup />
-        <QBtn label="Save" color="green-10" no-caps v-close-popup @click="onSaveVenue" />
+        <QBtn v-close-popup outline label="Cancel" color="black" no-caps />
+        <QBtn v-close-popup label="Save" color="green-10" no-caps @click="onSaveVenue" />
       </QCardActions>
     </QCard>
   </QDialog>
