@@ -9,6 +9,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    setupFiles: ["./src/tests/vitest-setup.ts"],
   },
   plugins: [
     vue({
