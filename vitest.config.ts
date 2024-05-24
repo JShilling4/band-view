@@ -10,6 +10,10 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/tests/vitest-setup.ts"],
+    coverage: {
+      provider: "istanbul",
+      reporter: ["text", "json", "html"],
+    },
   },
   plugins: [
     vue({

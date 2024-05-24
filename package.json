@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest",
+    "coverage": "vitest run --coverage",
     "lint": "eslint . --fix --ignore-path .eslintignore",
     "gentypes": "npx supabase gen types typescript --linked > ./src/types/supabase.ts"
   },
@@ -36,6 +37,7 @@
     "@types/node": "^20.12.10",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-istanbul": "^1.6.0",
     "@vue/compiler-sfc": "^3.4.27",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
