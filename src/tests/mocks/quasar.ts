@@ -1,6 +1,6 @@
-import { afterAll } from "vitest";
 import { config } from "@vue/test-utils";
 import { Quasar, QuasarPluginOptions } from "quasar";
+import { afterAll } from "vitest";
 
 export function installQuasarPlugin(options?: Partial<QuasarPluginOptions>) {
   const globalConfigBackup = { ...config.global };
