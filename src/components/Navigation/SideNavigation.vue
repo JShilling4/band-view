@@ -16,10 +16,10 @@
           <QItem
             v-for="(item, i) in authorizedRoutes"
             :key="i"
+            v-ripple
             :active="$route.name === item.routeName"
             active-class="active-route"
             clickable
-            v-ripple
             :to="item.routePath"
             :href="item.link?.href"
             :target="item.link?.target"
@@ -41,10 +41,10 @@
         <QItem
           v-for="(item, i) in authorizedRoutes"
           :key="i"
+          v-ripple
           :active="$route.name === item.routeName"
           active-class="active-route"
           clickable
-          v-ripple
           :to="item.routePath"
           :href="item.link?.href"
           :target="item.link?.target"

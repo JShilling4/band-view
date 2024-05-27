@@ -1,6 +1,6 @@
 <template>
   <QLayout view="hHh Lpr lff">
-    <AppHeader @toggle-user-menu="showRightDrawer = !showRightDrawer" />
+    <AppHeader @toggle-user-menu="toggleUserMenu" />
     <SideNavigation />
     <UserMenu v-model:right-drawer-open="showRightDrawer" />
     <QPageContainer>
@@ -17,6 +17,10 @@ const { fetchMembers } = useMemberStore();
 const { getSession } = useUserStore();
 
 const showRightDrawer = ref(false);
+
+function toggleUserMenu() {
+  showRightDrawer.value = !showRightDrawer.value;
+}
 
 onMounted(async () => {
   await fetchMembers();

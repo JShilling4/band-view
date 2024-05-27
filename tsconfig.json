@@ -17,7 +17,8 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["vitest/globals", "vitest/jsdom"]
   },
   "vueCompilerOptions": {
     "target": 3.3

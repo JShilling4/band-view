@@ -1,7 +1,7 @@
 <template>
   <QDialog v-model="showModal" persistent>
     <QCard class="modal-content">
-      <QForm @submit.prevent="onFormSubmit" ref="loginForm">
+      <QForm ref="loginForm" @submit.prevent="onFormSubmit">
         <QCardSection class="modal-heading row items-center bg-black text-white">
           <h6>Login</h6>
         </QCardSection>
@@ -24,7 +24,7 @@
           />
         </QCardSection>
         <QCardActions align="right" class="modal-controls">
-          <QBtn label="Cancel" color="black" outline no-caps v-close-popup />
+          <QBtn v-close-popup label="Cancel" color="black" outline no-caps />
           <QBtn label="Submit" color="green-10" no-caps type="submit" />
         </QCardActions>
       </QForm>

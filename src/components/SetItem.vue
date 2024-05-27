@@ -14,8 +14,8 @@
           <QItem
             v-for="song in availableSongs"
             :key="song.id"
-            clickable
             v-close-popup
+            clickable
             @click="onAddSetSongClick(song.id)"
           >
             <QItemSection>
@@ -27,8 +27,8 @@
     </div>
     <QList>
       <VueDraggable
-        handle=".handle"
         v-model="localSetSongs"
+        handle=".handle"
         :on-update="onSongDragUpdate"
         :disabled="!isAdmin"
       >

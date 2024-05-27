@@ -9,7 +9,7 @@
   >
     <QScrollArea class="fit" :horizontal-thumb-style="{ opacity: '0' }">
       <QList>
-        <QItem @click="onLogoutClick" clickable>
+        <QItem clickable @click="onLogoutClick">
           <QItemSection avatar>
             <QIcon name="fa-solid fa-arrow-right-from-bracket" color="red-8" />
           </QItemSection>

@@ -40,8 +40,8 @@
         </div>
       </QCardSection>
       <QCardActions align="right" class="modal-controls">
-        <QBtn outline label="Cancel" color="black" no-caps v-close-popup />
-        <QBtn label="Save" color="green-10" no-caps v-close-popup @click="onSaveShow" />
+        <QBtn v-close-popup outline label="Cancel" color="black" no-caps />
+        <QBtn v-close-popup label="Save" color="green-10" no-caps @click="onSaveShow" />
       </QCardActions>
     </QCard>
   </QDialog>
@@ -53,7 +53,7 @@ import type { LocalShow, Tables } from "@/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
-  show?: Tables<"show">;
+  show: LocalShow | Tables<"show">;
 }>();
 
 const showStore = useShowStore();

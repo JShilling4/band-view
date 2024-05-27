@@ -38,8 +38,8 @@
         <QList separator>
           <SongItem
             v-for="song in selectedSongs"
-            :song="song"
             :key="song.id"
+            :song="song"
             @song-clicked="onSongClick(song.id)"
             @delete="onDeleteSongClick(song.id)"
           />
