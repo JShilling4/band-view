@@ -1,27 +1,21 @@
-import ShowView from "@/views/ShowView.vue";
+import VenueView from "@/views/VenueView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import Quasar from "quasar";
 
-vi.mock("vue-router", () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-  }),
-}));
-
-describe("ShowView.vue", () => {
-  const wrapper = mount(ShowView, {
+describe("VenueView.vue", () => {
+  const wrapper = mount(VenueView, {
     global: {
       plugins: [Quasar, createTestingPinia()],
       stubs: {},
     },
     propsData: {
-      pageTitle: "Show View Page",
-      range: "Upcoming",
+      pageTitle: "Venue View Page",
     },
     data() {
       return {
-        activeShowFilter: null,
+        cityFilter: null,
+        filteredVenues: [],
       };
     },
   });
