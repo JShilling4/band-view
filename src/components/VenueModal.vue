@@ -58,7 +58,7 @@ import type { LocalVenue, Tables } from "@/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
-  venue?: Tables<"venue">;
+  venue: LocalVenue | Tables<"venue">;
 }>();
 
 const venueStore = useVenueStore();

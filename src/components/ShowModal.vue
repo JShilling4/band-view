@@ -53,7 +53,7 @@ import type { LocalShow, Tables } from "@/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
-  show?: Tables<"show">;
+  show: LocalShow | Tables<"show">;
 }>();
 
 const showStore = useShowStore();
