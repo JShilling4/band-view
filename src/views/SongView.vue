@@ -1,7 +1,6 @@
 <template>
   <div class="page-container">
     <AppPageTitle>{{ pageTitle }}</AppPageTitle>
-
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
         <QBtn
@@ -21,7 +20,6 @@
           option-label="name"
           label="Select Status"
         />
-
         <SongModal
           v-model:show-modal="showSongModal"
           v-model:song="localSong"
@@ -30,7 +28,6 @@
           @hide="onHideSongModal"
         />
       </div>
-
       <div class="song-container q-mb-lg">
         <div v-if="statusFilter" class="results-text">
           {{ songStore.getSongsByStatus(statusFilter).length }} results
