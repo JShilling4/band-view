@@ -17,7 +17,6 @@ describe("RehearsalView.vue", () => {
   });
 
   it("renders", () => {
-    console.log(wrapper.html());
     expect(wrapper).toBeDefined();
   });
 

@@ -17,7 +17,6 @@ describe("SettingsView.vue", () => {
   });
 
   it("renders", () => {
-    console.log(wrapper.html());
     expect(wrapper).toBeDefined();
   });
 
