@@ -6,13 +6,9 @@ describe("SettingsView.vue", () => {
   const wrapper = mount(SettingsView, {
     global: {
       plugins: [createTestingPinia()],
-      stubs: {},
     },
     propsData: {
       pageTitle: "Settings View Page",
-    },
-    data() {
-      return {};
     },
   });
 

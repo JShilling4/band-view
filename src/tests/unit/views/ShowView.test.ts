@@ -1,7 +1,6 @@
 import ShowView from "@/views/ShowView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import Quasar from "quasar";
 
 vi.mock("vue-router", () => ({
   useRouter: () => ({
@@ -12,8 +11,7 @@ vi.mock("vue-router", () => ({
 describe("ShowView.vue", () => {
   const wrapper = mount(ShowView, {
     global: {
-      plugins: [Quasar, createTestingPinia()],
-      stubs: {},
+      plugins: [createTestingPinia()],
     },
     propsData: {
       pageTitle: "Show View Page",

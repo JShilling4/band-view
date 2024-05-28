@@ -1,7 +1,6 @@
 import SetlistView from "@/views/SetlistView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import Quasar from "quasar";
 
 vi.mock("vue-router", () => ({
   useRouter: () => ({
@@ -12,8 +11,7 @@ vi.mock("vue-router", () => ({
 describe("SetlistView.vue", () => {
   const wrapper = mount(SetlistView, {
     global: {
-      plugins: [Quasar, createTestingPinia()],
-      stubs: {},
+      plugins: [createTestingPinia()],
     },
     propsData: {
       pageTitle: "Setlist View Page",

@@ -6,13 +6,9 @@ describe("RehearsalView.vue", () => {
   const wrapper = mount(DashboardView, {
     global: {
       plugins: [createTestingPinia()],
-      stubs: {},
     },
     propsData: {
       pageTitle: "Dashboard View Page",
-    },
-    data() {
-      return {};
     },
   });
 

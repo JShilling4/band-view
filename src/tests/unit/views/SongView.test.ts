@@ -1,7 +1,6 @@
 import SongView from "@/views/SongView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import Quasar from "quasar";
 
 vi.mock("vue-router", () => ({
   useRouter: () => ({
@@ -12,8 +11,7 @@ vi.mock("vue-router", () => ({
 describe("SongView.vue", () => {
   const wrapper = mount(SongView, {
     global: {
-      plugins: [Quasar, createTestingPinia()],
-      stubs: {},
+      plugins: [createTestingPinia()],
     },
     propsData: {
       status: "learning",
