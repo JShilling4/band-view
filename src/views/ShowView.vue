@@ -111,7 +111,7 @@ const showFilters: ShowFilter[] = [
     fn: () => showStore.getUpcomingShows,
   },
 ];
-const activeShowFilter = ref<ShowFilter | null>({ ...showFilters[3] });
+const activeShowFilter = ref<ShowFilter>({ ...showFilters[3] });
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // Watchers

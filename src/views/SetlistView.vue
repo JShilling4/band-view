@@ -23,7 +23,6 @@
         <a v-if="selectedSetlist?.url" :href="selectedSetlist.url" target="_blank" rel="noreferrer">
           <QIcon :name="IconClasses.Download.join(' ')" class="download-icon q-ml-lg" size="sm" />
         </a>
-
         <div v-if="selectedSetlist && isAdmin" class="admin-controls q-ml-lg">
           <QIcon
             :name="IconClasses.Edit.join(' ')"
@@ -40,7 +39,6 @@
           />
         </div>
       </div>
-
       <div v-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
         <SetItem
           v-for="setId in selectedSetlist.sets"
@@ -50,7 +48,6 @@
         />
       </div>
     </div>
-
     <SetlistModal
       v-model:show-modal="showSetlistModal"
       v-model:setlist="localSetlist"
@@ -71,7 +68,7 @@ import { IconClasses } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
-  name: string | undefined;
+  name?: string;
 }>();
 
 // Dependencies
