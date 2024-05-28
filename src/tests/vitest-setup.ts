@@ -1,4 +1,4 @@
-import { installQuasarPlugin } from "./mocks/quasar";
+import { installQuasarPlugin } from "./mocks/quasar.mock";
 
 const mocks = vi.hoisted(() => {
   return {
