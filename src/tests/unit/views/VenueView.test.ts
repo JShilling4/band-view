@@ -21,7 +21,11 @@ describe("VenueView.vue", () => {
   });
 
   it("renders", () => {
-    console.log(wrapper.html());
     expect(wrapper).toBeDefined();
+  });
+
+  it("displays the page title", () => {
+    const heading = wrapper.find(".page-title").text();
+    expect(heading).toEqual("Venue View Page");
   });
 });
