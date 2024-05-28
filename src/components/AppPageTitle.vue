@@ -1,5 +1,5 @@
 <template>
-  <h2 class="h2"><slot /></h2>
+  <h2 class="h2 page-title"><slot /></h2>
 </template>
 
 <script setup lang="ts">
