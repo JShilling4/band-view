@@ -19,5 +19,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ["dist"],
+  ignorePatterns: ["dist", "coverage/**", "build/**", "dist/**", "types/**"],
 };
