@@ -2,13 +2,12 @@ import App from "@/App.vue";
 import UserMenu from "@/components/UserMenu.vue";
 import { VueWrapper, mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import Quasar from "quasar";
 import { useMemberStore, useUserStore } from "@/stores";
 
 describe("App.vue", () => {
   const wrapper = mount(App, {
     global: {
-      plugins: [Quasar, createTestingPinia()],
+      plugins: [createTestingPinia()],
       stubs: { AppHeader: true, SideNavigation: true, UserMenu: true, RouterView: true },
     },
     data() {
