@@ -1,4 +1,5 @@
 <template>
+  <!-- https://quasar.dev/vue-components/select/ -->
   <QSelect
     v-model="model"
     v-bind="$attrs"
