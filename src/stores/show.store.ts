@@ -126,7 +126,7 @@ export const useShowStore = defineStore("shows", {
         return state.shows.find((show) => show.id === id);
       };
     },
-    getShowsAfterDate: (state) => {
+    getShowsOnOrAfterDate: (state) => {
       return (date: string | Date | number = new Date()) => {
         return state.shows.filter((show) => {
           const today = new Date(date).toDateString();
@@ -148,7 +148,7 @@ export const useShowStore = defineStore("shows", {
       return state.shows.filter((show) => isSameMonth(show.date, nextMonth));
     },
     getUpcomingShows(): Tables<"show">[] {
-      return this.getShowsAfterDate();
+      return this.getShowsOnOrAfterDate();
     },
     getShowsThisYearByVenue: (state) => {
       const showsThisYear = state.shows.filter((show) => isThisYear(show.date));
