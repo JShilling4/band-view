@@ -1,9 +1,7 @@
 import { Tables } from "@/types";
 
-type ShowFilterNames = "This Month" | "Next Month" | "This Year" | "Last Month" | "Upcoming";
-
 interface ShowFilter {
-  label: ShowFilterNames;
+  label: string;
   fn(date?: string | Date | number): Tables<"show">[];
 }
 
@@ -28,4 +26,4 @@ function NewShow(
   };
 }
 
-export { NewShow, type ShowFilter, type ShowFilterNames, type LocalShow };
+export { NewShow, type ShowFilter, type LocalShow };

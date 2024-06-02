@@ -67,12 +67,12 @@ import { useRouter } from "vue-router";
 import { clone } from "lodash";
 import { useShowUtility, useVenueUtility } from "@/composables";
 import { useMemberStore, useShowStore, useUserStore, useVenueStore } from "@/stores";
-import { ShowFilter, ShowFilterNames } from "@/types";
+import { ShowFilter } from "@/types";
 
 // Types
 const props = defineProps<{
   pageTitle: string;
-  range?: ShowFilterNames;
+  range?: string;
 }>();
 
 // Dependency
@@ -95,23 +95,15 @@ const {
 // State
 const showFilters: ShowFilter[] = [
   {
-    label: "This Month",
-    fn: () => showStore.getShowsThisMonth,
-  },
-  {
-    label: "This Year",
-    fn: () => showStore.getShowsThisYear,
-  },
-  {
-    label: "Next Month",
-    fn: () => showStore.getShowsNextMonth,
-  },
-  {
-    label: "Upcoming",
+    label: "Upcoming This Year",
     fn: () => showStore.getUpcomingShows,
   },
+  {
+    label: "All This Year",
+    fn: () => showStore.getShowsThisYear,
+  },
 ];
-const activeShowFilter = ref<ShowFilter>({ ...showFilters[3] });
+const activeShowFilter = ref<ShowFilter>({ ...showFilters[0] });
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // Watchers
