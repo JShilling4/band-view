@@ -6,3 +6,4 @@ export * from "./useVenueUtility";
 export * from "./arrayUtility";
 export * from "./useShowUtility";
 export * from "./useSetlistUtility";
+export * from "./useRehearsalUtility";

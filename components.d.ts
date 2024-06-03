@@ -15,6 +15,8 @@ declare module 'vue' {
     AppPageTitle: typeof import('./src/components/AppPageTitle.vue')['default']
     AppSelect: typeof import('./src/components/AppSelect.vue')['default']
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
+    RehearsalItem: typeof import('./src/components/RehearsalItem.vue')['default']
+    RehearsalModal: typeof import('./src/components/RehearsalModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SetItem: typeof import('./src/components/SetItem.vue')['default']

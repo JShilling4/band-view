@@ -26,7 +26,7 @@
         />
       </div>
 
-      <div>
+      <div class="results-container">
         <div class="results-text">{{ activeShowFilter?.fn().length }} results</div>
         <QList class="show-container flex q-mt-xs q-gutter-md">
           <ShowItem
