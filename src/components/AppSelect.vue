@@ -1,12 +1,10 @@
 <template>
   <!-- https://quasar.dev/vue-components/select/ -->
-  <QSelect
-    v-model="model"
-    v-bind="$attrs"
-    behavior="menu"
-    clearable
-    class="app-select-filter col"
-  />
+  <QSelect v-model="model" v-bind="$attrs" behavior="menu" clearable class="app-select-filter col">
+    <template #selected-item="scope">
+      <slot name="selected-item" v-bind="scope" />
+    </template>
+  </QSelect>
 </template>
 
 <script setup lang="ts">
