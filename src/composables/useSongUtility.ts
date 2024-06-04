@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import clone from "lodash/clone";
 import { useSongStore } from "@/stores";
 import { LocalSong, NewSong, Tables } from "@/types";
 
@@ -13,7 +14,7 @@ export function useSongUtility() {
 
   // Methods
   function onSongClick(songId: number) {
-    localSong.value = songStore.getSongById(songId) ?? NewSong();
+    localSong.value = clone(songStore.getSongById(songId)) ?? NewSong();
     songModalAction.value = "Edit";
     showSongModal.value = true;
   }

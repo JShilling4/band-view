@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import clone from "lodash/clone";
 import { useShowStore } from "@/stores";
 import { NewShow } from "@/types";
 import { type LocalShow, type Tables } from "@/types";
@@ -16,7 +17,7 @@ export function useShowUtility() {
   function onEditShowClick(showId: number) {
     const show = showStore.getShowById(showId);
     if (!show) return;
-    localShow.value = show;
+    localShow.value = clone(show);
     showModalAction.value = "Edit";
     showShowModal.value = true;
   }
