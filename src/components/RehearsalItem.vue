@@ -4,16 +4,17 @@
       <QSeparator color="grey-4" spaced />
       <div class="section-header text-grey-6">New Songs</div>
       <QSeparator color="grey-4" spaced />
-      <QList class="song-list">
+      <QList v-if="rehearsal.new_songs?.length" class="song-list">
         <SongItem v-for="songId in rehearsal.new_songs" :key="songId" :song="getSongById(songId)" />
       </QList>
+      <div v-else>None selected.</div>
     </div>
 
     <div class="new-songs-container q-mb-sm">
       <QSeparator color="grey-4" spaced />
       <div class="section-header text-grey-6">Review Songs</div>
       <QSeparator color="grey-4" spaced />
-      <QList class="song-list">
+      <QList v-if="rehearsal.review_songs?.length" class="song-list">
         <SongItem
           v-for="songId in rehearsal.review_songs"
           :key="songId"
@@ -21,6 +22,7 @@
           :song="getSongById(songId)"
         />
       </QList>
+      <div v-else>None selected.</div>
     </div>
 
     <div class="agenda-container">

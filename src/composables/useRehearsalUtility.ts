@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import clone from "lodash/clone";
 import { useRehearsalStore } from "@/stores";
 import { type LocalRehearsal, NewRehearsal, type Tables } from "@/types";
 
@@ -13,7 +14,7 @@ export function useRehearsalUtility() {
 
   // Methods
   function onEditRehearsalClick(rehearsalId: number) {
-    const rehearsal = rehearsalStore.getRehearsalById(rehearsalId);
+    const rehearsal = clone(rehearsalStore.getRehearsalById(rehearsalId));
     if (!rehearsal) return;
     localRehearsal.value = rehearsal;
     rehearsalModalAction.value = "Edit";

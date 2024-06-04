@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import clone from "lodash/clone";
 import { useVenueStore } from "@/stores";
 import { type LocalVenue, NewVenue, type Tables } from "@/types";
 
@@ -20,7 +21,7 @@ export function useVenueUtility() {
   }
 
   function onEditVenueClick(venueId: number) {
-    const venue = venueStore.getVenueById(venueId);
+    const venue = clone(venueStore.getVenueById(venueId));
     if (!venue) return;
     localVenue.value = venue;
     venueModalAction.value = "Edit";

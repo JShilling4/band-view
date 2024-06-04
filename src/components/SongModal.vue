@@ -17,7 +17,13 @@
           label="Vocal Lead"
           emit-value
           map-options
+          clearable
           behavior="menu"
+          @update:model-value="
+            (val) => {
+              if (!val) val = null;
+            }
+          "
         />
         <QInput v-model="song.link_url" label="YouTube Link" />
         <QInput v-model="song.download_url" label="Download Link" />
@@ -76,14 +82,17 @@ async function onSaveSong() {
 }
 </script>
 
-<style lang="sass" scoped>
-@import "../scss/breakpoints"
-.modal-content
-  width: 100%
+<style lang="scss" scoped>
+@import "../scss/breakpoints";
+.modal-content {
+  width: 100%;
 
-  @include md
-    width: 500px
+  @include md {
+    width: 500px;
+  }
+}
 
-.modal-body
-  padding: 0 1.5rem 2rem
+.modal-body {
+  padding: 0 1.5rem 2rem;
+}
 </style>
