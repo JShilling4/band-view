@@ -24,7 +24,7 @@
             <h3 class="text-h6">
               {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
             </h3>
-            <div class="admin-controls q-ml-lg">
+            <div v-if="isAdmin" class="admin-controls q-ml-lg">
               <QIcon
                 :name="IconClasses.Edit.join(' ')"
                 class="edit-icon q-mr-sm"
