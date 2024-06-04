@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import supabase from "@/supabase";
-import { isAfter } from "date-fns/isAfter";
+import { isAfter, isEqual } from "date-fns";
 import omit from "lodash/omit";
 import type { LocalRehearsal, Tables } from "@/types";
 
@@ -128,9 +128,20 @@ export const useRehearsalStore = defineStore("rehearsal", {
   },
 
   getters: {
-    getRehearsalsAfterDate: (state) => {
+    getRehearsalById: (state) => {
+      return (id: number | null) => {
+        return state.rehearsals.find((rehearsal) => rehearsal.id === id);
+      };
+    },
+    getRehearsalsOnOrAfterDate: (state) => {
       return (date: string | Date | number = new Date()) => {
-        return state.rehearsals.filter((r) => isAfter(r.date, date));
+        return state.rehearsals.filter((rehearsal) => {
+          const today = new Date(date).toDateString();
+          return (
+            isAfter(new Date(rehearsal.date).toDateString(), today) ||
+            isEqual(new Date(rehearsal.date).toDateString(), today)
+          );
+        });
       };
     },
   },

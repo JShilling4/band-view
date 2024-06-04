@@ -1,75 +1,98 @@
 <template>
   <div class="page-container">
-    <AppPageTitle>{{ pageTitle }}</AppPageTitle>
+    <div class="row items-center">
+      <AppPageTitle>{{ pageTitle }}</AppPageTitle>
+    </div>
     <div class="page-content">
-      <div v-if="rehearsalStore.getRehearsalsAfterDate(new Date()).length">
-        <div
-          v-for="rehearsal in rehearsalStore.getRehearsalsAfterDate(new Date())"
-          :key="rehearsal.id"
-          class="q-mb-sm"
-        >
-          <h3 class="text-h6 text-white bg-teal-10 q-px-sm q-py-xs q-mb-md">
-            {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
-          </h3>
-          <div class="new-songs-container q-mb-sm">
-            <QSeparator color="grey-4" spaced />
-            <div class="section-header text-grey-6">New Songs</div>
-            <QSeparator color="grey-4" spaced />
-            <QList class="song-list">
-              <SongItem
-                v-for="songId in rehearsal.new_songs"
-                :key="songId"
-                :song="songStore.getSongById(songId)"
-              />
-            </QList>
-          </div>
+      <div class="top-controls q-mb-md row items-center">
+        <QBtn
+          v-if="isAdmin"
+          color="teal-10"
+          icon="fa-solid fa-plus"
+          class="q-mr-md"
+          no-caps
+          dense
+          @click="onAddRehearsalClick"
+        />
+      </div>
 
-          <div class="new-songs-container q-mb-sm">
-            <QSeparator color="grey-4" spaced />
-            <div class="section-header text-grey-6">Review Songs</div>
-            <QSeparator color="grey-4" spaced />
-            <QList class="song-list">
-              <SongItem
-                v-for="songId in rehearsal.review_songs"
-                :key="songId"
-                hide-admin
-                :song="songStore.getSongById(songId)"
+      <div v-if="displayRehearsals">
+        <div v-for="rehearsal in rehearsalList" :key="rehearsal.id" class="q-mb-sm">
+          <div
+            class="heading-wrapper text-white bg-teal-10 q-px-sm q-py-xs q-mb-md row items-center"
+          >
+            <h3 class="text-h6">
+              {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
+            </h3>
+            <div class="admin-controls q-ml-lg">
+              <QIcon
+                :name="IconClasses.Edit.join(' ')"
+                class="edit-icon q-mr-sm"
+                @click="onEditRehearsalClick(rehearsal.id)"
               />
-            </QList>
+              <QIcon
+                :name="IconClasses.Delete.join(' ')"
+                class="delete-icon"
+                @click="onDeleteRehearsalClick(rehearsal.id)"
+              />
+            </div>
           </div>
-
-          <div class="agenda-container">
-            <QSeparator color="grey-4" spaced />
-            <div class="section-header text-grey-6">Notes:</div>
-            <QSeparator color="grey-4" spaced />
-            <p class="rehearsal-notes">{{ rehearsal.notes }}</p>
-          </div>
+          <RehearsalItem :rehearsal="rehearsal" />
         </div>
       </div>
       <h6 v-else class="text-grey-8">No rehearsals scheduled.</h6>
     </div>
+
+    <RehearsalModal
+      v-model:show-modal="showRehearsalModal"
+      v-model:rehearsal="localRehearsal"
+      :action="rehearsalModalAction"
+      persistent
+      @hide="onHideRehearsalModal"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useDateUtility } from "@/composables";
-import { useMemberStore, useRehearsalStore, useSongStore } from "@/stores";
+import { computed, onMounted } from "vue";
+import { useDateUtility, useRehearsalUtility } from "@/composables";
+import { useMemberStore, useRehearsalStore, useSongStore, useUserStore } from "@/stores";
+import { IconClasses } from "@/types";
 
 defineProps<{
   pageTitle: string;
 }>();
 
+// dependencies
 const rehearsalStore = useRehearsalStore();
 const memberStore = useMemberStore();
+const userStore = useUserStore();
 const songStore = useSongStore();
 const { dateStringToDisplay } = useDateUtility();
+const {
+  onAddRehearsalClick,
+  showRehearsalModal,
+  localRehearsal,
+  rehearsalModalAction,
+  onHideRehearsalModal,
+  onDeleteRehearsalClick,
+  onEditRehearsalClick,
+} = useRehearsalUtility();
 
+// lifecycle hooks
 onMounted(async () => {
   await memberStore.fetchMembers();
   await songStore.fetchSongs();
   rehearsalStore.fetchRehearsals();
 });
+
+const displayRehearsals = computed(() => {
+  return rehearsalStore.getRehearsalsOnOrAfterDate(new Date()).length;
+});
+const rehearsalList = computed(() => {
+  return rehearsalStore.getRehearsalsOnOrAfterDate(new Date());
+});
+const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 </script>
 
 <style lang="sass" scoped>
