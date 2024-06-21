@@ -23,7 +23,11 @@
           :options="showFilters"
           option-label="label"
           label="Date Range"
-        />
+        >
+          <template #selected-item>
+            <span>{{ activeShowFilter.label }}</span>
+          </template>
+        </AppSelect>
       </div>
 
       <div class="results-container">

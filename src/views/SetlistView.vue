@@ -15,9 +15,7 @@
         <AppSelect
           v-model="activeTab"
           :options="setlistStore.setlists.map((sl) => sl.name)"
-          emit-value
-          option-value="name"
-          option-label="name"
+          fill-input
           label="Select Setlist"
         />
         <a v-if="selectedSetlist?.url" :href="selectedSetlist.url" target="_blank" rel="noreferrer">
