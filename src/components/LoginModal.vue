@@ -12,7 +12,7 @@
             type="email"
             lazy-rules
             autocomplete="off"
-            :rules="[(val) => (val && val.length > 0) || 'Email is required']"
+            :rules="[(val: string) => (val && val.length > 0) || 'Email is required']"
           />
           <QInput
             v-model="password"
@@ -20,7 +20,7 @@
             type="password"
             lazy-rules
             autocomplete="off"
-            :rules="[(val) => (val && val.length > 0) || 'Password is required']"
+            :rules="[(val: string) => (val && val.length > 0) || 'Password is required']"
           />
         </QCardSection>
         <QCardActions align="right" class="modal-controls">
