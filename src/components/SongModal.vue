@@ -13,7 +13,7 @@
           v-model="song.vocal_lead"
           :options="memberStore.members"
           option-value="id"
-          :option-label="(option) => `${option.first_name} ${option.last_name}`"
+          :option-label="(option: Tables<'member'>) => `${option.first_name} ${option.last_name}`"
           label="Vocal Lead"
           emit-value
           map-options
