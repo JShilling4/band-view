@@ -20,7 +20,7 @@
           clearable
           behavior="menu"
           @update:model-value="
-            (val) => {
+            (val: string | null) => {
               if (!val) val = null;
             }
           "
