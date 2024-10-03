@@ -66,6 +66,17 @@ const navigationConfig: NavItem[] = [
     },
     requiresAuth: false,
   },
+  {
+    routeName: RouteNames.Cms,
+    label: RouteNames.Cms,
+    routePath: RoutePath.CMS,
+    link: null,
+    icon: {
+      classes: [...IconClasses.Globe],
+      color: "orange-4",
+    },
+    requiresAuth: true,
+  },
 ];
 
 export default navigationConfig;

@@ -4,6 +4,7 @@ export enum IconNames {
   Download = "Download",
   Edit = "Edit",
   File = "File",
+  Globe = "Globe",
   Handle = "Handle",
   Landmark = "Landmark",
   Music = "Music",
@@ -28,6 +29,7 @@ export const IconClasses: { [key in IconNames]: string[] } = {
   [IconNames.User]: ["fa-solid fa-user"],
   [IconNames.YouTube]: ["fa-brands fa-youtube"],
   [IconNames.Delete]: ["fa-solid", "fa-trash-alt", "text-red-5"],
+  [IconNames.Globe]: ["fa-solid", "fa-globe"],
 };
 
 export interface AppIcon {
