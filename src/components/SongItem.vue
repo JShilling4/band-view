@@ -11,6 +11,7 @@
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
           <span class="text-bold text-grey-9">{{ song.title }}&nbsp;</span>
+          <span v-if="isAdmin && song.length">({{ secToMinSec(song.length) }})</span>
           <span v-if="!hideSpecials && song.specials?.length">
             [
             <span
@@ -70,7 +71,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { openBrowserTab } from "@/utils/helpers";
+import { openBrowserTab, secToMinSec } from "@/utils/helpers";
 import { useMemberStore, useUserStore } from "@/stores";
 import { IconClasses, type Tables } from "@/types";
 
