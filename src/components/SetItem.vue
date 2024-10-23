@@ -44,6 +44,9 @@
           <QSeparator />
         </div>
       </VueDraggable>
+      <div>
+        Total Time: {{ secToMinSec(localSetSongs.reduce((n, { length }) => n + length, 0)) }}
+      </div>
 
       <SongModal
         v-model:show-modal="showSongModal"
@@ -59,6 +62,7 @@
 <script setup lang="ts">
 import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
+import { secToMinSec } from "@/utils/helpers";
 import { useSetUtility, useSongUtility } from "@/composables";
 import { useSetStore, useSongStore, useUserStore } from "@/stores";
 import type { Tables } from "@/types";
