@@ -46,6 +46,7 @@
           multiple
           behavior="menu"
         />
+        <QInput v-model="song.length" label="Length" />
       </QCardSection>
       <QCardActions align="right" class="modal-controls">
         <QBtn v-close-popup outline label="Cancel" color="black" no-caps />

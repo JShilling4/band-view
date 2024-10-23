@@ -33,6 +33,14 @@ export default defineConfig({
   },
   css: {
     devSourcemap: true,
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ["vue-draggable-plus"],
   },
   server: {
     port: 3000,

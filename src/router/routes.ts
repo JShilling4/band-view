@@ -77,6 +77,17 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: RoutePath.CMS,
+    name: RouteNames.Cms,
+    component: () => import("@/views/WebsiteCms.vue"),
+    props: () => {
+      return { pageTitle: "CMS" };
+    },
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound,

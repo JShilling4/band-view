@@ -31,18 +31,21 @@ export type Database = {
       contact: {
         Row: {
           email: string | null;
+          fb_url: string | null;
           id: number;
           name: string;
           phone: string | null;
         };
         Insert: {
           email?: string | null;
+          fb_url?: string | null;
           id?: number;
           name: string;
           phone?: string | null;
         };
         Update: {
           email?: string | null;
+          fb_url?: string | null;
           id?: number;
           name?: string;
           phone?: string | null;
@@ -58,6 +61,7 @@ export type Database = {
           permission_level: string | null;
           phone: string | null;
           profile_color: string | null;
+          sort_order: number | null;
           title: string;
           user_id: string | null;
         };
@@ -69,6 +73,7 @@ export type Database = {
           permission_level?: string | null;
           phone?: string | null;
           profile_color?: string | null;
+          sort_order?: number | null;
           title: string;
           user_id?: string | null;
         };
@@ -80,6 +85,7 @@ export type Database = {
           permission_level?: string | null;
           phone?: string | null;
           profile_color?: string | null;
+          sort_order?: number | null;
           title?: string;
           user_id?: string | null;
         };
@@ -213,6 +219,7 @@ export type Database = {
           download_url: string | null;
           id: number;
           is_highlighted: boolean;
+          length: number | null;
           link_url: string | null;
           specials: string[] | null;
           status: Database["public"]["Enums"]["song_status"];
@@ -224,6 +231,7 @@ export type Database = {
           download_url?: string | null;
           id?: number;
           is_highlighted?: boolean;
+          length?: number | null;
           link_url?: string | null;
           specials?: string[] | null;
           status: Database["public"]["Enums"]["song_status"];
@@ -235,6 +243,7 @@ export type Database = {
           download_url?: string | null;
           id?: number;
           is_highlighted?: boolean;
+          length?: number | null;
           link_url?: string | null;
           specials?: string[] | null;
           status?: Database["public"]["Enums"]["song_status"];
@@ -308,7 +317,7 @@ export type Database = {
     Enums: {
       set_type: "3h" | "4h" | "4h Rock";
       song_mood: "fast dance" | "slow dance" | "drink" | "singalong";
-      song_status: "suggested" | "learning" | "active" | "burner" | "killed";
+      song_status: "suggested" | "next" | "learning" | "active" | "burner" | "killed";
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -388,6 +397,7 @@ export type Database = {
           owner_id: string | null;
           path_tokens: string[] | null;
           updated_at: string | null;
+          user_metadata: Json | null;
           version: string | null;
         };
         Insert: {
@@ -401,6 +411,7 @@ export type Database = {
           owner_id?: string | null;
           path_tokens?: string[] | null;
           updated_at?: string | null;
+          user_metadata?: Json | null;
           version?: string | null;
         };
         Update: {
@@ -414,6 +425,7 @@ export type Database = {
           owner_id?: string | null;
           path_tokens?: string[] | null;
           updated_at?: string | null;
+          user_metadata?: Json | null;
           version?: string | null;
         };
         Relationships: [
@@ -422,6 +434,104 @@ export type Database = {
             columns: ["bucket_id"];
             isOneToOne: false;
             referencedRelation: "buckets";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      s3_multipart_uploads: {
+        Row: {
+          bucket_id: string;
+          created_at: string;
+          id: string;
+          in_progress_size: number;
+          key: string;
+          owner_id: string | null;
+          upload_signature: string;
+          user_metadata: Json | null;
+          version: string;
+        };
+        Insert: {
+          bucket_id: string;
+          created_at?: string;
+          id: string;
+          in_progress_size?: number;
+          key: string;
+          owner_id?: string | null;
+          upload_signature: string;
+          user_metadata?: Json | null;
+          version: string;
+        };
+        Update: {
+          bucket_id?: string;
+          created_at?: string;
+          id?: string;
+          in_progress_size?: number;
+          key?: string;
+          owner_id?: string | null;
+          upload_signature?: string;
+          user_metadata?: Json | null;
+          version?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      s3_multipart_uploads_parts: {
+        Row: {
+          bucket_id: string;
+          created_at: string;
+          etag: string;
+          id: string;
+          key: string;
+          owner_id: string | null;
+          part_number: number;
+          size: number;
+          upload_id: string;
+          version: string;
+        };
+        Insert: {
+          bucket_id: string;
+          created_at?: string;
+          etag: string;
+          id?: string;
+          key: string;
+          owner_id?: string | null;
+          part_number: number;
+          size?: number;
+          upload_id: string;
+          version: string;
+        };
+        Update: {
+          bucket_id?: string;
+          created_at?: string;
+          etag?: string;
+          id?: string;
+          key?: string;
+          owner_id?: string | null;
+          part_number?: number;
+          size?: number;
+          upload_id?: string;
+          version?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey";
+            columns: ["upload_id"];
+            isOneToOne: false;
+            referencedRelation: "s3_multipart_uploads";
             referencedColumns: ["id"];
           },
         ];
@@ -456,7 +566,7 @@ export type Database = {
         Args: {
           name: string;
         };
-        Returns: unknown;
+        Returns: string[];
       };
       get_size_by_bucket: {
         Args: Record<PropertyKey, never>;
@@ -464,6 +574,41 @@ export type Database = {
           size: number;
           bucket_id: string;
         }[];
+      };
+      list_multipart_uploads_with_delimiter: {
+        Args: {
+          bucket_id: string;
+          prefix_param: string;
+          delimiter_param: string;
+          max_keys?: number;
+          next_key_token?: string;
+          next_upload_token?: string;
+        };
+        Returns: {
+          key: string;
+          id: string;
+          created_at: string;
+        }[];
+      };
+      list_objects_with_delimiter: {
+        Args: {
+          bucket_id: string;
+          prefix_param: string;
+          delimiter_param: string;
+          max_keys?: number;
+          start_after?: string;
+          next_token?: string;
+        };
+        Returns: {
+          name: string;
+          id: string;
+          metadata: Json;
+          updated_at: string;
+        }[];
+      };
+      operation: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
       };
       search: {
         Args: {
@@ -495,9 +640,11 @@ export type Database = {
   };
 };
 
+type PublicSchema = Database[Extract<keyof Database, "public">];
+
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
@@ -510,10 +657,8 @@ export type Tables<
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
-        Database["public"]["Views"])
-    ? (Database["public"]["Tables"] &
-        Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R;
       }
       ? R
@@ -521,7 +666,7 @@ export type Tables<
     : never;
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
@@ -531,8 +676,8 @@ export type TablesInsert<
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I;
       }
       ? I
@@ -540,7 +685,7 @@ export type TablesInsert<
     : never;
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
@@ -550,8 +695,8 @@ export type TablesUpdate<
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U;
       }
       ? U
@@ -559,12 +704,27 @@ export type TablesUpdate<
     : never;
 
 export type Enums<
-  PublicEnumNameOrOptions extends keyof Database["public"]["Enums"] | { schema: keyof Database },
+  PublicEnumNameOrOptions extends keyof PublicSchema["Enums"] | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
-    ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never;
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database;
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never;
