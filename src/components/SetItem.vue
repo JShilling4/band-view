@@ -45,7 +45,7 @@
         </div>
       </VueDraggable>
       <div>
-        Total Time: {{ secToMinSec(localSetSongs.reduce((n, { length }) => n + length, 0)) }}
+        Total Time: {{ secToMinSec(localSetSongs.reduce((n, { length }) => n + (length ?? 0), 0)) }}
       </div>
 
       <SongModal
