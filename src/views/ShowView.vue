@@ -106,6 +106,10 @@ const showFilters: ShowFilter[] = [
     label: "All This Year",
     fn: () => showStore.getShowsThisYear,
   },
+  {
+    label: "Next Year",
+    fn: () => showStore.getShowsNextYear,
+  },
 ];
 const activeShowFilter = ref<ShowFilter>({ ...showFilters[0] });
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
