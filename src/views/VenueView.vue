@@ -61,7 +61,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import clone from "lodash/clone";
 import { useVenueUtility } from "@/composables";
 import { useContactStore, useShowStore, useUserStore, useVenueStore } from "@/stores";
 import { Tables } from "@/types";
