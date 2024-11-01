@@ -19,9 +19,8 @@
               :key="special"
               class="specials-symbols text-grey-6 text-bold q-mr-xs"
             >
-              {{ special }}
-            </span>
-            ]
+              {{ special }} </span
+            >]
           </span>
         </span>
       </QItemLabel>
