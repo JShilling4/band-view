@@ -34,6 +34,22 @@
           class="vocal-lead"
         >
           {{ memberStore.getMemberById(song.vocal_lead)?.first_name ?? "" }}
+          <span
+            v-if="song.vocal_second"
+            :style="{
+              color: memberStore.getMemberById(song.vocal_second)?.profile_color ?? '',
+            }"
+            ><span style="color: #000">,</span>
+            {{ memberStore.getMemberById(song.vocal_second)?.first_name ?? "" }}
+          </span>
+          <span
+            v-if="song.vocal_third"
+            :style="{
+              color: memberStore.getMemberById(song.vocal_third)?.profile_color ?? '',
+            }"
+            ><span style="color: #000">,</span>
+            {{ memberStore.getMemberById(song.vocal_third)?.first_name ?? "" }}
+          </span>
         </span>
       </QItemLabel>
     </QItemSection>
