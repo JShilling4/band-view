@@ -111,7 +111,6 @@ export const useVenueStore = defineStore("venues", {
           });
           throw error;
         }
-
         if (!error) {
           const target = this.venues.findIndex((s) => s.id === venue.id);
           if (target !== -1) {

@@ -102,7 +102,7 @@ watch(
     if (cityFilter.value) {
       filteredVenues.value = venueStore.getVenuesByCity(cityFilter.value);
     } else {
-      filteredVenues.value = clone(venueStore.venues);
+      filteredVenues.value = venueStore.venues;
     }
   }
 );
@@ -112,7 +112,7 @@ onMounted(async () => {
   await contactStore.fetchContacts();
   await showStore.fetchShows();
   await venueStore.fetchVenues();
-  filteredVenues.value = clone(venueStore.venues);
+  filteredVenues.value = venueStore.venues;
 });
 </script>
 
