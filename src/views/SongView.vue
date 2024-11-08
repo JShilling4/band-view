@@ -14,7 +14,7 @@
         />
         <AppSelect
           v-model="statusFilter"
-          :options="SONG_STATUSES"
+          :options="Array(...SONG_STATUSES).sort()"
           emit-value
           option-value="name"
           option-label="name"

@@ -123,7 +123,9 @@ export const useSongStore = defineStore("songs", {
 
   getters: {
     getSongsByStatus: (state) => (status: SongStatus) => {
-      return state.songs.filter((song) => song.status === status);
+      return state.songs
+        .filter((song) => song.status === status)
+        .sort((a, b) => a.title.localeCompare(b.title));
     },
     getSongById: (state) => (id: number) => {
       return state.songs.find((song) => song.id === id);
