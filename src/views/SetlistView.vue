@@ -139,10 +139,10 @@ async function onDeleteSetlistClick(id: number) {
 .set-container {
   width: 100%;
 
-  @include md {
+  @include from-tablet {
     flex: 50%;
   }
-  @include lg {
+  @include from-desktop {
     flex: 25%;
   }
 }

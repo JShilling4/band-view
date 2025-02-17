@@ -56,14 +56,18 @@ async function onFormSubmit() {
 }
 </script>
 
-<style lang="sass" scoped>
-@import "../scss/breakpoints"
-.modal-content
-  width: 100%
+<style lang="scss" scoped>
+@import "../scss/breakpoints";
 
-  @include md
-    width: 500px
+.modal-content {
+  width: 100%;
 
-.modal-body
-  padding: 0 1.5rem 2rem
+  @include from-tablet {
+    width: 500px;
+  }
+}
+
+.modal-body {
+  padding: 0 1.5rem 2rem;
+}
 </style>

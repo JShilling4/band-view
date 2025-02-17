@@ -58,7 +58,7 @@ async function onSaveSetlist() {
 .modal-content {
   width: 100%;
 
-  @include md {
+  @include from-tablet {
     width: 500px;
   }
 }
