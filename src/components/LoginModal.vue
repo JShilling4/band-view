@@ -34,7 +34,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { type QForm } from "quasar";
 import { useUserStore } from "@/stores";
 
 const userStore = useUserStore();
@@ -45,6 +44,7 @@ const password = ref<string | null>(null);
 
 async function onFormSubmit() {
   if (!email.value || !password.value) return;
+
   const success = await userStore.logIn({ email: email.value, password: password.value });
 
   if (success) {
