@@ -28,7 +28,8 @@ function toggleUserMenu() {
 
 onMounted(async () => {
   try {
-    await Promise.all([fetchMembers(), getSession()]);
+    await fetchMembers();
+    await getSession();
   } catch (error) {
     console.error("Failed to initialize app:", error);
   }
