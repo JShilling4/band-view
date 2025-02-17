@@ -98,15 +98,12 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="sass" scoped>
-.tab
-  text-transform: capitalize
-  font-weight: 300
-  letter-spacing: 1px
+<style lang="scss" scoped>
+.song-container {
+  max-width: 500px;
+}
 
-.song-container
-  max-width: 500px
-
-:deep(.q-field__native)
-  text-transform: capitalize
+:deep(.q-field__native) {
+  text-transform: capitalize;
+}
 </style>

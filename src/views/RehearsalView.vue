@@ -95,19 +95,21 @@ const rehearsalList = computed(() => {
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+.QItem {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
 
-.QItem
-  padding-left: 0 !important
-  padding-right: 0 !important
-  font-family: Roboto, sans-serif
-  font-weight: 400
+.song-list {
+  max-width: 500px;
+}
 
-.song-list
-  max-width: 500px
-
-.section-header
-  font-weight: 500
-  font-size: 17px
-  color: gray
+.section-header {
+  font-weight: 500;
+  font-size: 17px;
+  color: gray;
+}
 </style>

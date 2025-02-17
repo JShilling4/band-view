@@ -11,5 +11,3 @@ withDefaults(defineProps<PropTypes>(), {
   pageTitle: "New Page",
 });
 </script>
-
-<style lang="sass" scoped></style>

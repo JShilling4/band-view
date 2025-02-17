@@ -142,8 +142,9 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="sass" scoped>
-.show
-  width: 300px
-  flex-grow: 1
+<style lang="scss" scoped>
+.show {
+  width: 300px;
+  flex-grow: 1;
+}
 </style>

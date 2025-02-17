@@ -33,14 +33,17 @@ function onLoginClick() {
 }
 </script>
 
-<style lang="sass" scoped>
-.left-menu-toggle
-  visibility: hidden
+<style lang="scss" scoped>
+.left-menu-toggle {
+  visibility: hidden;
+}
 
-.toolbar-title
-  font-size: 18px
-  font-weight: 600
+.toolbar-title {
+  font-size: 18px;
+  font-weight: 600;
+}
 
-.toolbar-link
-  cursor: pointer
+.toolbar-link {
+  cursor: pointer;
+}
 </style>

@@ -133,6 +133,7 @@ async function onDeleteSetlistClick(id: number) {
 
 <style lang="scss" scoped>
 @import "../scss/breakpoints";
+
 .setlist-container {
   flex-wrap: wrap;
 }
