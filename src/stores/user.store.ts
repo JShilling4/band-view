@@ -88,7 +88,7 @@ export const useUserStore = defineStore("user", {
       }
 
       this.user = user;
-      const member = memberStore.getMemberById(user.id);
+      const member = memberStore.getMemberByUserId(user.id);
 
       if (!member) {
         Notify.create({

@@ -42,8 +42,13 @@ export const useMemberStore = defineStore("members", {
 
   getters: {
     getMemberById: (state) => {
-      return (id: number | null) => {
+      return (id: number | null | undefined) => {
         return state.members.find((member) => member.id === id);
+      };
+    },
+    getMemberByUserId: (state) => {
+      return (userId: string | null | undefined) => {
+        return state.members.find((member) => member.user_id === userId);
       };
     },
   },
