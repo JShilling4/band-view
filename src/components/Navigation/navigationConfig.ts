@@ -21,6 +21,7 @@ const navigationConfig: NavItem[] = [
       color: "green-5",
     },
     requiresAuth: false,
+    requiredRoles: [],
   },
   {
     routeName: RouteNames.Songs,
@@ -32,6 +33,7 @@ const navigationConfig: NavItem[] = [
       color: "blue-5",
     },
     requiresAuth: false,
+    requiredRoles: [],
   },
   {
     routeName: RouteNames.Setlists,
@@ -43,6 +45,7 @@ const navigationConfig: NavItem[] = [
       color: "purple-4",
     },
     requiresAuth: false,
+    requiredRoles: [],
   },
   {
     routeName: RouteNames.Shows,
@@ -54,6 +57,7 @@ const navigationConfig: NavItem[] = [
       color: "teal-4",
     },
     requiresAuth: false,
+    requiredRoles: [],
   },
   {
     routeName: RouteNames.Venues,
@@ -65,6 +69,7 @@ const navigationConfig: NavItem[] = [
       color: "red-4",
     },
     requiresAuth: false,
+    requiredRoles: [],
   },
   {
     routeName: RouteNames.Cms,
@@ -76,6 +81,7 @@ const navigationConfig: NavItem[] = [
       color: "orange-4",
     },
     requiresAuth: true,
+    requiredRoles: ["admin"],
   },
 ];
 
