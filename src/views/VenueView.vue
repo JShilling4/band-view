@@ -5,42 +5,50 @@
     </div>
 
     <div class="page-content">
-      <div class="top-controls q-mb-md row items-center">
-        <QBtn
-          v-if="isAdmin"
-          color="teal-10"
-          icon="fa-solid fa-plus"
-          class="q-mr-md"
-          no-caps
-          dense
-          @click="onAddVenueClick"
-        />
-        <AppSelect
-          v-model="cityFilter"
-          :options="venueStore.getVenueCities"
-          emit-value
-          option-value="name"
-          option-label="name"
-          label="Select City"
-        />
-      </div>
+      <template v-if="isLoading">
+        <div class="flex flex-center q-pa-lg">
+          <QSpinner size="3em" color="primary" />
+        </div>
+      </template>
 
-      <div class="results-text">{{ filteredVenues.length }} results</div>
-      <QList class="venue-container q-mt-xs flex q-gutter-md">
-        <VenueItem
-          v-for="venue in filteredVenues"
-          :key="venue.id"
-          class="venue"
-          :venue="venue"
-          @venue-clicked="onVenueClick(venue.id)"
-          @edit="onEditVenueClick(venue.id)"
-          @delete="onDeleteVenueClick(venue.id)"
-        />
-        <div class="venue"></div>
-        <div class="venue"></div>
-        <div class="venue"></div>
-        <div class="venue"></div>
-      </QList>
+      <template v-else>
+        <div class="top-controls q-mb-md row items-center">
+          <QBtn
+            v-if="isAdmin"
+            color="teal-10"
+            icon="fa-solid fa-plus"
+            class="q-mr-md"
+            no-caps
+            dense
+            @click="onAddVenueClick"
+          />
+          <AppSelect
+            v-model="cityFilter"
+            :options="venueStore.getVenueCities"
+            emit-value
+            option-value="name"
+            option-label="name"
+            label="Select City"
+          />
+        </div>
+
+        <div class="results-text">{{ filteredVenues.length }} results</div>
+        <QList class="venue-container q-mt-xs flex q-gutter-md">
+          <VenueItem
+            v-for="venue in filteredVenues"
+            :key="venue.id"
+            class="venue"
+            :venue="venue"
+            @venue-clicked="onVenueClick(venue.id)"
+            @edit="onEditVenueClick(venue.id)"
+            @delete="onDeleteVenueClick(venue.id)"
+          />
+          <div class="venue"></div>
+          <div class="venue"></div>
+          <div class="venue"></div>
+          <div class="venue"></div>
+        </QList>
+      </template>
 
       <VenueModal
         v-model:show-modal="showVenueModal"
@@ -90,6 +98,8 @@ const {
 } = useVenueUtility();
 
 // State
+const isLoading = ref(true);
+const error = ref<string | null>(null);
 const cityFilter = ref<string | null>(null);
 const filteredVenues = ref<Tables<"venue">[]>([]);
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
@@ -108,10 +118,20 @@ watch(
 
 // Methods
 onMounted(async () => {
-  await contactStore.fetchContacts();
-  await showStore.fetchShows();
-  await venueStore.fetchVenues();
-  filteredVenues.value = venueStore.venues;
+  try {
+    error.value = null;
+    isLoading.value = true;
+    await Promise.all([
+      contactStore.fetchContacts(),
+      showStore.fetchShows(),
+      venueStore.fetchVenues(),
+    ]);
+    filteredVenues.value = venueStore.venues;
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : "An unexpected error occurred";
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>
 
