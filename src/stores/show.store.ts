@@ -13,7 +13,7 @@ import {
 } from "date-fns";
 import { type Tables } from "@/types";
 
-interface State {
+export interface State {
   shows: Tables<"show">[];
   loading: boolean;
 }
