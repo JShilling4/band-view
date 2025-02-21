@@ -3,6 +3,7 @@ import Components from "unplugin-vue-components/vite";
 import { quasar, transformAssetUrls } from "@quasar/vite-plugin";
 import { fileURLToPath } from "url";
 import { defineConfig } from "vitest/config";
+import { configDefaults } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,8 @@ export default defineConfig({
       provider: "istanbul",
       reporter: ["text", "json", "html"],
     },
+    include: ["**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    exclude: [...configDefaults.exclude],
   },
   plugins: [
     vue({

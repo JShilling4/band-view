@@ -6,7 +6,7 @@ import { useShowStore } from "@/stores";
 import { NewShow } from "@/types";
 import type { Tables } from "@/types";
 
-// Mock the store module
+// Mock the store modules
 vi.mock("@/stores", () => ({
   useShowStore: vi.fn(),
 }));

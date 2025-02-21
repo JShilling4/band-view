@@ -5,7 +5,7 @@ import { User } from "@supabase/supabase-js";
 import { useMemberStore } from "@/stores";
 import { Tables } from "@/types";
 
-interface State {
+export interface State {
   user: User | null;
   activeMember: Tables<"member"> | null;
   loading: boolean;
@@ -131,8 +131,6 @@ export const useUserStore = defineStore("user", {
   },
 
   getters: {
-    isAuthenticated: (state): boolean => !!state.user,
-
     memberRole: (state): string | null => state.activeMember?.permission_level ?? null,
 
     memberFullName: (state): string | null =>
