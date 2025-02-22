@@ -32,7 +32,9 @@
         <div v-if="error" class="text-negative q-mb-md">
           {{ error }}
         </div>
-        <QSkeleton v-if="isLoading" type="rect" class="q-mb-sm" v-for="n in 3" :key="n" />
+        <div v-if="isLoading">
+          <QSkeleton v-for="n in 3" :key="n" type="rect" class="q-mb-sm" />
+        </div>
         <template v-else>
           <div v-if="statusFilter" class="results-text">
             {{ songStore.getSongsByStatus(statusFilter).length }} results

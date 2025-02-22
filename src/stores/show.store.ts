@@ -13,13 +13,13 @@ import {
 } from "date-fns";
 import { type Tables } from "@/types";
 
-export interface State {
+export interface ShowStoreState {
   shows: Tables<"show">[];
   loading: boolean;
 }
 
 export const useShowStore = defineStore("shows", {
-  state: (): State => ({
+  state: (): ShowStoreState => ({
     shows: [],
     loading: false,
   }),

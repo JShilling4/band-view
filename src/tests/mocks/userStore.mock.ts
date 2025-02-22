@@ -1,12 +1,12 @@
 import { vi } from "vitest";
-import type { State } from "@/stores/user.store";
+import type { UserStoreState } from "@/stores/user.store";
 import { useUserStore } from "@/stores/user.store";
 
 // Get the store type from the actual store
 type UserStore = ReturnType<typeof useUserStore>;
 
 export const createMockUserStore = () => {
-  const state: State = {
+  const state: UserStoreState = {
     user: null,
     activeMember: null,
     loading: false,

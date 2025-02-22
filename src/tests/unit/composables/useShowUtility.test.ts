@@ -52,7 +52,7 @@ describe("useShowUtility", () => {
 
   describe("onEditShowClick", () => {
     it("should set up edit mode with show data", () => {
-      const getShowById = vi.fn((id: number) => mockShow);
+      const getShowById = vi.fn(() => mockShow);
       setupMockStore({ getShowById });
 
       const { onEditShowClick, localShow, showModalAction, showShowModal } = useShowUtility();

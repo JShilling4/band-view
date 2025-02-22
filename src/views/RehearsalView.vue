@@ -20,7 +20,7 @@
 
       <div v-else-if="error" class="text-negative">
         <p>{{ error }}</p>
-        <QBtn color="primary" @click="loadData" label="Retry" />
+        <QBtn color="primary" label="Retry" @click="loadData" />
       </div>
 
       <div v-else-if="displayRehearsals">

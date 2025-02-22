@@ -5,7 +5,7 @@ import { User } from "@supabase/supabase-js";
 import { useMemberStore } from "@/stores";
 import { Tables } from "@/types";
 
-export interface State {
+export interface UserStoreState {
   user: User | null;
   activeMember: Tables<"member"> | null;
   loading: boolean;
@@ -17,7 +17,7 @@ interface LoginCredentials {
 }
 
 export const useUserStore = defineStore("user", {
-  state: (): State => ({
+  state: (): UserStoreState => ({
     user: null,
     activeMember: null,
     loading: false,
