@@ -1,13 +1,9 @@
 <template>
-  <h2 class="h2 page-title"><slot /></h2>
+  <h2 class="h2 page-title">
+    <slot>{{ pageTitle }}</slot>
+  </h2>
 </template>
 
 <script setup lang="ts">
-interface PropTypes {
-  pageTitle?: string;
-}
-
-withDefaults(defineProps<PropTypes>(), {
-  pageTitle: "New Page",
-});
+const { pageTitle = "New Page" } = defineProps<{ pageTitle?: string }>();
 </script>
