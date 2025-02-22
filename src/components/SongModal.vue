@@ -121,10 +121,11 @@ async function onSaveSong() {
 
 <style lang="scss" scoped>
 @import "../scss/breakpoints";
+
 .modal-content {
   width: 100%;
 
-  @include md {
+  @include from-tablet {
     width: 500px;
   }
 }

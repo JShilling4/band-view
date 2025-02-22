@@ -11,8 +11,9 @@
 const model = defineModel<boolean>({ required: true });
 </script>
 
-<style lang="sass" scoped>
-:deep(.mini-icon)
-  font-size: 1.5rem
-  padding: 20px 0
+<style lang="scss" scoped>
+:deep(.mini-icon) {
+  font-size: 1.5rem;
+  padding: 20px 0;
+}
 </style>

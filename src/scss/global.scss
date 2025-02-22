@@ -1,0 +1,58 @@
+@import "@/scss/breakpoints";
+
+:root {
+  --primary-color: #{$blue-8};
+  --danger-color: #{$red-10};
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+
+  @include from-tablet {
+    font-size: 18px;
+  }
+}
+
+a {
+  color: var(--primary-color);
+  &:visited {
+    color: inherit;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &.heading {
+    line-height: 1.5;
+  }
+}
+.h2 {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+ul {
+  list-style: none;
+}
+
+.page-container {
+  padding: 10px 15px;
+
+  @include from-tablet {
+    padding: 20px 30px;
+  }
+}
+
+.page-content {
+  margin-top: 6px;
+}

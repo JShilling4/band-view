@@ -5,90 +5,137 @@ import { User } from "@supabase/supabase-js";
 import { useMemberStore } from "@/stores";
 import { Tables } from "@/types";
 
-interface State {
+export interface UserStoreState {
   user: User | null;
   activeMember: Tables<"member"> | null;
   loading: boolean;
 }
 
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
 export const useUserStore = defineStore("user", {
-  state: (): State => ({
+  state: (): UserStoreState => ({
     user: null,
     activeMember: null,
     loading: false,
   }),
 
   actions: {
-    async logIn(creds: { email: string; password: string }) {
-      if (!creds.email || !creds.password) return;
+    async logIn(creds: LoginCredentials): Promise<boolean> {
+      if (!creds.email || !creds.password) {
+        Notify.create({
+          type: "negative",
+          message: "Please provide both email and password",
+        });
+        return false;
+      }
+
       try {
         this.loading = true;
         const { data, error } = await supabase.auth.signInWithPassword(creds);
 
-        if (error) {
-          Notify.create({
-            type: "negative",
-            message: error.message,
-          });
-          throw error;
-        }
+        if (error) throw error;
 
         if (data.user) {
-          this.setUser(data.user);
+          await this.setUser(data.user);
+          Notify.create({
+            type: "positive",
+            message: "Successfully logged in",
+          });
           return true;
         }
+        return false;
       } catch (error) {
-        console.log(error);
+        Notify.create({
+          type: "negative",
+          message: error instanceof Error ? error.message : "Login failed",
+        });
         return false;
       } finally {
         this.loading = false;
       }
     },
 
-    async getSession() {
+    async getSession(): Promise<void> {
       try {
         this.loading = true;
         const { data, error } = await supabase.auth.getSession();
 
-        if (error) {
-          Notify.create({
-            type: "negative",
-            message: error.message,
-          });
-          throw error;
-        }
+        if (error) throw error;
 
         if (data.session) {
-          this.setUser(data.session.user);
+          await this.setUser(data.session.user);
         }
       } catch (error) {
-        console.log(error);
+        Notify.create({
+          type: "negative",
+          message: error instanceof Error ? error.message : "Failed to restore session",
+        });
       } finally {
         this.loading = false;
       }
     },
 
-    setUser(user: User) {
-      const { members } = useMemberStore();
+    async setUser(user: User): Promise<void> {
+      const memberStore = useMemberStore();
+
+      // Ensure members are loaded
+      if (!memberStore.members.length) {
+        await memberStore.fetchMembers();
+      }
+
       this.user = user;
-      this.activeMember = members.find((m) => m.user_id) ?? null;
+      const member = memberStore.getMemberByUserId(user.id);
+
+      if (!member) {
+        Notify.create({
+          type: "warning",
+          message: "No member profile found for this user",
+        });
+      }
+
+      this.activeMember = member ?? null;
     },
 
-    async logOut() {
+    async logOut(): Promise<boolean> {
       try {
+        this.loading = true;
         const { error } = await supabase.auth.signOut();
 
-        if (error) {
-          throw error;
-        } else {
-          this.user = null;
-          this.activeMember = null;
-          return true;
-        }
+        if (error) throw error;
+
+        this.clearUserData();
+        Notify.create({
+          type: "positive",
+          message: "Successfully logged out",
+        });
+        return true;
       } catch (error) {
-        console.log(error);
+        Notify.create({
+          type: "negative",
+          message: error instanceof Error ? error.message : "Logout failed",
+        });
         return false;
+      } finally {
+        this.loading = false;
       }
     },
+
+    clearUserData(): void {
+      this.user = null;
+      this.activeMember = null;
+    },
+  },
+
+  getters: {
+    memberRole: (state): string | null => state.activeMember?.permission_level ?? null,
+
+    memberFullName: (state): string | null =>
+      state.activeMember
+        ? `${state.activeMember.first_name} ${state.activeMember.last_name}`
+        : null,
   },
 });

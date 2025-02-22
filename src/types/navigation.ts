@@ -7,4 +7,5 @@ export interface NavItem {
   link: ExternalLink | null;
   icon: AppIcon;
   requiresAuth: boolean;
+  requiredRoles: string[];
 }

@@ -16,7 +16,14 @@
         />
       </div>
 
-      <div v-if="displayRehearsals">
+      <QSpinner v-if="isLoading" color="primary" size="3em" />
+
+      <div v-else-if="error" class="text-negative">
+        <p>{{ error }}</p>
+        <QBtn color="primary" label="Retry" @click="loadData" />
+      </div>
+
+      <div v-else-if="displayRehearsals">
         <div v-for="rehearsal in rehearsalList" :key="rehearsal.id" class="q-mb-sm">
           <div
             class="heading-wrapper text-white bg-teal-10 q-px-sm q-py-xs q-mb-md row items-center"
@@ -54,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useDateUtility, useRehearsalUtility } from "@/composables";
 import { useMemberStore, useRehearsalStore, useSongStore, useUserStore } from "@/stores";
 import { IconClasses } from "@/types";
@@ -79,13 +86,9 @@ const {
   onEditRehearsalClick,
 } = useRehearsalUtility();
 
-// lifecycle hooks
-onMounted(async () => {
-  await memberStore.fetchMembers();
-  await songStore.fetchSongs();
-  rehearsalStore.fetchRehearsals();
-});
-
+// state
+const isLoading = ref(false);
+const error = ref<string | null>(null);
 const displayRehearsals = computed(() => {
   return rehearsalStore.getRehearsalsOnOrAfterDate(new Date()).length;
 });
@@ -93,21 +96,46 @@ const rehearsalList = computed(() => {
   return rehearsalStore.getRehearsalsOnOrAfterDate(new Date());
 });
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
+
+// methods
+const loadData = async () => {
+  isLoading.value = true;
+  error.value = null;
+
+  try {
+    await Promise.all([
+      memberStore.fetchMembers(),
+      songStore.fetchSongs(),
+      rehearsalStore.fetchRehearsals(),
+    ]);
+  } catch (err) {
+    error.value = "Failed to load rehearsal data. Please try again.";
+    console.error(err);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(() => {
+  loadData();
+});
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+.QItem {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
 
-.QItem
-  padding-left: 0 !important
-  padding-right: 0 !important
-  font-family: Roboto, sans-serif
-  font-weight: 400
+.song-list {
+  max-width: 500px;
+}
 
-.song-list
-  max-width: 500px
-
-.section-header
-  font-weight: 500
-  font-size: 17px
-  color: gray
+.section-header {
+  font-weight: 500;
+  font-size: 17px;
+  color: gray;
+}
 </style>

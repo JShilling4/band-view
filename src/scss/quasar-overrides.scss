@@ -1,0 +1,63 @@
+// Quasar component overrides
+.q-drawer {
+  position: fixed !important;
+}
+
+.app-left-drawer {
+  .q-item {
+    padding: 8px 10px;
+    &--active {
+      background-color: #3d3d3d;
+    }
+  }
+}
+.q-btn {
+  letter-spacing: 1px;
+}
+
+.q-item__label,
+.q-field__native {
+  text-transform: capitalize;
+}
+
+.results-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: gray;
+}
+
+.q-dialog__inner--minimized {
+  padding: 14px !important;
+}
+
+.q-icon.edit-icon {
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $blue-10 !important;
+  }
+}
+
+.q-icon.delete-icon {
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $red-10 !important;
+  }
+}
+
+#app .q-item__section--side {
+  justify-content: start;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

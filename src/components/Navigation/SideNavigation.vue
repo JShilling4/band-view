@@ -1,9 +1,9 @@
 <template>
   <AppDrawer
     v-model="leftDrawerOpen"
-    :mini="$q.screen.width < 1024 && miniLeftDrawer"
+    :mini="isMiniDrawer"
     side="left"
-    :width="$q.screen.width > 1024 ? 250 : 45"
+    :width="drawerWidth"
     class="app-left-drawer bg-black text-grey-3"
     behavior="desktop"
     show-if-above
@@ -31,7 +31,6 @@
                 class="mini-icon"
               />
             </QItemSection>
-            <!-- <QItemSection> {{ item.label }} </QItemSection> -->
           </QItem>
         </QList>
       </QScrollArea>
@@ -73,14 +72,18 @@ const userStore = useUserStore();
 
 const leftDrawerOpen = ref(false);
 const miniLeftDrawer = ref(true);
+const isMiniDrawer = computed(() => $q.screen.width < 1024 && miniLeftDrawer.value);
+const drawerWidth = computed(() => ($q.screen.width > 1024 ? 250 : 45));
 const authorizedRoutes = computed(() => {
-  return navConfig.filter(
-    (nc) => !nc.requiresAuth || userStore.activeMember?.permission_level === "admin"
-  );
+  return navConfig.filter((nc) => {
+    if (!nc.requiresAuth) return true;
+    return nc.requiredRoles.includes(userStore.memberRole ?? "");
+  });
 });
 </script>
 
-<style lang="sass" scoped>
-.active-route
-  color: #72b9ff
+<style lang="scss" scoped>
+.active-route {
+  color: #72b9ff;
+}
 </style>

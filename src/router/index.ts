@@ -6,4 +6,10 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  // Update page title
+  document.title = `Band View - ${to.meta.title || ""}`;
+  next();
+});
+
 export default router;

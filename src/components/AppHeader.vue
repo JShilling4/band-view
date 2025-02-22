@@ -1,15 +1,23 @@
 <template>
   <QHeader elevated class="header bg-black text-white" height-hint="98">
-    <QToolbar class="">
-      <QToolbarTitle class="toolbar-title"> Steele Rail Band </QToolbarTitle>
+    <QToolbar>
+      <QToolbarTitle class="toolbar-title" role="heading" aria-level="1">
+        Steele Rail Band
+      </QToolbarTitle>
       <QSpace />
-      <ul>
-        <li v-if="!userStore.user" class="toolbar-link" @click="onLoginClick">Login</li>
-        <li v-if="userStore.user" class="toolbar-link" @click="$emit('toggle-user-menu')">
-          <span class="member-name q-mr-md">{{ userStore.activeMember?.first_name }}</span>
-          <QIcon :name="IconClasses.User.join(' ')" size="sm" />
-        </li>
-      </ul>
+      <nav aria-label="User navigation">
+        <ul>
+          <li v-if="!userStore.user" class="toolbar-link" @click="onLoginClick">
+            <button type="button" class="reset-button">Login</button>
+          </li>
+          <li v-if="userStore.user" class="toolbar-link" @click="$emit('toggle-user-menu')">
+            <button type="button" class="reset-button">
+              <span class="member-name q-mr-md">{{ userStore.activeMember?.first_name }}</span>
+              <QIcon :name="IconClasses.User.join(' ')" size="sm" aria-hidden="true" />
+            </button>
+          </li>
+        </ul>
+      </nav>
     </QToolbar>
   </QHeader>
   <LoginModal v-model:show-modal="showLoginModal" />
@@ -33,14 +41,36 @@ function onLoginClick() {
 }
 </script>
 
-<style lang="sass" scoped>
-.left-menu-toggle
-  visibility: hidden
+<style lang="scss" scoped>
+.left-menu-toggle {
+  visibility: hidden;
+}
 
-.toolbar-title
-  font-size: 18px
-  font-weight: 600
+.toolbar-title {
+  font-size: 18px;
+  font-weight: 600;
+}
 
-.toolbar-link
-  cursor: pointer
+.toolbar-link {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.reset-button {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+
+  &:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+}
 </style>

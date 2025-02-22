@@ -29,18 +29,26 @@
         />
       </div>
       <div class="song-container q-mb-lg">
-        <div v-if="statusFilter" class="results-text">
-          {{ songStore.getSongsByStatus(statusFilter).length }} results
+        <div v-if="error" class="text-negative q-mb-md">
+          {{ error }}
         </div>
-        <QList separator>
-          <SongItem
-            v-for="song in selectedSongs"
-            :key="song.id"
-            :song="song"
-            @song-clicked="onSongClick(song.id)"
-            @delete="onDeleteSongClick(song.id)"
-          />
-        </QList>
+        <div v-if="isLoading">
+          <QSkeleton v-for="n in 3" :key="n" type="rect" class="q-mb-sm" />
+        </div>
+        <template v-else>
+          <div v-if="statusFilter" class="results-text">
+            {{ songStore.getSongsByStatus(statusFilter).length }} results
+          </div>
+          <QList separator>
+            <SongItem
+              v-for="song in selectedSongs"
+              :key="song.id"
+              :song="song"
+              @song-clicked="onSongClick(song.id)"
+              @delete="onDeleteSongClick(song.id)"
+            />
+          </QList>
+        </template>
       </div>
     </div>
   </div>
@@ -49,6 +57,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { QSkeleton } from "quasar";
 import { useSongUtility } from "@/composables";
 import { useMemberStore, useSongStore, useUserStore } from "@/stores";
 import { SONG_STATUSES, type SongStatus } from "@/types";
@@ -79,6 +88,9 @@ const selectedSongs = computed(() => {
   return songStore.getSongsByStatus(statusFilter.value);
 });
 
+const isLoading = ref(false);
+const error = ref<string | null>(null);
+
 watch(
   () => props.status,
   () => {
@@ -93,20 +105,27 @@ watch(statusFilter, (newVal) => {
 });
 
 onMounted(async () => {
-  await memberStore.fetchMembers();
-  songStore.fetchSongs();
+  isLoading.value = true;
+  error.value = null;
+
+  try {
+    await memberStore.fetchMembers();
+    await songStore.fetchSongs();
+  } catch (err) {
+    error.value = "Failed to load songs. Please try again later.";
+    console.error("Error loading songs:", err);
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>
 
-<style lang="sass" scoped>
-.tab
-  text-transform: capitalize
-  font-weight: 300
-  letter-spacing: 1px
+<style lang="scss" scoped>
+.song-container {
+  max-width: 500px;
+}
 
-.song-container
-  max-width: 500px
-
-:deep(.q-field__native)
-  text-transform: capitalize
+:deep(.q-field__native) {
+  text-transform: capitalize;
+}
 </style>

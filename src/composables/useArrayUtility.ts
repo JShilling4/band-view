@@ -3,8 +3,8 @@ export function useArrayUtility() {
     return arr.filter((value, index) => arr.indexOf(value) === index);
   }
 
-  function removeNullAndEmpty(arr: string[]) {
-    return arr.filter((value) => value !== null && value !== "");
+  function removeNullAndEmpty(arr: (string | null)[]) {
+    return arr.filter((value): value is string => value !== null && value !== "");
   }
 
   return { removeDuplicateStrings, removeNullAndEmpty };

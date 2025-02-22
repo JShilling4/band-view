@@ -83,7 +83,7 @@ async function onSaveVenue() {
 .modal-content {
   width: 100%;
 
-  @include md {
+  @include from-tablet {
     width: 500px;
   }
 }
@@ -98,8 +98,4 @@ async function onSaveVenue() {
 .modal-controls {
   margin-bottom: 1rem;
 }
-
-/* .q-option-group {
-  margin-left: -20px;
-} */
 </style>
