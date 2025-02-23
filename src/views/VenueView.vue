@@ -34,7 +34,7 @@
 
         <div class="results-text">{{ filteredVenues.length }} results</div>
         <QList class="venue-container q-mt-xs flex q-gutter-md">
-          <VenueItem
+          <VenueDetails
             v-for="venue in filteredVenues"
             :key="venue.id"
             class="venue"

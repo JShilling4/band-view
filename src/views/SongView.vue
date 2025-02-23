@@ -40,7 +40,7 @@
             {{ songStore.getSongsByStatus(statusFilter).length }} results
           </div>
           <QList separator>
-            <SongItem
+            <SongDetails
               v-for="song in selectedSongs"
               :key="song.id"
               :song="song"
