@@ -130,15 +130,17 @@ function onAddSetSongClick(songId: number) {
 }
 </script>
 
-<style lang="sass" scoped>
-.setlist-wrapper
-  flex: 25%
-  min-width: 300px
+<style lang="scss" scoped>
+.setlist-wrapper {
+  flex: 25%;
+  min-width: 300px;
+}
+.set-name {
+  font-size: 18px;
+}
 
-.set-name
-  font-size: 18px
-
-.song-container
-  max-width: 500px
-  width: 100%
+.song-container {
+  max-width: 500px;
+  width: 100%;
+}
 </style>
