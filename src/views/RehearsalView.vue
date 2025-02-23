@@ -43,7 +43,7 @@
               />
             </div>
           </div>
-          <RehearsalItem :rehearsal="rehearsal" />
+          <RehearsalDetails :rehearsal="rehearsal" />
         </div>
       </div>
       <h6 v-else class="text-grey-8">No rehearsals scheduled.</h6>

@@ -1,8 +1,8 @@
 <template>
   <div class="rehearsal-item">
-    <SongSection title="New Songs" :songs="rehearsal.new_songs" />
+    <RehearsalDetailsSection title="New Songs" :songs="rehearsal.new_songs" />
 
-    <SongSection title="Review Songs" :songs="rehearsal.review_songs" hide-admin />
+    <RehearsalDetailsSection title="Review Songs" :songs="rehearsal.review_songs" hide-admin />
 
     <div class="agenda-container">
       <QSeparator color="grey-4" spaced />
