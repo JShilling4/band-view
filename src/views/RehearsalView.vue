@@ -4,9 +4,8 @@
       <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     </div>
     <div class="page-content">
-      <div class="top-controls q-mb-md row items-center">
+      <div v-if="isAdmin" class="admin-controls q-mb-md row items-center">
         <QBtn
-          v-if="isAdmin"
           color="teal-10"
           icon="fa-solid fa-plus"
           class="q-mr-md"
