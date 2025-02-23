@@ -58,10 +58,7 @@ const emailRules = [
   (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || "Please enter a valid email",
 ];
 
-const passwordRules = [
-  (val: string) => (val && val.length > 0) || "Password is required",
-  (val: string) => val.length >= 6 || "Password must be at least 6 characters",
-];
+const passwordRules = [(val: string) => (val && val.length > 0) || "Password is required"];
 
 function resetForm() {
   email.value = null;
