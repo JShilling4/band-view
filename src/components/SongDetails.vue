@@ -1,17 +1,24 @@
 <template>
-  <QItem v-if="song" :clickable="isAdmin" :class="{ highlight: song.is_highlighted }">
-    <QItemSection @click="isAdmin && $emit('song-clicked')">
+  <QItem
+    v-if="song"
+    :clickable="isAdmin"
+    :class="{ highlight: song.is_highlighted }"
+    role="listitem"
+  >
+    <QItemSection :tabindex="isAdmin ? 0 : undefined" @click="isAdmin && $emit('song-clicked')">
       <QItemLabel>
         <QIcon
           v-if="showHandle && isAdmin"
           :name="IconClasses.Handle.join(' ')"
           class="q-mr-sm handle"
         />
-        <span v-if="typeof index === 'number'" class="song-index">{{ index + 1 }}. </span>
+        <span v-if="typeof listIndex === 'number'" class="song-index">{{ listIndex + 1 }}. </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
           <span class="text-bold text-grey-9">{{ song.title }}&nbsp;</span>
-          <span v-if="isAdmin && song.length">({{ secToMinSec(song.length) }})</span>
+          <span v-if="isAdmin && song.length" class="song-duration">
+            ({{ secToMinSec(song.length) }})
+          </span>
           <span v-if="!hideSpecials && song.specials?.length">
             [
             <span
@@ -26,29 +33,9 @@
       </QItemLabel>
       <QItemLabel v-if="song.vocal_lead" lines="1" class="song-metadata">
         Vocal:
-        <span
-          :style="{
-            color: memberStore.getMemberById(song.vocal_lead)?.profile_color ?? '',
-          }"
-          class="vocal-lead"
-        >
-          {{ memberStore.getMemberById(song.vocal_lead)?.first_name ?? "" }}
-          <span
-            v-if="song.vocal_second"
-            :style="{
-              color: memberStore.getMemberById(song.vocal_second)?.profile_color ?? '',
-            }"
-            ><span style="color: #000">,</span>
-            {{ memberStore.getMemberById(song.vocal_second)?.first_name ?? "" }}
-          </span>
-          <span
-            v-if="song.vocal_third"
-            :style="{
-              color: memberStore.getMemberById(song.vocal_third)?.profile_color ?? '',
-            }"
-            ><span style="color: #000">,</span>
-            {{ memberStore.getMemberById(song.vocal_third)?.first_name ?? "" }}
-          </span>
+        <span v-for="(vocalId, index) in vocals" :key="index" :class="`vocal-name-${index}`">
+          <span v-if="index > 0" class="vocal-separator">,</span>
+          {{ getMemberName(vocalId) }}
         </span>
       </QItemLabel>
     </QItemSection>
@@ -60,6 +47,9 @@
             color="red-9"
             class="song-link-icon"
             size="sm"
+            role="button"
+            aria-label="Open YouTube link"
+            tabindex="0"
             @click.stop="openBrowserTab(song.link_url)"
           />
         </span>
@@ -92,25 +82,23 @@ import { IconClasses, type Tables } from "@/types";
 
 const memberStore = useMemberStore();
 
-interface PropTypes {
+const {
+  song = undefined,
+  hideArtist = false,
+  hideSpecials = false,
+  hideLinks = false,
+  hideAdmin = false,
+  listIndex = undefined,
+  showHandle = false,
+} = defineProps<{
   song?: Tables<"song">;
   hideArtist?: boolean;
   hideSpecials?: boolean;
   hideAdmin?: boolean;
   hideLinks?: boolean;
-  index?: number;
+  listIndex?: number;
   showHandle?: boolean;
-}
-
-withDefaults(defineProps<PropTypes>(), {
-  song: undefined,
-  hideArtist: false,
-  hideSpecials: false,
-  hideLinks: false,
-  hideAdmin: false,
-  index: undefined,
-  showHandle: false,
-});
+}>();
 
 defineEmits<{
   "song-clicked": [];
@@ -119,6 +107,15 @@ defineEmits<{
 
 const userStore = useUserStore();
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
+
+const vocals = computed(() => {
+  if (!song) return [];
+  return [song.vocal_lead, song.vocal_second, song.vocal_third].filter(Boolean);
+});
+
+const getMemberName = (id: number | null) => memberStore.getMemberById(id)?.first_name ?? "";
+
+const getMemberColor = (id: number | null) => memberStore.getMemberById(id)?.profile_color ?? "";
 </script>
 
 <style lang="scss" scoped>
@@ -142,6 +139,10 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 }
 .song-link-icon {
   cursor: pointer;
+  &:focus {
+    outline: 2px solid var(--q-primary);
+    border-radius: 4px;
+  }
 }
 .song-metadata {
   font-size: 13px;
@@ -152,5 +153,23 @@ const isAdmin = computed(() => userStore.activeMember?.permission_level === "adm
 }
 .highlight {
   background-color: #fefed2;
+}
+.vocal-name-0 {
+  color: v-bind("getMemberColor(vocals[0])");
+}
+.vocal-name-1 {
+  color: v-bind("getMemberColor(vocals[1])");
+}
+.vocal-name-2 {
+  color: v-bind("getMemberColor(vocals[2])");
+}
+.vocal-separator {
+  color: #000;
+}
+.song-duration {
+  color: var(--q-grey-7);
+}
+.delete-icon {
+  cursor: pointer;
 }
 </style>

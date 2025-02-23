@@ -35,7 +35,7 @@
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
           <SongDetails
             :song="song"
-            :index="i"
+            :list-index="i"
             hide-artist
             show-handle
             @delete="onSongListItemDelete(song.id)"
