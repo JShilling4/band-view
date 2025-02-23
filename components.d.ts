@@ -8,12 +8,12 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AppButton: typeof import('./src/components/AppButton.vue')['default']
+    AppButton: typeof import('./src/components/UI/AppButton.vue')['default']
     AppDrawer: typeof import('./src/components/Layout/AppDrawer.vue')['default']
     AppFooter: typeof import('./src/components/Layout/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/Layout/AppHeader.vue')['default']
     AppPageTitle: typeof import('./src/components/Layout/AppPageTitle.vue')['default']
-    AppSelect: typeof import('./src/components/AppSelect.vue')['default']
+    AppSelect: typeof import('./src/components/UI/AppSelect.vue')['default']
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
     RehearsalDetails: typeof import('./src/components/RehearsalDetails/RehearsalDetails.vue')['default']
     RehearsalDetailsSection: typeof import('./src/components/RehearsalDetails/RehearsalDetailsSection.vue')['default']
@@ -21,6 +21,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SetDetails: typeof import('./src/components/SetDetails.vue')['default']
+    SetItem: typeof import('./src/components/SetItem.vue')['default']
     SetlistModal: typeof import('./src/components/SetlistModal.vue')['default']
     ShowDetails: typeof import('./src/components/ShowDetails.vue')['default']
     ShowModal: typeof import('./src/components/ShowModal.vue')['default']
@@ -30,6 +31,7 @@ declare module 'vue' {
     UserMenu: typeof import('./src/components/UserMenu.vue')['default']
     VenueDetails: typeof import('./src/components/VenueDetails.vue')['default']
     VenueInfoDisplay: typeof import('./src/components/VenueInfoDisplay.vue')['default']
+    VenueItem: typeof import('./src/components/VenueItem.vue')['default']
     VenueModal: typeof import('./src/components/VenueModal.vue')['default']
   }
 }

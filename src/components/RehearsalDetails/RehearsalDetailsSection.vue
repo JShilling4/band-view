@@ -9,7 +9,7 @@
     </div>
 
     <QList v-else-if="songList.length" class="song-list">
-      <SongItem v-for="song in songList" :key="song.id" :song="song" :hide-admin="hideAdmin" />
+      <SongDetails v-for="song in songList" :key="song.id" :song="song" :hide-admin="hideAdmin" />
     </QList>
 
     <div v-else class="text-grey-6 q-pa-sm text-center">None selected.</div>

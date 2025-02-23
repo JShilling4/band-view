@@ -1,4 +1,4 @@
-import AppSelect from "@/components/AppSelect.vue";
+import AppSelect from "@/components/UI/AppSelect.vue";
 import SetlistView from "@/views/SetlistView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
