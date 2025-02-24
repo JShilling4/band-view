@@ -21,7 +21,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SetDetails: typeof import('./src/components/SetDetails.vue')['default']
-    SetItem: typeof import('./src/components/SetItem.vue')['default']
     SetlistModal: typeof import('./src/components/SetlistModal.vue')['default']
     ShowDetails: typeof import('./src/components/ShowDetails.vue')['default']
     ShowModal: typeof import('./src/components/ShowModal.vue')['default']
@@ -31,7 +30,6 @@ declare module 'vue' {
     UserMenu: typeof import('./src/components/UserMenu.vue')['default']
     VenueDetails: typeof import('./src/components/VenueDetails.vue')['default']
     VenueInfoDisplay: typeof import('./src/components/VenueInfoDisplay.vue')['default']
-    VenueItem: typeof import('./src/components/VenueItem.vue')['default']
     VenueModal: typeof import('./src/components/VenueModal.vue')['default']
   }
 }
