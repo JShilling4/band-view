@@ -62,7 +62,7 @@
           This setlist is empty
         </div>
         <div v-else-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
-          <SetItem
+          <SetDetails
             v-for="setId in selectedSetlist.sets"
             :key="setId"
             :setlist-id="selectedSetlist.id"

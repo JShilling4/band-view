@@ -10,6 +10,7 @@ import {
   isSameYear,
   isThisMonth,
   isThisYear,
+  subYears,
 } from "date-fns";
 import { type Tables } from "@/types";
 
@@ -149,6 +150,11 @@ export const useShowStore = defineStore("shows", {
       return state.shows.filter((show) => isThisYear(show.date));
     },
 
+    getShowsLastYear: (state) => {
+      const lastYear = subYears(new Date(), 1);
+      return state.shows.filter((show) => isSameYear(show.date, lastYear));
+    },
+
     getShowsNextYear: (state) => {
       const nextYear = addYears(new Date(), 1);
       return state.shows.filter((show) => isSameYear(show.date, nextYear));
@@ -167,6 +173,18 @@ export const useShowStore = defineStore("shows", {
       const showsThisYear = state.shows.filter((show) => isThisYear(show.date));
       return (venueId: number) => {
         return showsThisYear.filter((s) => s.venue === venueId).length;
+      };
+    },
+
+    getShowsLastYearByVenue(): (venueId: number) => number {
+      return (venueId: number) => {
+        return this.getShowsLastYear.filter((s) => s.venue === venueId).length;
+      };
+    },
+
+    getTotalShowsByVenue: (state) => {
+      return (venueId: number) => {
+        return state.shows.filter((s) => s.venue === venueId).length;
       };
     },
   },

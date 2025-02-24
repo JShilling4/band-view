@@ -45,7 +45,7 @@
         <div class="results-container">
           <div class="results-text">{{ activeShowFilter?.fn().length }} results</div>
           <QList class="show-container flex q-mt-xs q-gutter-md">
-            <ShowItem
+            <ShowDetails
               v-for="show in activeShowFilter?.fn()"
               :key="show.id"
               :show="show"
