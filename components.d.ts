@@ -14,6 +14,8 @@ declare module 'vue' {
     AppHeader: typeof import('./src/components/Layout/AppHeader.vue')['default']
     AppPageTitle: typeof import('./src/components/Layout/AppPageTitle.vue')['default']
     AppSelect: typeof import('./src/components/UI/AppSelect.vue')['default']
+    DashboardCard: typeof import('./src/components/DashboardCard/DashboardCard.vue')['default']
+    DashboardCardStat: typeof import('./src/components/DashboardCard/DashboardCardStat.vue')['default']
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
     RehearsalDetails: typeof import('./src/components/RehearsalDetails/RehearsalDetails.vue')['default']
     RehearsalDetailsSection: typeof import('./src/components/RehearsalDetails/RehearsalDetailsSection.vue')['default']

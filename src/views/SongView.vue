@@ -115,7 +115,7 @@ const selectedSongs = computed(() => {
   if (!statusFilter.value && !vocalFilter.value.length) return;
 
   let filteredSongs = statusFilter.value
-    ? songStore.getSongsByStatus(statusFilter.value)
+    ? songStore.getSongsByStatus([statusFilter.value])
     : songStore.songs;
 
   if (vocalFilter.value.length > 0) {

@@ -7,6 +7,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
     path: RoutePath.Dashboard,
     name: RouteNames.Dashboard,
     component: () => import("@/views/DashboardView.vue"),
+    props: () => ({
+      pageTitle: "Dashboard",
+    }),
     meta: {
       requiresAuth: false,
       title: "Dashboard",

@@ -237,6 +237,27 @@ export type Database = {
         };
         Relationships: [];
       };
+      site_content: {
+        Row: {
+          about_main_text: string;
+          contact_main_text: string;
+          id: number;
+          show_next_year: boolean;
+        };
+        Insert: {
+          about_main_text?: string;
+          contact_main_text?: string;
+          id?: number;
+          show_next_year?: boolean;
+        };
+        Update: {
+          about_main_text?: string;
+          contact_main_text?: string;
+          id?: number;
+          show_next_year?: boolean;
+        };
+        Relationships: [];
+      };
       song: {
         Row: {
           artist: string;
@@ -359,9 +380,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      set_type: "3h" | "4h" | "4h Rock";
-      song_mood: "fast dance" | "slow dance" | "drink" | "singalong";
-      song_status: "suggested" | "next" | "learning" | "active" | "burner" | "killed";
+      song_status: "suggested" | "learning" | "burner" | "active" | "killed";
     };
     CompositeTypes: {
       [_ in never]: never;
