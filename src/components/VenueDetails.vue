@@ -7,11 +7,19 @@
           {{ `(${contactStore.getContactById(venue.contact)?.name ?? "Uknown Value"})` }}
         </span>
       </QItemLabel>
-      <div class="venue-address">
-        {{ formatAddress(venue.address, venue.city, venue.state) }}
-      </div>
-      <div class="venue-showcount q-mt-auto text-grey-8">
-        Shows this year: {{ showStore.getShowsThisYearByVenue(venue.id) }}
+      <div>
+        <div class="venue-address">
+          {{ formatAddress(null, venue.city, venue.state) }}
+        </div>
+        <div class="venue-showcount q-mt-md text-grey-8">
+          Books this year: {{ showStore.getShowsThisYearByVenue(venue.id) }}
+        </div>
+        <div class="venue-showcount q-mt-xs text-grey-8">
+          Books last year: {{ showStore.getShowsLastYearByVenue(venue.id) }}
+        </div>
+        <div class="venue-showcount q-mt-xs text-grey-8">
+          Total books: {{ showStore.getTotalShowsByVenue(venue.id) }}
+        </div>
       </div>
     </QItemSection>
     <QItemSection v-if="isAdmin" side>
@@ -46,7 +54,7 @@ function formatAddress(address: string | null, city: string | null, state: strin
   const cityStr = city ?? "";
   const stateStr = state ? `, ${state}` : "";
 
-  return addressStr + cityStr + stateStr;
+  return address ? addressStr + cityStr + stateStr : cityStr + stateStr;
 }
 
 function onItemClick() {
@@ -70,10 +78,6 @@ function onDeleteClick() {
   font-size: 18px;
   padding: 11px;
   border: 1px solid $red-2;
-}
-
-.item-content {
-  height: 80px;
 }
 
 .venue-name {
