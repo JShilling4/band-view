@@ -65,9 +65,7 @@
           <QSkeleton v-for="n in 3" :key="n" type="rect" class="q-mb-sm" />
         </div>
         <template v-else>
-          <div v-if="statusFilter" class="results-text">
-            {{ songStore.getSongsByStatus(statusFilter).length }} results
-          </div>
+          <div v-if="statusFilter" class="results-text">{{ selectedSongs?.length }} results</div>
           <QList separator>
             <SongDetails
               v-for="song in selectedSongs"
