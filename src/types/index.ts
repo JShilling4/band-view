@@ -1,5 +1,4 @@
 export * from "./injectionKey";
-export * from "./supabase-override";
 export * from "./song";
 export * from "./navigation";
 export * from "./route";
@@ -9,3 +8,4 @@ export * from "./show";
 export * from "./venue";
 export * from "./rehearsal";
 export * from "./setlist";
+export * from "./supabase";

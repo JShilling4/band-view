@@ -19,7 +19,36 @@
           option-value="name"
           option-label="name"
           label="Select Status"
+          class="q-mr-md"
         />
+        <AppSelect
+          v-model="vocalFilter"
+          :options="memberStore.members"
+          multiple
+          emit-value
+          option-value="id"
+          :option-label="(opt: Tables<'member'>) => `${opt.first_name} ${opt.last_name}`"
+          label="Select Vocals"
+          ><template #selected-item="scope">
+            <QChip
+              removable
+              dense
+              :tabindex="scope.tabindex"
+              color="black"
+              text-color="white"
+              class="q-pa-sm"
+              style="max-width: 120px"
+              @remove="scope.removeAtIndex(scope.index)"
+            >
+              <div class="ellipsis">
+                {{ memberStore.getMemberFullNameById(scope.opt) }}&nbsp;&nbsp;
+                <QTooltip class="bg-black">
+                  {{ memberStore.getMemberFullNameById(scope.opt) }}
+                </QTooltip>
+              </div>
+            </QChip>
+          </template>
+        </AppSelect>
         <SongModal
           v-model:show-modal="showSongModal"
           v-model:song="localSong"
@@ -36,9 +65,7 @@
           <QSkeleton v-for="n in 3" :key="n" type="rect" class="q-mb-sm" />
         </div>
         <template v-else>
-          <div v-if="statusFilter" class="results-text">
-            {{ songStore.getSongsByStatus(statusFilter).length }} results
-          </div>
+          <div v-if="statusFilter" class="results-text">{{ selectedSongs?.length }} results</div>
           <QList separator>
             <SongDetails
               v-for="song in selectedSongs"
@@ -60,7 +87,7 @@ import { useRouter } from "vue-router";
 import { QSkeleton } from "quasar";
 import { useSongUtility } from "@/composables";
 import { useMemberStore, useSongStore, useUserStore } from "@/stores";
-import { SONG_STATUSES, type SongStatus } from "@/types";
+import { SONG_STATUSES, type SongStatus, type Tables } from "@/types";
 
 const props = defineProps<{
   pageTitle: string;
@@ -82,10 +109,23 @@ const {
 } = useSongUtility();
 
 const statusFilter = ref<SongStatus | null>(null);
+const vocalFilter = ref<number[]>([]);
 const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const selectedSongs = computed(() => {
-  if (!statusFilter.value) return;
-  return songStore.getSongsByStatus(statusFilter.value);
+  if (!statusFilter.value && !vocalFilter.value.length) return;
+
+  let filteredSongs = statusFilter.value
+    ? songStore.getSongsByStatus([statusFilter.value])
+    : songStore.songs;
+
+  if (vocalFilter.value.length > 0) {
+    filteredSongs = filteredSongs.filter((song) => {
+      const songVocals = [song.vocal_lead, song.vocal_second, song.vocal_third].filter(Boolean);
+      return vocalFilter.value.some((id) => songVocals.includes(id));
+    });
+  }
+
+  return filteredSongs;
 });
 
 const isLoading = ref(false);
@@ -100,8 +140,23 @@ watch(
   { immediate: true }
 );
 
+watch(vocalFilter, (newVal) => {
+  const query: Record<string, string | number[]> = {};
+  if (newVal.length) {
+    query.vocals = newVal;
+  }
+  router.push({ name: "Songs", query });
+});
+
 watch(statusFilter, (newVal) => {
-  router.push({ name: "Songs", query: { status: newVal } });
+  const query: Record<string, string | number[]> = {};
+  if (newVal) {
+    query.status = newVal;
+  }
+  if (vocalFilter.value.length) {
+    query.vocals = vocalFilter.value;
+  }
+  router.push({ name: "Songs", query });
 });
 
 onMounted(async () => {

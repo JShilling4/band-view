@@ -1,16 +1,18 @@
 import { IconClasses, NavItem, RouteNames, RoutePath } from "@/types";
 
 const navigationConfig: NavItem[] = [
-  // {
-  //   routeName: RouteNames.Dashboard,
-  //   label: RouteNames.Dashboard,
-  //   routePath: RoutePath.Dashboard,
-  //   link: null,
-  //   icon: {
-  //     classes: [...IconClasses.Dashboard],
-  //     color: "red-6",
-  //   },
-  // },
+  {
+    routeName: RouteNames.Dashboard,
+    label: RouteNames.Dashboard,
+    routePath: RoutePath.Dashboard,
+    link: null,
+    icon: {
+      classes: [...IconClasses.Dashboard],
+      color: "yellow-6",
+    },
+    requiresAuth: false,
+    requiredRoles: [],
+  },
   {
     routeName: RouteNames.Rehearsal,
     label: RouteNames.Rehearsal,
@@ -78,7 +80,7 @@ const navigationConfig: NavItem[] = [
     link: null,
     icon: {
       classes: [...IconClasses.Globe],
-      color: "orange-4",
+      color: "orange-6",
     },
     requiresAuth: true,
     requiredRoles: ["admin"],

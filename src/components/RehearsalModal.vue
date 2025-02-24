@@ -25,7 +25,7 @@
           <AppSelect
             v-model="localRehearsal.new_songs"
             :options="
-              songStore.getSongsByStatus('learning').map((s) => {
+              songStore.getSongsByStatus(['learning']).map((s) => {
                 return { label: s.title, value: s.id };
               })
             "

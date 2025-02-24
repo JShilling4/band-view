@@ -51,5 +51,12 @@ export const useMemberStore = defineStore("members", {
         return state.members.find((member) => member.user_id === userId);
       };
     },
+    getMemberFullNameById: (state) => {
+      return (id: number | null | undefined) => {
+        const member = state.members.find((member) => member.id === id);
+        if (!member) return "";
+        return `${member.first_name} ${member.last_name}`.trim();
+      };
+    },
   },
 });
