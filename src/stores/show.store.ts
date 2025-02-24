@@ -129,6 +129,13 @@ export const useShowStore = defineStore("shows", {
       };
     },
 
+    getFirstShowDate: (state) => {
+      const sortedShows = state.shows.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
+      return sortedShows.length > 0 ? sortedShows[0].date : null;
+    },
+
     getShowsOnOrAfterDate: (state) => {
       return (date: string | Date | number = new Date()): Tables<"show">[] => {
         const compareDate = new Date(date).toDateString();
