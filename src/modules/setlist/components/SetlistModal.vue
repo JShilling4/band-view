@@ -54,7 +54,7 @@ async function onSaveSetlist() {
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/breakpoints";
+@use "@/scss/breakpoints" as *;
 
 .modal-content {
   width: 100%;

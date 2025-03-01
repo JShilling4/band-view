@@ -37,6 +37,6 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import "./scss/global";
-@import "./scss/quasar-overrides";
+@import "@/scss/global";
+@import "@/scss/quasar-overrides";
 </style>
