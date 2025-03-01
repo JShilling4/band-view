@@ -36,7 +36,6 @@
     "@quasar/quasar-app-extension-testing-unit-vitest": "^1.1.0",
     "@quasar/vite-plugin": "^1.9.0",
     "@supabase/postgrest-js": "^1.18.1",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.4",
     "@vitejs/plugin-vue": "^5.2.1",
