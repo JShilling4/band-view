@@ -86,6 +86,7 @@ async function onFormSubmit() {
       errorMessage.value = "Invalid email or password";
     }
   } catch (error) {
+    console.log(error);
     errorMessage.value = "An error occurred. Please try again.";
   } finally {
     isLoading.value = false;

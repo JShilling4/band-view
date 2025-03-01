@@ -26,7 +26,7 @@ export default defineConfig({
     Components({
       extensions: ["vue"],
       dirs: ["src/core/components", "src/modules/**/components"],
-      dts: "src/components.d.ts",
+      dts: "src/types/components.d.ts",
     }),
   ],
   define: {

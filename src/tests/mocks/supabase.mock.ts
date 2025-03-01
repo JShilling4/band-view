@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type PostgrestQueryBuilder } from "@supabase/postgrest-js";
 import { vi } from "vitest";
 

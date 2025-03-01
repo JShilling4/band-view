@@ -63,11 +63,11 @@ function onItemClick() {
 }
 
 function onEditClick() {
-  isAdmin.value && emit("edit");
+  if (isAdmin.value) emit("edit");
 }
 
 function onDeleteClick() {
-  isAdmin.value && emit("delete");
+  if (isAdmin.value) emit("delete");
 }
 </script>
 
