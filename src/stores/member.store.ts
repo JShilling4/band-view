@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
+import { type Tables } from "@/core/models";
 import supabase from "@/supabase";
-import { Tables } from "@/types";
 
 interface State {
   members: Tables<"member">[];

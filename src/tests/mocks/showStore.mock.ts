@@ -1,7 +1,6 @@
+import { type Tables } from "@/core/models";
+import { type ShowStoreState, useShowStore } from "@/modules/show/store/show.store";
 import { vi } from "vitest";
-import { useShowStore } from "@/stores/show.store";
-import type { ShowStoreState } from "@/stores/show.store";
-import type { Tables } from "@/types";
 
 // Get the store type from the actual store
 type ShowStore = ReturnType<typeof useShowStore>;

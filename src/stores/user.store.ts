@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
+import { type Tables } from "@/core/models";
 import supabase from "@/supabase";
 import { User } from "@supabase/supabase-js";
 import { useMemberStore } from "@/stores";
-import { Tables } from "@/types";
 
 export interface UserStoreState {
   user: User | null;

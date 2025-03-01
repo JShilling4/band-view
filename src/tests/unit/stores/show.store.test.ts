@@ -1,12 +1,12 @@
 import { createPinia, setActivePinia } from "pinia";
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-unit-vitest";
 import { Notify } from "quasar";
+import { type Tables } from "@/core/models";
+import { useShowStore } from "@/modules/show/store/show.store";
 import { createMockResponse, mockSupabase } from "@/tests/mocks/supabase.mock";
 import supabaseMock from "@/tests/mocks/supabase.mock";
 import { addMonths, addYears } from "date-fns";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useShowStore } from "@/stores/show.store";
-import type { Tables } from "@/types";
 
 // Setup Quasar and Supabase mocks
 installQuasarPlugin();

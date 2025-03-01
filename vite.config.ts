@@ -23,7 +23,11 @@ export default defineConfig({
       template: { transformAssetUrls },
     }),
     quasar({ autoImportComponentCase: "pascal" }),
-    Components({ dts: true }),
+    Components({
+      extensions: ["vue"],
+      dirs: ["src/core/components", "src/modules/**/components"],
+      dts: "src/components.d.ts",
+    }),
   ],
   define: {
     "process.env": process.env,
@@ -36,11 +40,6 @@ export default defineConfig({
   },
   css: {
     devSourcemap: true,
-    preprocessorOptions: {
-      scss: {
-        api: "modern-compiler",
-      },
-    },
   },
   optimizeDeps: {
     include: ["vue-draggable-plus"],

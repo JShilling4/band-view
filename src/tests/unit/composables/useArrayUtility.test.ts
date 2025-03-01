@@ -1,5 +1,5 @@
+import { useArrayUtility } from "@/core/composables";
 import { describe, expect, it } from "vitest";
-import { useArrayUtility } from "@/composables/useArrayUtility";
 
 describe("useArrayUtility", () => {
   const { removeDuplicateStrings, removeNullAndEmpty } = useArrayUtility();
