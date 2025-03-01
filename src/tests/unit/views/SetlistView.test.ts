@@ -19,7 +19,7 @@ const mockSetlistUtility = {
   onEditSetlistClick: vi.fn(),
 };
 
-vi.mock("@/composables", () => ({
+vi.mock("@/modules/setlist/composables", () => ({
   useSetlistUtility: () => mockSetlistUtility,
 }));
 
@@ -66,10 +66,16 @@ const mockUserStore: UserStore = {
 
 vi.mock("@/stores", () => ({
   useMemberStore: () => mockMemberStore,
-  useSongStore: () => mockSongStore,
-  useSetStore: () => mockSetStore,
-  useSetlistStore: () => mockSetlistStore,
   useUserStore: () => mockUserStore,
+}));
+vi.mock("@/modules/song/store", () => ({
+  useSongStore: () => mockSongStore,
+}));
+vi.mock("@/modules/set/store", () => ({
+  useSetStore: () => mockSetStore,
+}));
+vi.mock("@/modules/setlist/store", () => ({
+  useSetlistStore: () => mockSetlistStore,
 }));
 
 // Mock vue-router
@@ -157,7 +163,7 @@ describe("SetlistView.vue", () => {
       consoleSpy.mockRestore();
     });
 
-    it("fetches required data on mount", () => {
+    it("fetches required data on mount", async () => {
       expect(mockMemberStore.fetchMembers).toHaveBeenCalled();
       expect(mockSongStore.fetchSongs).toHaveBeenCalled();
       expect(mockSetStore.fetchSets).toHaveBeenCalled();

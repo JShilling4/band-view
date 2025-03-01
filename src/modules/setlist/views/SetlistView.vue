@@ -154,7 +154,6 @@ onMounted(async () => {
   try {
     isLoading.value = true;
     error.value = null;
-
     await Promise.all([
       memberStore.fetchMembers(),
       songStore.fetchSongs(),
