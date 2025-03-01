@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import { type Tables } from "@/core/models";
 import { type LocalSong, type SongStatus } from "@/modules/song/models";
-import supabase from "@/supabase";
+import supabase from "@/plugins/supabase";
 
 interface State {
   songs: Tables<"song">[];

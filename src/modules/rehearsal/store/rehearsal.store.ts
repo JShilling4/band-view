@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import { type Tables } from "@/core/models";
 import { type LocalRehearsal } from "@/modules/rehearsal/models";
-import supabase from "@/supabase";
+import supabase from "@/plugins/supabase";
 import { isAfter, isEqual } from "date-fns";
 import omit from "lodash/omit";
 

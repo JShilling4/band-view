@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { type Tables } from "@/core/models";
 import { handleError } from "@/core/utils/error";
-import supabase from "@/supabase";
+import supabase from "@/plugins/supabase";
 import {
   addMonths,
   addYears,

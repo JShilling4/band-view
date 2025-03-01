@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import { type Tables } from "@/core/models";
 import { useSetlistStore } from "@/modules/setlist/store";
-import supabase from "@/supabase";
+import supabase from "@/plugins/supabase";
 
 interface State {
   sets: Tables<"set">[];

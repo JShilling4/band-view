@@ -3,7 +3,7 @@ import { Notify } from "quasar";
 import { useArrayUtility } from "@/core/composables";
 import { type Tables } from "@/core/models";
 import { type LocalVenue } from "@/modules/venue/models";
-import supabase from "@/supabase";
+import supabase from "@/plugins/supabase";
 import omit from "lodash/omit";
 
 export interface VenueStoreState {

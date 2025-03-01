@@ -3,7 +3,7 @@ import { Notify } from "quasar";
 import { type Tables } from "@/core/models";
 import { useSetStore } from "@/modules/set/store";
 import { type LocalSetlist } from "@/modules/setlist/models";
-import supabase from "@/supabase";
+import supabase from "@/plugins/supabase";
 import omit from "lodash/omit";
 
 interface State {
