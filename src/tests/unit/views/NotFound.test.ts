@@ -1,6 +1,6 @@
 import NotFound from "@/views/NotFound.vue";
 import { mount } from "@vue/test-utils";
-import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-unit-vitest";
+import { installQuasarPlugin } from "../../mocks/quasar.mock";
 import { QBtn } from "quasar";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import mockRouter from "../../mocks/router.mock";

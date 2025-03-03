@@ -2,7 +2,7 @@ import AppSelect from "@/core/components/AppSelect.vue";
 import SetlistView from "@/modules/setlist/views/SetlistView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-unit-vitest";
+import { installQuasarPlugin } from "../../mocks/quasar.mock";
 import { QBtn, QSpinner } from "quasar";
 import { type Tables } from "@/core/models";
 import { type Mock, beforeEach, describe, expect, it, vi } from "vitest";
