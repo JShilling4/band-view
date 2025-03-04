@@ -1,11 +1,11 @@
-import AppSelect from "@/components/UI/AppSelect.vue";
-import SetlistView from "@/views/SetlistView.vue";
+import AppSelect from "@/core/components/AppSelect.vue";
+import SetlistView from "@/modules/setlist/views/SetlistView.vue";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-unit-vitest";
+import { installQuasarPlugin } from "../../mocks/quasar.mock";
 import { QBtn, QSpinner } from "quasar";
+import { type Tables } from "@/core/models";
 import { type Mock, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Tables } from "@/types";
 
 // Mock composables
 const mockSetlistUtility = {
@@ -19,7 +19,7 @@ const mockSetlistUtility = {
   onEditSetlistClick: vi.fn(),
 };
 
-vi.mock("@/composables", () => ({
+vi.mock("../../../modules/setlist/composables/useSetlistUtility.ts", () => ({
   useSetlistUtility: () => mockSetlistUtility,
 }));
 
@@ -64,12 +64,20 @@ const mockUserStore: UserStore = {
   activeMember: null,
 };
 
-vi.mock("@/stores", () => ({
+vi.mock("../../../modules/member/store/member.store.ts", () => ({
   useMemberStore: () => mockMemberStore,
-  useSongStore: () => mockSongStore,
-  useSetStore: () => mockSetStore,
-  useSetlistStore: () => mockSetlistStore,
+}));
+vi.mock("../../../modules/user/store/user.store.ts", () => ({
   useUserStore: () => mockUserStore,
+}));
+vi.mock("../../../modules/song/store/song.store.ts", () => ({
+  useSongStore: () => mockSongStore,
+}));
+vi.mock("../../../modules/set/store/set.store.ts", () => ({
+  useSetStore: () => mockSetStore,
+}));
+vi.mock("../../../modules/setlist/store/setlist.store.ts", () => ({
+  useSetlistStore: () => mockSetlistStore,
 }));
 
 // Mock vue-router
@@ -157,7 +165,7 @@ describe("SetlistView.vue", () => {
       consoleSpy.mockRestore();
     });
 
-    it("fetches required data on mount", () => {
+    it("fetches required data on mount", async () => {
       expect(mockMemberStore.fetchMembers).toHaveBeenCalled();
       expect(mockSongStore.fetchSongs).toHaveBeenCalled();
       expect(mockSetStore.fetchSets).toHaveBeenCalled();

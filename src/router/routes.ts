@@ -1,12 +1,12 @@
 import NotFound from "@/views/NotFound.vue";
 import { RouteRecordRaw } from "vue-router";
-import { RouteNames, RoutePath } from "@/types";
+import { ROUTE_NAMES, ROUTE_PATHS } from "./types";
 
 const publicRoutes: Array<RouteRecordRaw> = [
   {
-    path: RoutePath.Dashboard,
-    name: RouteNames.Dashboard,
-    component: () => import("@/views/DashboardView.vue"),
+    path: ROUTE_PATHS.Dashboard,
+    name: ROUTE_NAMES.Dashboard,
+    component: () => import("@/modules/dashboard/views/DashboardView.vue"),
     props: () => ({
       pageTitle: "Dashboard",
     }),
@@ -19,9 +19,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
 
 const contentRoutes: Array<RouteRecordRaw> = [
   {
-    path: RoutePath.Songs,
-    name: RouteNames.Songs,
-    component: () => import("@/views/SongView.vue"),
+    path: ROUTE_PATHS.Songs,
+    name: ROUTE_NAMES.Songs,
+    component: () => import("@/modules/song/views/SongView.vue"),
     props: (route) => ({
       pageTitle: "Songs",
       status: route.query.status,
@@ -32,9 +32,9 @@ const contentRoutes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: RoutePath.Setlists,
-    name: RouteNames.Setlists,
-    component: () => import("@/views/SetlistView.vue"),
+    path: ROUTE_PATHS.Setlists,
+    name: ROUTE_NAMES.Setlists,
+    component: () => import("@/modules/setlist/views/SetlistView.vue"),
     props: (route) => ({
       pageTitle: "Setlists",
       name: route.query.name,
@@ -45,9 +45,9 @@ const contentRoutes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: RoutePath.Shows,
-    name: RouteNames.Shows,
-    component: () => import("@/views/ShowView.vue"),
+    path: ROUTE_PATHS.Shows,
+    name: ROUTE_NAMES.Shows,
+    component: () => import("@/modules/show/views/ShowView.vue"),
     props: (route) => ({
       pageTitle: "Shows",
       range: route.query.range,
@@ -58,9 +58,9 @@ const contentRoutes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: RoutePath.Venues,
-    name: RouteNames.Venues,
-    component: () => import("@/views/VenueView.vue"),
+    path: ROUTE_PATHS.Venues,
+    name: ROUTE_NAMES.Venues,
+    component: () => import("@/modules/venue/views/VenueView.vue"),
     props: () => ({ pageTitle: "Venues" }),
     meta: {
       requiresAuth: false,
@@ -68,9 +68,9 @@ const contentRoutes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: RoutePath.Rehearsal,
-    name: RouteNames.Rehearsal,
-    component: () => import("@/views/RehearsalView.vue"),
+    path: ROUTE_PATHS.Rehearsal,
+    name: ROUTE_NAMES.Rehearsal,
+    component: () => import("@/modules/rehearsal/views/RehearsalView.vue"),
     props: { pageTitle: "Rehearsal" },
     meta: {
       requiresAuth: false,
@@ -81,8 +81,8 @@ const contentRoutes: Array<RouteRecordRaw> = [
 
 const adminRoutes: Array<RouteRecordRaw> = [
   {
-    path: RoutePath.Settings,
-    name: RouteNames.Settings,
+    path: ROUTE_PATHS.Settings,
+    name: ROUTE_NAMES.Settings,
     component: () => import("@/views/SettingsView.vue"),
     props: { pageTitle: "Settings" },
     meta: {
@@ -91,8 +91,8 @@ const adminRoutes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: RoutePath.CMS,
-    name: RouteNames.Cms,
+    path: ROUTE_PATHS.CMS,
+    name: ROUTE_NAMES.CMS,
     component: () => import("@/views/WebsiteCms.vue"),
     props: () => ({ pageTitle: "CMS" }),
     meta: {
@@ -108,8 +108,8 @@ export const routes: Array<RouteRecordRaw> = [
   ...contentRoutes,
   ...adminRoutes,
   {
-    path: RoutePath.NotFound,
-    name: RouteNames.NotFound,
+    path: ROUTE_PATHS.NotFound,
+    name: ROUTE_NAMES.NotFound,
     component: NotFound,
     meta: {
       title: "Page Not Found",

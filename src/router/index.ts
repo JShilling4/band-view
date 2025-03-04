@@ -12,4 +12,5 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+export * from "./types";
 export default router;

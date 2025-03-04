@@ -6,7 +6,7 @@
     <QPageContainer>
       <RouterView v-slot="{ Component }">
         <Transition name="fade" mode="out-in">
-          <component :is="Component" />
+          <Component :is="Component" />
         </Transition>
       </RouterView>
     </QPageContainer>
@@ -14,9 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useMemberStore, useUserStore } from "@/stores";
-
 const { fetchMembers } = useMemberStore();
 const { getSession } = useUserStore();
 
@@ -37,6 +34,6 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import "./scss/global";
-@import "./scss/quasar-overrides";
+@import "@/scss/global";
+@import "@/scss/quasar-overrides";
 </style>
