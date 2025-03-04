@@ -60,15 +60,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue";
 import { VueDraggable } from "vue-draggable-plus";
 import type { Tables } from "@/core/models";
 import { secToMinSec } from "@/core/utils/helpers";
-import { useSetUtility } from "@/modules/set/composables";
-import { useSetStore } from "@/modules/set/store";
-import { useSongUtility } from "@/modules/song/composables";
-import { useSongStore } from "@/modules/song/store";
-import { useUserStore } from "@/stores";
 
 // Types
 const props = defineProps<{

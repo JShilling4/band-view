@@ -79,15 +79,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { useRouter } from "vue-router";
-import { useShowUtility } from "@/modules/show/composables";
 import { ShowFilter } from "@/modules/show/models";
-import { useShowStore } from "@/modules/show/store";
-import { useVenueUtility } from "@/modules/venue/composables";
-import { useVenueStore } from "@/modules/venue/store";
 import { clone } from "lodash";
-import { useMemberStore, useUserStore } from "@/stores";
 
 // Types
 const props = defineProps<{

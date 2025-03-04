@@ -3,7 +3,6 @@ import { Notify } from "quasar";
 import { type Tables } from "@/core/models";
 import supabase from "@/plugins/supabase";
 import { User } from "@supabase/supabase-js";
-import { useMemberStore } from "@/stores";
 
 export interface UserStoreState {
   user: User | null;

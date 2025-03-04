@@ -24,9 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { IconClasses } from "@/core/models";
-import { useUserStore } from "@/stores";
 
 defineEmits<{
   "toggle-user-menu": [];

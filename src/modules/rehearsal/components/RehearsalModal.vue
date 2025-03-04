@@ -103,11 +103,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { type Tables } from "@/core/models";
 import { type LocalRehearsal } from "@/modules/rehearsal/models";
-import { useRehearsalStore } from "@/modules/rehearsal/store";
-import { useSongStore } from "@/modules/song/store";
 
 const props = defineProps<{
   action: "Add" | "Edit";

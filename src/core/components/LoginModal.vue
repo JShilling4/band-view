@@ -42,9 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useUserStore } from "@/stores";
-
 const userStore = useUserStore();
 
 const showModal = defineModel<boolean>("showModal", { default: true });

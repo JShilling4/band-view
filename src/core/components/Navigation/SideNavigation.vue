@@ -59,11 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
 import { useQuasar } from "quasar";
-import { useUserStore } from "@/stores";
 import navConfig from "./navigationConfig";
 
 const $q = useQuasar();

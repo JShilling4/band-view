@@ -82,14 +82,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { useRouter } from "vue-router";
 import { QSkeleton } from "quasar";
 import { type Tables } from "@/core/models";
-import { useSongUtility } from "@/modules/song/composables";
 import { SONG_STATUSES, type SongStatus } from "@/modules/song/models";
-import { useSongStore } from "@/modules/song/store";
-import { useMemberStore, useUserStore } from "@/stores";
 
 const props = defineProps<{
   pageTitle: string;

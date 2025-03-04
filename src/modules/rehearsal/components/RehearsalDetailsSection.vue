@@ -17,9 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { useSongStore } from "@/modules/song/store";
-
 const props = defineProps<{
   title: string;
   songs?: number[] | null;

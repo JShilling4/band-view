@@ -60,13 +60,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
 import { useDateUtility } from "@/core/composables";
 import { IconClasses } from "@/core/models";
-import { useRehearsalUtility } from "@/modules/rehearsal/composables";
-import { useRehearsalStore } from "@/modules/rehearsal/store";
-import { useSongStore } from "@/modules/song/store";
-import { useMemberStore, useUserStore } from "@/stores";
 
 defineProps<{
   pageTitle: string;

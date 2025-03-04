@@ -30,10 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { IconClasses, type Tables } from "@/core/models";
-import { useShowStore } from "@/modules/show/store";
-import { useContactStore, useUserStore } from "@/stores";
 
 defineProps<{
   venue: Tables<"venue">;

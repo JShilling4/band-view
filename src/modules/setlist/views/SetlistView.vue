@@ -83,14 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { useRouter } from "vue-router";
 import { IconClasses } from "@/core/models";
-import { useSetStore } from "@/modules/set/store";
-import { useSetlistUtility } from "@/modules/setlist/composables";
-import { useSetlistStore } from "@/modules/setlist/store";
-import { useSongStore } from "@/modules/song/store";
-import { useMemberStore, useUserStore } from "@/stores";
 
 const props = defineProps<{
   pageTitle: string;
@@ -180,7 +173,7 @@ async function onDeleteSetlistClick(id: number) {
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/breakpoints";
+@use "@/scss/breakpoints" as *;
 
 .setlist-container {
   flex-wrap: wrap;

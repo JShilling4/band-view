@@ -55,7 +55,6 @@
 <script setup lang="ts">
 import { type Tables } from "@/core/models";
 import { type LocalVenue } from "@/modules/venue/models";
-import { useVenueStore } from "@/modules/venue/store";
 
 const props = defineProps<{
   action: "Add" | "Edit";

@@ -1,7 +1,5 @@
-import { ref } from "vue";
 import { type Tables } from "@/core/models";
 import { type LocalShow, NewShow } from "@/modules/show/models";
-import { useShowStore } from "@/modules/show/store";
 import clone from "lodash/clone";
 
 export function useShowUtility() {

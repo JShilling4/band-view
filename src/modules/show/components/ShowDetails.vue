@@ -59,12 +59,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
 import { copyToClipboard } from "quasar";
 import { IconClasses, Tables } from "@/core/models";
-import { useVenueStore } from "@/modules/venue/store";
 import { format } from "date-fns";
-import { useUserStore } from "@/stores";
 
 const props = defineProps<{
   show: Tables<"show">;

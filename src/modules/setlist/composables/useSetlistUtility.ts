@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import { type Tables } from "@/core/models";
 import { type LocalSetlist, NewSetlist } from "@/modules/setlist/models";
 import { useSetlistStore } from "@/modules/setlist/store";

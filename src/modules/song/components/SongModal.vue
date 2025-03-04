@@ -93,11 +93,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { type Tables } from "@/core/models";
 import { type LocalSong, SONG_SPECIALS, SONG_STATUSES } from "@/modules/song/models";
-import { useSongStore } from "@/modules/song/store";
-import { useMemberStore, useUserStore } from "@/stores";
 
 const props = defineProps<{
   action: "Add" | "Edit";

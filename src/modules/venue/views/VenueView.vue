@@ -68,12 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
 import { type Tables } from "@/core/models";
-import { useShowStore } from "@/modules/show/store";
-import { useVenueUtility } from "@/modules/venue/composables";
-import { useVenueStore } from "@/modules/venue/store";
-import { useContactStore, useUserStore } from "@/stores";
 
 // Types
 defineProps<{

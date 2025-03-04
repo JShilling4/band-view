@@ -44,10 +44,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import { useShowStore } from "@/modules/show/store";
-import { useSongStore } from "@/modules/song/store";
-import { useVenueStore } from "@/modules/venue/store";
 import { formatDate } from "date-fns";
 
 defineProps<{

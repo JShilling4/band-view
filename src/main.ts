@@ -1,9 +1,8 @@
 import App from "./App.vue";
-import { createApp } from "vue";
 import { Quasar, quasarConfig } from "@/plugins/quasar";
 import { FontAwesomeIcon, initFontAwesome } from "@/plugins/font-awesome";
 import router from "@/router";
-import pinia from "@/stores";
+import pinia from "@/plugins/pinia";
 
 const initializeApp = () => {
   try {

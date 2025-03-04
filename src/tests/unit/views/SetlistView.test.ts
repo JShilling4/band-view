@@ -19,7 +19,7 @@ const mockSetlistUtility = {
   onEditSetlistClick: vi.fn(),
 };
 
-vi.mock("@/modules/setlist/composables", () => ({
+vi.mock("../../../modules/setlist/composables/useSetlistUtility.ts", () => ({
   useSetlistUtility: () => mockSetlistUtility,
 }));
 
@@ -64,17 +64,19 @@ const mockUserStore: UserStore = {
   activeMember: null,
 };
 
-vi.mock("@/stores", () => ({
+vi.mock("../../../modules/member/store/member.store.ts", () => ({
   useMemberStore: () => mockMemberStore,
+}));
+vi.mock("../../../modules/user/store/user.store.ts", () => ({
   useUserStore: () => mockUserStore,
 }));
-vi.mock("@/modules/song/store", () => ({
+vi.mock("../../../modules/song/store/song.store.ts", () => ({
   useSongStore: () => mockSongStore,
 }));
-vi.mock("@/modules/set/store", () => ({
+vi.mock("../../../modules/set/store/set.store.ts", () => ({
   useSetStore: () => mockSetStore,
 }));
-vi.mock("@/modules/setlist/store", () => ({
+vi.mock("../../../modules/setlist/store/setlist.store.ts", () => ({
   useSetlistStore: () => mockSetlistStore,
 }));
 

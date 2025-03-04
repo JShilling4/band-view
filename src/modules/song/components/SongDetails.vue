@@ -75,10 +75,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { IconClasses, type Tables } from "@/core/models";
 import { openBrowserTab, secToMinSec } from "@/core/utils/helpers";
-import { useMemberStore, useUserStore } from "@/stores";
 
 const memberStore = useMemberStore();
 

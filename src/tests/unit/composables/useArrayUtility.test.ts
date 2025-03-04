@@ -1,4 +1,3 @@
-import { useArrayUtility } from "@/core/composables";
 import { describe, expect, it } from "vitest";
 
 describe("useArrayUtility", () => {

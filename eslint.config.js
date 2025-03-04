@@ -14,22 +14,13 @@ export default [
     files: ["**/*.vue"],
     languageOptions: {
       parserOptions: { parser: tseslint.parser },
-      // necessary for auto-imports in SFCs
-      globals: {
-        ref: "readonly",
-        computed: "readonly",
-        watch: "readonly",
-        watchEffect: "readonly",
-        provide: "readonly",
-        inject: "readonly",
-        reactive: "readonly",
-      },
     },
   },
   eslintPluginPrettier,
   {
     rules: {
       "vue/multi-word-component-names": "off",
+      "no-undef": "off",
       "prettier/prettier": [
         "error",
         {

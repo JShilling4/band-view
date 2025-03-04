@@ -1,7 +1,5 @@
-import { ref } from "vue";
 import { type Tables } from "@/core/models";
 import { type LocalRehearsal, NewRehearsal } from "@/modules/rehearsal/models";
-import { useRehearsalStore } from "@/modules/rehearsal/store";
 import clone from "lodash/clone";
 
 export function useRehearsalUtility() {

@@ -1,13 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createPinia, setActivePinia } from "pinia";
 import type { Tables } from "@/core/models";
-import { useShowUtility } from "@/modules/show/composables";
 import { NewShow } from "@/modules/show/models";
-import { useShowStore } from "@/modules/show/store";
 import { createMockShowStore } from "@/tests/mocks/showStore.mock";
 
 // Mock the store modules
-vi.mock("@/modules/show/store", () => ({
+vi.mock("../../../modules/show/store/show.store.ts", () => ({
   useShowStore: vi.fn(),
 }));
 

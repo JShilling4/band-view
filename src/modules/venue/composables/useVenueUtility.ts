@@ -1,7 +1,5 @@
-import { ref } from "vue";
 import { type Tables } from "@/core/models";
 import { type LocalVenue, NewVenue } from "@/modules/venue/models";
-import { useVenueStore } from "@/modules/venue/store";
 import clone from "lodash/clone";
 
 export function useVenueUtility() {
