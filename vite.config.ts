@@ -58,7 +58,7 @@ export default defineConfig({
     devSourcemap: true,
   },
   optimizeDeps: {
-    include: ["vue-draggable-plus"],
+    include: ["vue-draggable-plus", "lodash/omit", "lodash/clone"],
   },
   server: {
     port: 3000,
