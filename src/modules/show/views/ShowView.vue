@@ -2,9 +2,6 @@
   <div class="page-container">
     <div class="row items-center">
       <AppPageTitle>{{ pageTitle }} </AppPageTitle>
-      <a href="http://www.steelerailband.com/shows" class="q-ml-auto" target="_blank">
-        Website Calendar
-      </a>
     </div>
 
     <div class="page-content">
