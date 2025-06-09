@@ -1,5 +1,4 @@
-import { type Tables } from "@/core/models";
-import { type LocalShow, NewShow } from "@/modules/show/types";
+import { type LocalShow, NewShow, Show } from "@/modules/show/types";
 import clone from "lodash/clone";
 
 export function useShowUtility() {
@@ -7,7 +6,7 @@ export function useShowUtility() {
   const showStore = useShowStore();
 
   // State
-  const localShow = ref<LocalShow | Tables<"show">>(NewShow());
+  const localShow = ref<LocalShow | Show>(NewShow());
   const showShowModal = ref(false);
   const showModalAction = ref<"Add" | "Edit">("Add");
 

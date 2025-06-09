@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { type Tables } from "@/core/models";
 import { handleError } from "@/core/utils/error";
 import supabase from "@/plugins/supabase";
 import {
@@ -13,9 +12,10 @@ import {
   isThisYear,
   subYears,
 } from "date-fns";
+import { Show } from "@/modules/show/types";
 
 export interface ShowStoreState {
-  shows: Tables<"show">[];
+  shows: Show[];
   loading: boolean;
 }
 
@@ -47,7 +47,7 @@ export const useShowStore = defineStore("shows", {
       }
     },
 
-    async createShow(show: Omit<Tables<"show">, "id">) {
+    async createShow(show: Omit<Show, "id">) {
       if (!show.venue) {
         handleError(new Error("Venue is required"));
         return null;
@@ -58,7 +58,7 @@ export const useShowStore = defineStore("shows", {
           .from("show")
           .insert(show)
           .select()
-          .returns<Tables<"show">[]>();
+          .overrideTypes<Show[], { merge: false }>();
 
         if (error) throw error;
 
@@ -73,7 +73,7 @@ export const useShowStore = defineStore("shows", {
       }
     },
 
-    async updateShow(show: Tables<"show">) {
+    async updateShow(show: Show) {
       if (!show?.id) {
         handleError(new Error("Show ID is required"));
         return false;
@@ -123,7 +123,7 @@ export const useShowStore = defineStore("shows", {
 
   getters: {
     getShowById: (state) => {
-      return (id: number | null): Tables<"show"> | undefined => {
+      return (id: number | null): Show | undefined => {
         if (!id) return undefined;
         return state.shows.find((show) => show.id === id);
       };
@@ -137,7 +137,7 @@ export const useShowStore = defineStore("shows", {
     },
 
     getShowsOnOrAfterDate: (state) => {
-      return (date: string | Date | number = new Date()): Tables<"show">[] => {
+      return (date: string | Date | number = new Date()): Show[] => {
         const compareDate = new Date(date).toDateString();
         return state.shows.filter((show) => {
           const showDate = new Date(show.date).toDateString();
@@ -172,7 +172,7 @@ export const useShowStore = defineStore("shows", {
       return state.shows.filter((show) => isSameMonth(show.date, nextMonth));
     },
 
-    getUpcomingShows(): Tables<"show">[] {
+    getUpcomingShows(): Show[] {
       return this.getShowsOnOrAfterDate();
     },
 

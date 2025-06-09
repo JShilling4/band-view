@@ -22,8 +22,8 @@
             >
               <!-- <QIcon v-if="event?.icon" :name="event.icon" class="q-mr-xs"></QIcon> -->
               <div class="title q-calendar__ellipsis">
-                {{ event.title + (event.time ? " - " + event.time : "") }}
-                <QTooltip>{{ event.details }}</QTooltip>
+                {{ getVenueById(event.venue)?.name || "" }}
+                <QTooltip>{{ getVenueById(event.venue)?.name || "" }}</QTooltip>
               </div>
             </div>
           </template>
@@ -34,46 +34,25 @@
 </template>
 
 <script setup lang="ts">
-import {
-  QCalendarMonth,
-  addToDate,
-  parseDate,
-  parseTimestamp,
-  today,
-  type Timestamp,
-} from "@quasar/quasar-ui-qcalendar";
+import { parseDate, QCalendarMonth, today, type Timestamp } from "@quasar/quasar-ui-qcalendar";
 import "@quasar/quasar-ui-qcalendar/index.css";
+import { Show } from "@/modules/show/types";
+import { useShowStore } from "@/modules/show/store";
 
-// The function below is used to set up our demo data
-// const CURRENT_DAY = new Date();
-// function getCurrentDay(day: number) {
-//   const newDay = new Date(CURRENT_DAY);
-//   newDay.setDate(day);
-//   const tm = parseDate(newDay);
-//   return tm!.date;
-// }
-
-// interface Event {
-//   id: number;
-//   title: string;
-//   details: string;
-//   date: string;
-//   time?: string;
-//   duration?: number;
-//   bgcolor?: string;
-//   icon?: string;
-//   days?: number;
-// }
+const showStore = useShowStore();
+const { getVenueById } = useVenueStore();
 
 const calendar = ref<QCalendarMonth>();
 const selectedDate = ref(today());
-const events = ref<Show[]>([]);
 
-const eventsMap = computed<Record<string, Event[]>>(() => {
-  const map: Record<string, Event[]> = {};
-  if (events.value.length > 0) {
-    events.value.forEach((event) => {
-      (map[event.date] = map[event.date] || []).push(event);
+const eventsMap = computed<Record<string, Show[]>>(() => {
+  const map: Record<string, Show[]> = {};
+  if (showStore.getShowsThisYear.length > 0) {
+    showStore.getShowsThisYear.forEach((show) => {
+      const key = parseDate(new Date(show.date))?.date;
+      if (key) {
+        (map[key] = map[key] || []).push(show);
+      }
     });
   }
   // console.info(map)
@@ -105,16 +84,16 @@ function onClickDay(data: Timestamp) {
 }
 
 // Event dates
-function badgeClasses(event: Event, _type: string) {
+function badgeClasses(_event: Show, _type: string) {
   // console.info('event', event)
   return {
     "text-white": true,
-    [`bg-${event.bgcolor}`]: true,
+    [`bg-blue-9`]: true,
     "q-calendar__ellipsis": true,
   };
 }
 
-function badgeStyles(_event: Event, _type: string) {
+function badgeStyles(_event: Show, _type: string) {
   const s = {};
   // s.left = day.weekday === 0 ? 0 : (day.weekday * this.parsedCellWidth) + '%'
   // s.top = 0

@@ -59,7 +59,7 @@
             <div class="show"></div>
           </QList>
         </div> -->
-        <EventCalendar :shows="showStore.shows" />
+        <EventCalendar />
       </template>
     </div>
 

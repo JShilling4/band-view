@@ -1,13 +1,13 @@
 import { type Tables } from "@/core/models";
 
-export interface ShowFilter {
-  label: string;
-  fn(date?: string | Date | number): Tables<"show">[];
-}
-
 export type Show = Tables<"show">;
 
-export interface LocalShow extends Omit<Tables<"show">, "id" | "venue"> {
+export interface ShowFilter {
+  label: string;
+  fn(date?: string | Date | number): Show[];
+}
+
+export interface LocalShow extends Omit<Show, "id" | "venue"> {
   venue: number | null;
 }
 export function NewShow(

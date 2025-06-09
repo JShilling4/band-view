@@ -1,6 +1,6 @@
 import { vi } from "vitest";
-import { type Tables } from "@/core/models";
 import { type ShowStoreState, useShowStore } from "@/modules/show/store/show.store";
+import { Show } from "@/modules/show/types";
 
 // Get the store type from the actual store
 type ShowStore = ReturnType<typeof useShowStore>;
@@ -11,7 +11,7 @@ export const createMockShowStore = () => {
     loading: false,
   };
 
-  const emptyShowArray: Tables<"show">[] = [];
+  const emptyShowArray: Show[] = [];
 
   return {
     ...state,

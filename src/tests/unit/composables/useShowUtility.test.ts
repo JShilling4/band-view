@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Tables } from "@/core/models";
-import { NewShow } from "@/modules/show/types";
+import { NewShow, Show } from "@/modules/show/types";
 import { createMockShowStore } from "@/tests/mocks/showStore.mock";
 
 // Mock the store modules
@@ -10,7 +9,7 @@ vi.mock("../../../modules/show/store/show.store.ts", () => ({
 
 describe("useShowUtility", () => {
   // Add common mock data
-  const mockShow: Tables<"show"> = {
+  const mockShow: Show = {
     id: 1,
     venue: 1,
     date: "2024-03-20",

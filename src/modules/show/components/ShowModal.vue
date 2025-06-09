@@ -48,31 +48,30 @@
 </template>
 
 <script setup lang="ts">
-import { type Tables } from "@/core/models";
-import { type LocalShow } from "@/modules/show/types";
+import { Show, type LocalShow } from "@/modules/show/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";
-  show: LocalShow | Tables<"show">;
+  show: LocalShow | Show;
 }>();
 
 const showStore = useShowStore();
 const venueStore = useVenueStore();
 
 const showModal = defineModel<boolean>("showModal");
-const localShow = defineModel<LocalShow | Tables<"show">>("show");
+const localShow = defineModel<LocalShow | Show>("show");
 
 async function onSaveShow() {
   if (!localShow.value?.venue) return;
   if (props.action === "Add") {
     const regex = /(T.*?Z)/gi;
     await showStore.createShow({
-      ...(localShow.value as Omit<Tables<"show">, "id">),
+      ...(localShow.value as Omit<Show, "id">),
       date: new Date(localShow.value.date).toISOString().replace(regex, " 00:00:00"),
     });
   }
   if (props.action === "Edit") {
-    await showStore.updateShow(localShow.value as Tables<"show">);
+    await showStore.updateShow(localShow.value as Show);
   }
 }
 </script>
