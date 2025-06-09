@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { type Tables } from "@/core/models";
-import { type LocalShow } from "@/modules/show/models";
+import { type LocalShow } from "@/modules/show/types";
 
 const props = defineProps<{
   action: "Add" | "Edit";

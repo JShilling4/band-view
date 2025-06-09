@@ -20,7 +20,7 @@
       </div>
 
       <template v-else>
-        <div class="top-controls q-mb-md row items-center">
+        <!-- <div class="top-controls q-mb-md row items-center">
           <QBtn
             v-if="isAdmin"
             color="teal-10"
@@ -58,7 +58,8 @@
             <div class="show"></div>
             <div class="show"></div>
           </QList>
-        </div>
+        </div> -->
+        <EventCalendar :shows="showStore.shows" />
       </template>
     </div>
 
@@ -79,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { ShowFilter } from "@/modules/show/models";
+import { ShowFilter } from "@/modules/show/types";
 import { clone } from "lodash";
 
 // Types
@@ -90,19 +91,19 @@ const props = defineProps<{
 
 // Dependency
 const showStore = useShowStore();
-const userStore = useUserStore();
+// const userStore = useUserStore();
 const { fetchVenues } = useVenueStore();
 const { fetchMembers } = useMemberStore();
 const router = useRouter();
-const { onVenueInfoClick, showVenueDetail, venueDetail, onHideVenueDetail } = useVenueUtility();
+const { showVenueDetail, venueDetail, onHideVenueDetail } = useVenueUtility();
 const {
-  onAddShowClick,
+  // onAddShowClick,
   showShowModal,
   localShow,
   showModalAction,
   onHideShowModal,
-  onDeleteShowClick,
-  onEditShowClick,
+  // onDeleteShowClick,
+  // onEditShowClick,
 } = useShowUtility();
 
 // State
@@ -121,7 +122,7 @@ const showFilters: ShowFilter[] = [
   },
 ];
 const activeShowFilter = ref<ShowFilter>({ ...showFilters[0] });
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
+// const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 

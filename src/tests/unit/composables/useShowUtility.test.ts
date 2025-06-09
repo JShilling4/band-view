@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Tables } from "@/core/models";
-import { NewShow } from "@/modules/show/models";
+import { NewShow } from "@/modules/show/types";
 import { createMockShowStore } from "@/tests/mocks/showStore.mock";
 
 // Mock the store modules

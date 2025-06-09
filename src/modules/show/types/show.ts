@@ -1,14 +1,16 @@
 import { type Tables } from "@/core/models";
 
-interface ShowFilter {
+export interface ShowFilter {
   label: string;
   fn(date?: string | Date | number): Tables<"show">[];
 }
 
-interface LocalShow extends Omit<Tables<"show">, "id" | "venue"> {
+export type Show = Tables<"show">;
+
+export interface LocalShow extends Omit<Tables<"show">, "id" | "venue"> {
   venue: number | null;
 }
-function NewShow(
+export function NewShow(
   venue: number | null = null,
   date: string = "",
   end_time: string = "",
@@ -25,5 +27,3 @@ function NewShow(
     fb_url,
   };
 }
-
-export { NewShow, type ShowFilter, type LocalShow };

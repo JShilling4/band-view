@@ -1,5 +1,5 @@
 import { type Tables } from "@/core/models";
-import { type LocalShow, NewShow } from "@/modules/show/models";
+import { type LocalShow, NewShow } from "@/modules/show/types";
 import clone from "lodash/clone";
 
 export function useShowUtility() {

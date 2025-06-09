@@ -27,6 +27,12 @@ export default [
           endOfLine: "auto",
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 ];
