@@ -1,16 +1,18 @@
 <template>
   <div class="">
-    <EventCalendarNavbar class="q-mb-sm" @today="onToday" @prev="onPrev" @next="onNext" />
+    <ShowCalendarNav class="q-mb-sm" @today="onToday" @prev="onPrev" @next="onNext" />
+    <div class="q-mb-sm heading-display">{{ headingDisplay }}</div>
     <div style="display: flex; max-width: 800px; width: 100%">
       <QCalendarMonth
         ref="calendar"
         v-model="selectedDate"
         weekday-align="center"
-        date-align="right"
-        month-label-size="md"
+        date-align="left"
         :day-min-height="70"
         animated
         bordered
+        month-label-size="lg"
+        :show-month-label="true"
         @click-day="onClickDay"
       >
         <template #day="{ scope: { timestamp } }">
@@ -59,6 +61,13 @@ const eventsMap = computed<Record<string, Show[]>>(() => {
   return map;
 });
 
+const headingDisplay = computed(() => {
+  const dateObj = new Date(selectedDate.value);
+  // const month = dateObj.toLocaleString("default", { month: "long" });
+  const year = dateObj.toLocaleString("default", { year: "numeric" });
+  return year;
+});
+
 // Calendar Navigation
 function onToday() {
   if (calendar.value) {
@@ -103,4 +112,9 @@ function badgeStyles(_event: Show, _type: string) {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.q-calendar-month__day--month) {
+  font-weight: 600;
+  color: brown;
+}
+</style>

@@ -56,7 +56,7 @@
             <div class="show"></div>
           </QList>
         </div> -->
-        <EventCalendar />
+        <ShowCalendar />
       </template>
     </div>
 
