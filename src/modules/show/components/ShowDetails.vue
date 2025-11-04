@@ -62,9 +62,10 @@
 import { copyToClipboard } from "quasar";
 import { IconClasses, Tables } from "@/core/models";
 import { format } from "date-fns";
+import { Show } from "../types";
 
 const props = defineProps<{
-  show: Tables<"show">;
+  show: Show;
 }>();
 
 const emit = defineEmits<{

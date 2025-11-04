@@ -24,6 +24,8 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SetDetails: typeof import('./../modules/set/components/SetDetails.vue')['default']
     SetlistModal: typeof import('./../modules/setlist/components/SetlistModal.vue')['default']
+    ShowCalendar: typeof import('./../modules/show/components/showCalendar/ShowCalendar.vue')['default']
+    ShowCalendarNav: typeof import('./../modules/show/components/showCalendar/ShowCalendarNav.vue')['default']
     ShowDetails: typeof import('./../modules/show/components/ShowDetails.vue')['default']
     ShowModal: typeof import('./../modules/show/components/ShowModal.vue')['default']
     SideNavigation: typeof import('./../core/components/Navigation/SideNavigation.vue')['default']

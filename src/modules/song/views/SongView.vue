@@ -4,7 +4,7 @@
     <div class="page-content">
       <div class="top-controls q-mb-md row items-center">
         <QBtn
-          v-if="isAdmin"
+          v-if="userStore.memberIsAdmin"
           color="teal-10"
           icon="fa-solid fa-plus"
           class="q-mr-md"
@@ -107,7 +107,6 @@ const {
 
 const statusFilter = ref<SongStatus | null>(null);
 const vocalFilter = ref<number[]>([]);
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const selectedSongs = computed(() => {
   if (!statusFilter.value && !vocalFilter.value.length) return;
 

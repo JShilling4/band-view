@@ -5,7 +5,12 @@
         <h6>{{ action }} Song</h6>
       </QCardSection>
       <QCardSection v-if="song" class="modal-body">
-        <QInput v-if="isAdmin && 'id' in song" v-model="song.id" label="ID" readonly />
+        <QInput
+          v-if="userStore.memberIsAdmin && 'id' in song"
+          v-model="song.id"
+          label="ID"
+          readonly
+        />
         <QInput v-model="song.artist" label="Artist" />
         <QInput v-model="song.title" label="Title" />
         <QSelect v-model="song.status" :options="SONG_STATUSES" label="Status" behavior="menu" />
@@ -105,8 +110,6 @@ const showModal = defineModel<boolean>("showModal");
 const memberStore = useMemberStore();
 const songStore = useSongStore();
 const userStore = useUserStore();
-
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 async function onSaveSong() {
   if (!song.value) return;

@@ -131,7 +131,7 @@ export const useUserStore = defineStore("user", {
 
   getters: {
     memberRole: (state): string | null => state.activeMember?.permission_level ?? null,
-
+    memberIsAdmin: (state): boolean => state.activeMember?.permission_level === "admin",
     memberFullName: (state): string | null =>
       state.activeMember
         ? `${state.activeMember.first_name} ${state.activeMember.last_name}`

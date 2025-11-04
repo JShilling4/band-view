@@ -1,5 +1,7 @@
 export enum IconNames {
   Calendar = "Calendar",
+  ChevLeft = "ChevronLeft",
+  ChevRight = "ChevronRight",
   Dashboard = "Dashboard",
   Download = "Download",
   Edit = "Edit",
@@ -17,6 +19,8 @@ export enum IconNames {
 
 export const IconClasses: { [key in IconNames]: string[] } = {
   [IconNames.Calendar]: ["fa-solid", "fa-calendar-days"],
+  [IconNames.ChevLeft]: ["fa-solid", "fa-chevron-left"],
+  [IconNames.ChevRight]: ["fa-solid", "fa-chevron-right"],
   [IconNames.Dashboard]: ["fa-solid", "fa-grip"],
   [IconNames.Download]: ["fa-solid", "fa-download", "text-green-9"],
   [IconNames.Edit]: ["fa-solid", "fa-edit", "text-blue-5"],
