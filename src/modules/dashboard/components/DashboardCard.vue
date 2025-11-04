@@ -23,6 +23,7 @@ const { classes = "" } = defineProps<{
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.3);
   padding: 0 0 0 1rem;
+  height: 100%;
 
   @include from-desktop {
     padding: 0 2rem;
