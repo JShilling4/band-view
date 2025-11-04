@@ -4,7 +4,7 @@
       <AppPageTitle>{{ pageTitle }}</AppPageTitle>
     </div>
     <div class="page-content">
-      <div v-if="isAdmin" class="admin-controls q-mb-md row items-center">
+      <div v-if="userStore.memberIsAdmin" class="admin-controls q-mb-md row items-center">
         <QBtn
           color="teal-10"
           icon="fa-solid fa-plus"
@@ -30,7 +30,7 @@
             <h3 class="text-h6">
               {{ dateStringToDisplay(rehearsal.date) }} - {{ rehearsal.start_time }}
             </h3>
-            <div v-if="isAdmin" class="admin-controls q-ml-lg">
+            <div v-if="userStore.memberIsAdmin" class="admin-controls q-ml-lg">
               <QIcon
                 :name="IconClasses.Edit.join(' ')"
                 class="edit-icon q-mr-sm"
@@ -92,7 +92,6 @@ const displayRehearsals = computed(() => {
 const rehearsalList = computed(() => {
   return rehearsalStore.getRehearsalsOnOrAfterDate(new Date());
 });
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // methods
 const loadData = async () => {

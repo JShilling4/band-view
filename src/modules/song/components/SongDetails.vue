@@ -1,14 +1,17 @@
 <template>
   <QItem
     v-if="song"
-    :clickable="isAdmin"
+    :clickable="userStore.memberIsAdmin"
     :class="{ highlight: song.is_highlighted }"
     role="listitem"
   >
-    <QItemSection :tabindex="isAdmin ? 0 : undefined" @click="isAdmin && $emit('song-clicked')">
+    <QItemSection
+      :tabindex="userStore.memberIsAdmin ? 0 : undefined"
+      @click="userStore.memberIsAdmin && $emit('song-clicked')"
+    >
       <QItemLabel>
         <QIcon
-          v-if="showHandle && isAdmin"
+          v-if="showHandle && userStore.memberIsAdmin"
           :name="IconClasses.Handle.join(' ')"
           class="q-mr-sm handle"
         />
@@ -16,7 +19,7 @@
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
           <span class="text-bold text-grey-9">{{ song.title }}&nbsp;</span>
-          <span v-if="isAdmin && song.length" class="song-duration">
+          <span v-if="userStore.memberIsAdmin && song.length" class="song-duration">
             ({{ secToMinSec(song.length) }})
           </span>
           <span v-if="!hideSpecials && song.specials?.length">
@@ -61,7 +64,7 @@
             @click.stop="openBrowserTab(song.download_url)"
           />
         </span>
-        <span v-if="!hideAdmin && isAdmin" class="admin-controls q-ml-md">
+        <span v-if="!hideAdmin && userStore.memberIsAdmin" class="admin-controls q-ml-md">
           <QIcon
             :name="IconClasses.Delete.join(' ')"
             size="sm"
@@ -104,7 +107,6 @@ defineEmits<{
 }>();
 
 const userStore = useUserStore();
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 const vocals = computed(() => {
   if (!song) return [];

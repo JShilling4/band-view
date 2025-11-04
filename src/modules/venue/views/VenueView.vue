@@ -14,7 +14,7 @@
       <template v-else>
         <div class="top-controls q-mb-md row items-center">
           <QBtn
-            v-if="isAdmin"
+            v-if="userStore.memberIsAdmin"
             color="teal-10"
             icon="fa-solid fa-plus"
             class="q-mr-md"
@@ -99,7 +99,6 @@ const isLoading = ref(true);
 const error = ref<string | null>(null);
 const cityFilter = ref<string | null>(null);
 const filteredVenues = ref<Tables<"venue">[]>([]);
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // Watchers
 watch(

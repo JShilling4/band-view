@@ -3,7 +3,7 @@
     <div class="row items-center">
       <!-- <div class="set-name text-bold q-mr-auto">{{ set.name }}</div> -->
       <QBtnDropdown
-        v-if="isAdmin && set && availableSongs.length"
+        v-if="userStore.memberIsAdmin && set && availableSongs.length"
         color="teal-10"
         class="q-mb-md"
         outline
@@ -30,7 +30,7 @@
         v-model="localSetSongs"
         handle=".handle"
         :on-update="onSongDragUpdate"
-        :disabled="!isAdmin"
+        :disabled="!userStore.memberIsAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
           <SongDetails
@@ -76,7 +76,6 @@ const setStore = useSetStore();
 const userStore = useUserStore();
 const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtility();
 const { localSetSongs, updateSetOrder, onDeleteSetSongClick, addLocalSetSong } = useSetUtility();
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 // State
 const availableSongs = computed(() => {

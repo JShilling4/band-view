@@ -9,7 +9,7 @@
       <template v-else>
         <div class="top-controls q-mb-md row items-center">
           <QBtn
-            v-if="isAdmin"
+            v-if="userStore.memberIsAdmin"
             color="teal-10"
             icon="fa-solid fa-plus"
             class="q-mr-md"
@@ -37,7 +37,7 @@
               :aria-label="ariaLabels.downloadSetlist"
             />
           </a>
-          <div v-if="selectedSetlist && isAdmin" class="admin-controls q-ml-lg">
+          <div v-if="selectedSetlist && userStore.memberIsAdmin" class="admin-controls q-ml-lg">
             <QIcon
               :name="IconClasses.Edit.join(' ')"
               color="blue-5"
@@ -120,7 +120,6 @@ const activeTab = ref("");
 const selectedSetlist = computed(() => {
   return setlistStore.setlists.find((setlist) => setlist.name === activeTab.value);
 });
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 
