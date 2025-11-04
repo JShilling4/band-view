@@ -1,10 +1,29 @@
 <template>
-  <QDialog v-model="showModal" persistent>
-    <QCard class="modal-content">
+  <QDialog v-model="showModal" persistent class="modal">
+    <QCard v-if="localShow" class="modal-content">
       <QCardSection class="modal-heading row items-center bg-black text-white">
-        <h6>{{ action }} Show</h6>
+        <h6>{{ venue?.name }}</h6>
       </QCardSection>
-      <QCardSection v-if="localShow" class="modal-body">
+      <QCardSection v-if="action === 'Edit'">
+        <div class="venue-details">
+          <div class="date">
+            {{ format(new Date(show.date), "eeee, MMMM do") }}
+          </div>
+          <div class="address">
+            {{ venue?.address }} {{ venue?.city }}, {{ venue?.state }}
+            <QIcon
+              v-if="venue?.address"
+              name="fa-solid fa-copy"
+              class="icon q-ml-sm cursor-pointer text-grey-7"
+              size="xs"
+              @click="copyVenueAddress"
+            />
+            <span v-if="showCopiedNotice" class="copied-notice q-ml-sm text-grey-8"> Copied </span>
+          </div>
+          <div class="time">{{ localShow.start_time }} - {{ localShow.end_time }}</div>
+        </div>
+      </QCardSection>
+      <QCardSection v-if="userStore.memberIsAdmin" class="modal-body">
         <div class="row">
           <QInput v-model="localShow.date" label="Date" class="col q-mr-lg">
             <template #append>
@@ -40,16 +59,37 @@
         </div>
       </QCardSection>
       <QCardActions align="right" class="modal-controls">
-        <QBtn v-close-popup outline label="Cancel" color="black" no-caps />
-        <QBtn v-close-popup label="Save" color="green-10" no-caps @click="onSaveShow" />
+        <QBtn v-close-popup outline label="Close" color="black" no-caps />
+        <div v-if="userStore.memberIsAdmin" class="admin-controls">
+          <QBtn
+            v-close-popup
+            label="Save"
+            color="green-10"
+            no-caps
+            class="control"
+            @click="onSaveShow"
+          />
+          <QBtn
+            v-close-popup
+            label="Delete"
+            color="red-10"
+            no-caps
+            class="control"
+            @click="onDeleteShowClick((localShow as Show).id)"
+          />
+        </div>
       </QCardActions>
     </QCard>
   </QDialog>
 </template>
 
 <script setup lang="ts">
+import { copyToClipboard } from "quasar";
+import { format } from "date-fns/format";
+import { useShowUtility } from "../composables";
 import { Show, type LocalShow } from "@/modules/show/types";
 
+// props
 const props = defineProps<{
   action: "Add" | "Edit";
   show: LocalShow | Show;
@@ -57,9 +97,35 @@ const props = defineProps<{
 
 const showStore = useShowStore();
 const venueStore = useVenueStore();
+const userStore = useUserStore();
+const { onDeleteShowClick } = useShowUtility();
 
 const showModal = defineModel<boolean>("showModal");
+watch(
+  () => showModal.value,
+  () => {
+    if (!showModal.value) {
+      showCopiedNotice.value = false;
+    }
+  }
+);
+
 const localShow = defineModel<LocalShow | Show>("show");
+
+const venue = computed(() => {
+  return venueStore.getVenueById(localShow.value?.venue ?? -1);
+});
+
+const showCopiedNotice = ref(false);
+async function copyVenueAddress() {
+  if (!venue.value) return;
+  try {
+    await copyToClipboard(`${venue.value.address} ${venue.value.city}, ${venue.value.state}`);
+    showCopiedNotice.value = true;
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 async function onSaveShow() {
   if (!localShow.value?.venue) return;
@@ -79,22 +145,40 @@ async function onSaveShow() {
 <style lang="scss" scoped>
 @use "@/scss/breakpoints" as *;
 
-.modal-content {
-  width: 100%;
+.modal {
+  &-content {
+    width: 100%;
 
-  @include from-tablet {
-    width: 500px;
+    @include from-tablet {
+      width: 500px;
+    }
+  }
+  &-body {
+    padding: 0 1.5rem 2rem;
   }
 }
-.modal-body {
-  padding: 0 1.5rem 2rem;
+
+.venue-details {
+  display: flex;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .date {
+    font-weight: 600;
+    font-size: 18px;
+  }
 }
 
 .radio-label {
   color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-controls {
-  margin-bottom: 1rem;
+.admin-controls {
+  margin: 0.5rem;
+
+  .control {
+    margin-right: 0.5rem;
+  }
 }
 </style>
