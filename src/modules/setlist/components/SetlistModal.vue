@@ -25,12 +25,13 @@
 
 <script setup lang="ts">
 import { type Tables } from "@/core/models";
+import { Show } from "@/modules/show/types";
 import { type LocalSetlist } from "@/modules/setlist/models";
 import { useSetlistStore } from "@/modules/setlist/store";
 
 const props = defineProps<{
   action: "Add" | "Edit";
-  show?: Tables<"show">;
+  show?: Show;
 }>();
 
 const setlistStore = useSetlistStore();

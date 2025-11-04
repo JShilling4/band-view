@@ -48,9 +48,6 @@ export default defineConfig({
       vueTemplate: true,
     }),
   ],
-  define: {
-    "process.env": process.env,
-  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -61,7 +58,7 @@ export default defineConfig({
     devSourcemap: true,
   },
   optimizeDeps: {
-    include: ["vue-draggable-plus"],
+    include: ["vue-draggable-plus", "lodash/omit", "lodash/clone"],
   },
   server: {
     port: 3000,

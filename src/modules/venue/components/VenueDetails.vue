@@ -22,7 +22,7 @@
         </div>
       </div>
     </QItemSection>
-    <QItemSection v-if="isAdmin" side>
+    <QItemSection v-if="userStore.memberIsAdmin" side>
       <QIcon :name="IconClasses.Edit.join(' ')" class="edit-icon q-mb-sm" @click="onEditClick" />
       <QIcon :name="IconClasses.Delete.join(' ')" class="delete-icon" @click="onDeleteClick" />
     </QItemSection>
@@ -45,7 +45,6 @@ const emit = defineEmits<{
 const userStore = useUserStore();
 const showStore = useShowStore();
 const contactStore = useContactStore();
-const isAdmin = computed(() => userStore.activeMember?.permission_level === "admin");
 
 function formatAddress(address: string | null, city: string | null, state: string | null) {
   const addressStr = address ? `${address} - ` : "";
@@ -60,11 +59,11 @@ function onItemClick() {
 }
 
 function onEditClick() {
-  if (isAdmin.value) emit("edit");
+  emit("edit");
 }
 
 function onDeleteClick() {
-  if (isAdmin.value) emit("delete");
+  emit("delete");
 }
 </script>
 
