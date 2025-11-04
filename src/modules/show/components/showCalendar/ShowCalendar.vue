@@ -1,17 +1,23 @@
 <template>
   <div class="">
-    <ShowCalendarNav class="q-mb-sm" @today="onToday" @prev="onPrev" @next="onNext" />
+    <ShowCalendarNav
+      class="q-mb-sm"
+      @today="onToday"
+      @prev-month="onPrevMonth"
+      @next-month="onNextMonth"
+      @prev-year="onPrevYear"
+      @next-year="onNextYear"
+    />
     <div class="q-mb-sm heading-display">{{ headingDisplay }}</div>
-    <div style="display: flex; max-width: 800px; width: 100%">
+    <div class="calendar-wrapper">
       <QCalendarMonth
         ref="calendar"
         v-model="selectedDate"
         weekday-align="center"
         date-align="left"
-        :day-min-height="70"
+        :day-min-height="80"
         animated
         bordered
-        month-label-size="lg"
         :show-month-label="true"
         @click-day="onClickDay"
       >
@@ -19,53 +25,78 @@
           <template v-for="event in eventsMap[timestamp.date]" :key="event.id">
             <div
               :class="badgeClasses(event, 'day')"
-              :style="badgeStyles(event, 'day')"
-              class="row justify-start items-center no-wrap my-event"
+              class="row justify-start items-center no-wrap calendar-event"
+              @click.stop="onEventClick(event)"
             >
-              <!-- <QIcon v-if="event?.icon" :name="event.icon" class="q-mr-xs"></QIcon> -->
               <div class="title q-calendar__ellipsis">
                 {{ getVenueById(event.venue)?.name || "" }}
-                <QTooltip>{{ getVenueById(event.venue)?.name || "" }}</QTooltip>
               </div>
             </div>
           </template>
         </template>
       </QCalendarMonth>
+
+      <ShowModal
+        v-model:show-modal="showShowModal"
+        v-model:show="localShow"
+        :action="showModalAction"
+        persistent
+        @hide="onHideShowModal"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { parseDate, QCalendarMonth, today, type Timestamp } from "@quasar/quasar-ui-qcalendar";
+import { parseDate, QCalendarMonth, Timestamp, today } from "@quasar/quasar-ui-qcalendar";
+import { addYears, subYears, format, compareAsc, compareDesc } from "date-fns";
+import { type Show } from "@/modules/show/types";
 import "@quasar/quasar-ui-qcalendar/index.css";
-import { Show } from "@/modules/show/types";
-import { useShowStore } from "@/modules/show/store";
 
+const userStore = useUserStore();
 const showStore = useShowStore();
 const { getVenueById } = useVenueStore();
+const {
+  onHideShowModal,
+  showShowModal,
+  localShow,
+  onEditShowClick,
+  showModalAction,
+  onAddShowClick,
+} = useShowUtility();
 
 const calendar = ref<QCalendarMonth>();
 const selectedDate = ref(today());
 
 const eventsMap = computed<Record<string, Show[]>>(() => {
   const map: Record<string, Show[]> = {};
-  if (showStore.getShowsThisYear.length > 0) {
-    showStore.getShowsThisYear.forEach((show) => {
+  if (showStore.shows.length > 0) {
+    showStore.shows.forEach((show) => {
       const key = parseDate(new Date(show.date))?.date;
       if (key) {
         (map[key] = map[key] || []).push(show);
       }
     });
   }
-  // console.info(map)
   return map;
 });
 
 const headingDisplay = computed(() => {
-  const dateObj = new Date(selectedDate.value);
-  // const month = dateObj.toLocaleString("default", { month: "long" });
-  const year = dateObj.toLocaleString("default", { year: "numeric" });
-  return year;
+  const MONTH = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return `${MONTH[Number(selectedDate.value.split("-")[1]) - 1]} ${selectedDate.value.split("-")[0]}`;
 });
 
 // Calendar Navigation
@@ -75,40 +106,48 @@ function onToday() {
   }
 }
 
-function onPrev() {
+function onPrevMonth() {
   if (calendar.value) {
     calendar.value.prev();
   }
 }
 
-function onNext() {
+function onNextMonth() {
   if (calendar.value) {
     calendar.value.next();
   }
 }
 
+function onPrevYear() {
+  const newDate = subYears(selectedDate.value, 1);
+  selectedDate.value = format(newDate, "yyyy-MM-dd");
+}
+
+function onNextYear() {
+  const newDate = addYears(selectedDate.value, 1);
+  selectedDate.value = format(newDate, "yyyy-MM-dd");
+}
+
 // Calendar event handling
-function onClickDay(data: Timestamp) {
-  console.info("onClickDay", data);
+function onEventClick(show: Show) {
+  onEditShowClick(show.id);
+}
+
+function onClickDay({ scope }: { scope: { timestamp: Timestamp } }) {
+  if (userStore.memberIsAdmin) {
+    localShow.value.date = scope.timestamp.date;
+    onAddShowClick();
+  }
 }
 
 // Event dates
-function badgeClasses(_event: Show, _type: string) {
-  // console.info('event', event)
+function badgeClasses(event: Show, _type: string) {
   return {
     "text-white": true,
-    [`bg-blue-9`]: true,
+    ["bg-grey-7"]: compareAsc(event.date, new Date()) == -1,
+    ["bg-blue-7"]: compareDesc(event.date, new Date()) == -1,
     "q-calendar__ellipsis": true,
   };
-}
-
-function badgeStyles(_event: Show, _type: string) {
-  const s = {};
-  // s.left = day.weekday === 0 ? 0 : (day.weekday * this.parsedCellWidth) + '%'
-  // s.top = 0
-  // s.bottom = 0
-  // s.width = (event.days * this.parsedCellWidth) + '%'
-  return s;
 }
 </script>
 
@@ -116,5 +155,21 @@ function badgeStyles(_event: Show, _type: string) {
 :deep(.q-calendar-month__day--month) {
   font-weight: 600;
   color: brown;
+}
+
+.heading-display {
+  font-weight: 500;
+  font-size: 24px;
+  color: #333;
+}
+
+.calendar-wrapper {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+
+  .calendar-event {
+    position: relative;
+  }
 }
 </style>
