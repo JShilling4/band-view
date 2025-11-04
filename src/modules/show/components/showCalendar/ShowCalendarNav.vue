@@ -65,11 +65,16 @@ function onNextYearClick() {
 </script>
 
 <style lang="scss" scoped>
+@use "@/scss/breakpoints" as *;
+
 .nav-label {
   font-weight: 500;
   letter-spacing: 1px;
   color: #333;
   font-size: 16px;
-  margin: 0 0.75rem;
+
+  @include from-tablet {
+    margin: 0 0.75rem;
+  }
 }
 </style>
