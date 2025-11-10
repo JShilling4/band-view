@@ -16,7 +16,7 @@
         <div class="card-container">
           <!-- Shows Card -->
           <DashboardCard classes="bg-teal-1">
-            <h4 class="q-mb-sm">Shows</h4>
+            <h4 class="card-title">Shows</h4>
             <div v-for="year in showYears" :key="year" class="stat">
               <span class="stat-label"> {{ year }} </span>:
               <span class="stat-value">{{ showStore.getShowsByYear(year).length }}</span>
@@ -29,14 +29,18 @@
 
           <!-- Venues Card -->
           <DashboardCard classes="bg-red-1">
-            <h4 class="q-mb-sm">Venues</h4>
+            <h4 class="card-title">Venues</h4>
             <div class="stat">
-              <span class="stat-label">Different Venues</span>:
+              <span class="stat-label">Venues</span>:
               <span class="stat-value">{{ venuesPlayed }}</span>
             </div>
             <div class="stat">
-              <span class="stat-label">Different Cities</span>:
+              <span class="stat-label">Cities</span>:
               <span class="stat-value">{{ citiesPlayed }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Most booked</span>:
+              <span class="stat-value">{{ mostPlayedVenues }}</span>
             </div>
           </DashboardCard>
         </div>
@@ -83,6 +87,23 @@ const citiesPlayed = computed(() => {
   return uniqueCities.size + 1;
 });
 
+const mostPlayedVenues = computed(() => {
+  if (!venueStore.venues.length || !showStore.shows.length) return "N/A";
+
+  const venueCounts = venueStore.venues
+    .map((venue) => {
+      const count = showStore.getTotalShowsByVenue(venue.id);
+      return { id: venue.id, name: venue.name, city: venue.city, count };
+    })
+    .filter((v) => v.count > 0)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3);
+
+  if (!venueCounts.length) return "N/A";
+
+  return venueCounts.map((v) => `${v.name} - ${v.city} (${v.count})`).join(" | ");
+});
+
 const formattedStartDate = computed(() => {
   return showStore.getFirstShowDate
     ? formatDate(showStore.getFirstShowDate, "MMM d, yyyy")
@@ -117,6 +138,11 @@ onMounted(() => {
   @include from-tablet {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.card-title {
+  border-bottom: 1px solid #575757;
+  margin-bottom: 0.5rem;
 }
 
 .stat {
