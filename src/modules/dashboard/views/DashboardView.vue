@@ -16,7 +16,7 @@
         <div class="card-container">
           <!-- Shows Card -->
           <DashboardCard classes="bg-teal-1">
-            <h4 class="card-title">Shows</h4>
+            <h5 class="card-title">Shows</h5>
             <div v-for="year in showYears" :key="year" class="stat">
               <span class="stat-label"> {{ year }} </span>:
               <span class="stat-value">{{ showStore.getShowsByYear(year).length }}</span>
@@ -29,7 +29,7 @@
 
           <!-- Venues Card -->
           <DashboardCard classes="bg-red-1">
-            <h4 class="card-title">Venues</h4>
+            <h5 class="card-title">Venues</h5>
             <div class="stat">
               <span class="stat-label">Venues</span>:
               <span class="stat-value">{{ venuesPlayed }}</span>
@@ -135,8 +135,9 @@ onMounted(() => {
   grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
   min-height: 15rem;
+
   @include from-tablet {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
