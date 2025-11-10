@@ -18,7 +18,7 @@
         <span v-if="typeof listIndex === 'number'" class="song-index">{{ listIndex + 1 }}. </span>
         <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
         <span class="song-title">
-          <span class="text-bold text-grey-9">{{ song.title }}&nbsp;</span>
+          <span class="song-name">{{ song.title }}&nbsp;</span>
           <span v-if="userStore.memberIsAdmin && song.length" class="song-duration">
             ({{ secToMinSec(song.length) }})
           </span>
@@ -119,23 +119,38 @@ const getMemberColor = (id: number | null) => memberStore.getMemberById(id)?.pro
 </script>
 
 <style lang="scss" scoped>
-.q-item {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
+.song-container {
+  .handle {
+    @media print {
+      display: none;
+    }
+  }
+  .q-item {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+  }
 }
 .song-controls {
-  iframe {
-    width: 22px;
-    height: 22px;
-    border-radius: 5px;
+  @media print {
+    display: none;
   }
 }
 .song-artist {
   color: rgb(148, 148, 148);
   font-weight: 500;
   line-height: 1.75;
+}
+.song-name {
+  color: #424242;
+  font-weight: bold;
+
+  @media print {
+    font-family: Georgia;
+    font-weight: 500;
+    font-size: 38px;
+  }
 }
 .song-link-icon {
   cursor: pointer;
@@ -146,30 +161,40 @@ const getMemberColor = (id: number | null) => memberStore.getMemberById(id)?.pro
 }
 .song-metadata {
   font-size: 13px;
+
+  @media print {
+    display: none;
+  }
+
+  .vocal-name-0 {
+    color: v-bind("getMemberColor(vocals[0])");
+  }
+  .vocal-name-1 {
+    color: v-bind("getMemberColor(vocals[1])");
+  }
+  .vocal-name-2 {
+    color: v-bind("getMemberColor(vocals[2])");
+  }
 }
 .song-index {
   width: 1.5rem;
   display: inline-block;
+
+  @media print {
+    display: none;
+  }
 }
 .highlight {
   background-color: #fefed2;
-}
-.vocal-name-0 {
-  color: v-bind("getMemberColor(vocals[0])");
-}
-.vocal-name-1 {
-  color: v-bind("getMemberColor(vocals[1])");
-}
-.vocal-name-2 {
-  color: v-bind("getMemberColor(vocals[2])");
 }
 .vocal-separator {
   color: #000;
 }
 .song-duration {
   color: var(--q-grey-7);
-}
-.delete-icon {
-  cursor: pointer;
+
+  @media print {
+    display: none;
+  }
 }
 </style>

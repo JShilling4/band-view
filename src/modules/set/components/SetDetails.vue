@@ -1,7 +1,6 @@
 <template>
   <div v-if="set" class="setlist-wrapper">
-    <div class="row items-center">
-      <!-- <div class="set-name text-bold q-mr-auto">{{ set.name }}</div> -->
+    <div class="row items-center add-song-btn">
       <QBtnDropdown
         v-if="userStore.memberIsAdmin && set && availableSongs.length"
         color="teal-10"
@@ -25,6 +24,7 @@
         </QList>
       </QBtnDropdown>
     </div>
+    <h5 class="set-number">Set {{ setNum + 1 }}</h5>
     <QList>
       <VueDraggable
         v-model="localSetSongs"
@@ -44,7 +44,7 @@
           <QSeparator />
         </div>
       </VueDraggable>
-      <div>
+      <div class="set-time">
         Total Time: {{ secToMinSec(localSetSongs.reduce((n, { length }) => n + (length ?? 0), 0)) }}
       </div>
 
@@ -67,6 +67,7 @@ import { secToMinSec } from "@/core/utils/helpers";
 // Types
 const props = defineProps<{
   setlistId: number;
+  setNum: number;
   set?: Tables<"set">;
 }>();
 
@@ -127,16 +128,38 @@ function onAddSetSongClick(songId: number) {
 </script>
 
 <style lang="scss" scoped>
+.add-song-btn {
+  @media print {
+    display: none;
+  }
+}
 .setlist-wrapper {
   flex: 25%;
   min-width: 300px;
 }
-.set-name {
-  font-size: 18px;
-}
+.set-number {
+  font-size: 20px;
 
+  @media print {
+    font-family: Georgia;
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 2rem;
+    text-decoration: underline;
+  }
+}
+.set-time {
+  @media print {
+    display: none;
+  }
+}
 .song-container {
   max-width: 500px;
   width: 100%;
+
+  @media print {
+    margin-bottom: 1rem !important;
+    max-width: 100%;
+  }
 }
 </style>

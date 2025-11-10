@@ -37,6 +37,14 @@
               :aria-label="ariaLabels.downloadSetlist"
             />
           </a>
+          <QIcon
+            v-if="selectedSetlist"
+            name="fa-solid fa-print"
+            class="print-icon q-ml-lg"
+            size="sm"
+            :aria-label="ariaLabels.printSetlist"
+            @click="onPrintClick"
+          />
           <div v-if="selectedSetlist && userStore.memberIsAdmin" class="admin-controls q-ml-lg">
             <QIcon
               :name="IconClasses.Edit.join(' ')"
@@ -63,9 +71,10 @@
         </div>
         <div v-else-if="selectedSetlist" class="setlist-container row q-col-gutter-xl">
           <SetDetails
-            v-for="setId in selectedSetlist.sets"
+            v-for="(setId, index) in selectedSetlist.sets"
             :key="setId"
             :setlist-id="selectedSetlist.id"
+            :set-num="index"
             :set="setStore.getSetById(setId)"
           />
         </div>
@@ -113,6 +122,7 @@ const ariaLabels = {
   editSetlist: "Edit setlist",
   deleteSetlist: "Delete setlist",
   downloadSetlist: "Download setlist",
+  printSetlist: "Print setlist",
 };
 
 // State
@@ -169,13 +179,42 @@ async function onDeleteSetlistClick(id: number) {
     activeTab.value = "";
   }
 }
+
+function onPrintClick() {
+  window.print();
+}
 </script>
+
+<style lang="scss">
+@media print {
+  header,
+  aside,
+  .page-title,
+  .top-controls {
+    display: none !important;
+  }
+  .setlist-wrapper {
+    padding-top: 0 !important;
+    min-height: 100vh !important;
+  }
+  .q-page-container {
+    padding: 1rem 0 0 !important;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 @use "@/scss/breakpoints" as *;
 
 .setlist-container {
+  display: flex;
   flex-wrap: wrap;
+  margin: -48px 0 0 -48px;
+
+  @media print {
+    display: block !important;
+    margin: 0 !important;
+  }
 }
 .set-container {
   width: 100%;
@@ -200,7 +239,12 @@ async function onDeleteSetlistClick(id: number) {
 }
 
 .edit-icon,
-.delete-icon {
+.delete-icon,
+.print-icon {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
   &:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
