@@ -167,6 +167,13 @@ export const useShowStore = defineStore("shows", {
       return state.shows.filter((show) => isSameYear(show.date, nextYear));
     },
 
+    getShowsByYear: (state) => {
+      return (year: number): Show[] => {
+        const yearDate = new Date(year, 0, 1);
+        return state.shows.filter((show) => isSameYear(show.date, yearDate));
+      };
+    },
+
     getShowsNextMonth: (state) => {
       const nextMonth = addMonths(new Date(), 1);
       return state.shows.filter((show) => isSameMonth(show.date, nextMonth));
