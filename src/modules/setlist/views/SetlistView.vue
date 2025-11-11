@@ -193,10 +193,6 @@ function onPrintClick() {
   .top-controls {
     display: none !important;
   }
-  .setlist-wrapper {
-    padding-top: 0 !important;
-    min-height: 100vh !important;
-  }
   .q-page-container {
     padding: 1rem 0 0 !important;
   }
