@@ -145,7 +145,7 @@ function onAddSetSongClick(songId: number) {
     font-weight: bold;
     font-size: 30px;
     margin-bottom: 2rem;
-    text-decoration: underline;
+    border-bottom: 1px solid black;
   }
 }
 .set-time {

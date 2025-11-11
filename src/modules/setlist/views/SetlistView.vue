@@ -195,7 +195,7 @@ function onPrintClick() {
   }
   .setlist-wrapper {
     padding-top: 0 !important;
-    min-height: 100vh !important;
+    break-after: always;
   }
   .q-page-container {
     padding: 1rem 0 0 !important;
