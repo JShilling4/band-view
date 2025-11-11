@@ -29,7 +29,10 @@
       <VueDraggable
         v-model="localSetSongs"
         handle=".handle"
+        :group="dragGroup"
         :on-update="onSongDragUpdate"
+        :on-add="onSongDragAdd"
+        :on-remove="onSongDragRemove"
         :disabled="!userStore.memberIsAdmin"
       >
         <div v-for="(song, i) in localSetSongs" :key="song.title" class="song-container">
@@ -79,6 +82,12 @@ const { onSongClick, onHideSongModal, showSongModal, localSong } = useSongUtilit
 const { localSetSongs, updateSetOrder, onDeleteSetSongClick, addLocalSetSong } = useSetUtility();
 
 // State
+const dragGroup = computed(() => ({
+  name: "set-songs",
+  pull: userStore.memberIsAdmin,
+  put: userStore.memberIsAdmin,
+}));
+
 const availableSongs = computed(() => {
   const setlistSongIds = setStore
     .getSetsBySetlistId(props.setlistId)
@@ -93,7 +102,6 @@ const availableSongs = computed(() => {
     });
 });
 
-// Watch
 watch(
   () => props.set,
   () => {
@@ -109,6 +117,16 @@ watch(
 );
 
 function onSongDragUpdate() {
+  if (!props.set) return;
+  updateSetOrder(props.set.id);
+}
+
+function onSongDragAdd() {
+  if (!props.set) return;
+  updateSetOrder(props.set.id);
+}
+
+function onSongDragRemove() {
   if (!props.set) return;
   updateSetOrder(props.set.id);
 }
@@ -136,6 +154,14 @@ function onAddSetSongClick(songId: number) {
 .setlist-wrapper {
   flex: 25%;
   min-width: 300px;
+
+  @media print {
+    padding-top: 0 !important;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
 }
 .set-number {
   font-size: 20px;
