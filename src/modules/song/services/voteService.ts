@@ -1,10 +1,5 @@
 import supabase from "@/plugins/supabase";
-import {
-  getVoterIdentifier,
-  hashVoterIdentifier,
-  recordVote,
-  getVotedSongs,
-} from "@/core/utils/voteTracking";
+import { getVoterIdentifier } from "@/core/utils/voteTracking";
 
 export interface VoteResult {
   success: boolean;
@@ -22,7 +17,7 @@ export interface VoteCount {
 
 export async function submitVote(songId: number, voteType: "up" | "down"): Promise<VoteResult> {
   try {
-    const voterIdentifier = hashVoterIdentifier(getVoterIdentifier());
+    const voterIdentifier = getVoterIdentifier();
 
     // First, check if user has already voted on this song
     const { data: existingVote, error: fetchError } = await supabase
@@ -57,9 +52,6 @@ export async function submitVote(songId: number, voteType: "up" | "down"): Promi
           throw updateError;
         }
 
-        // Record vote locally
-        recordVote(songId);
-
         // Get updated vote counts
         const voteCount = await getVoteCounts(songId);
 
@@ -80,9 +72,6 @@ export async function submitVote(songId: number, voteType: "up" | "down"): Promi
       if (insertError) {
         throw insertError;
       }
-
-      // Record vote locally
-      recordVote(songId);
 
       // Get updated vote counts
       const voteCount = await getVoteCounts(songId);
@@ -124,7 +113,7 @@ export async function getVoteCounts(songId: number): Promise<VoteCount> {
 
 export async function getUserVote(songId: number): Promise<"up" | "down" | null> {
   try {
-    const voterIdentifier = hashVoterIdentifier(getVoterIdentifier());
+    const voterIdentifier = getVoterIdentifier();
 
     const { data, error } = await supabase
       .from("song_votes")
@@ -147,7 +136,7 @@ export async function getUserVote(songId: number): Promise<"up" | "down" | null>
 
 export async function clearUserVote(songId: number): Promise<VoteResult> {
   try {
-    const voterIdentifier = hashVoterIdentifier(getVoterIdentifier());
+    const voterIdentifier = getVoterIdentifier();
 
     // Delete the vote from database
     const { error } = await supabase
@@ -159,11 +148,6 @@ export async function clearUserVote(songId: number): Promise<VoteResult> {
     if (error) {
       throw error;
     }
-
-    // Remove from local vote tracking
-    const votedSongs = getVotedSongs();
-    const updatedVotedSongs = votedSongs.filter((id) => id !== songId);
-    localStorage.setItem("bandview_voted_songs", JSON.stringify(updatedVotedSongs));
 
     // Get updated vote counts
     const voteCount = await getVoteCounts(songId);

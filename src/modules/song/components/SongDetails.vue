@@ -122,10 +122,39 @@
       </div>
     </QItemSection>
   </QItem>
+
+  <!-- Member Selection Modal -->
+  <QDialog v-model="showMemberSelector" persistent>
+    <QCard class="q-pa-md">
+      <QCardSection>
+        <div class="text-h6">Select Member for Voting</div>
+        <div class="text-body2 q-mt-sm">Please select which band member you are voting for:</div>
+      </QCardSection>
+
+      <QCardSection>
+        <QOptionGroup
+          v-model="selectedMemberForVoting"
+          :options="memberOptions"
+          color="primary"
+          type="radio"
+        />
+      </QCardSection>
+
+      <QCardActions align="right">
+        <QBtn flat label="Cancel" color="grey" @click="cancelMemberSelection" />
+        <QBtn
+          label="Confirm"
+          color="primary"
+          :disable="!selectedMemberForVoting"
+          @click="confirmMemberSelection"
+        />
+      </QCardActions>
+    </QCard>
+  </QDialog>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { Notify } from "quasar";
 import { IconClasses } from "@/core/models";
 import { openBrowserTab, secToMinSec } from "@/core/utils/helpers";
@@ -135,7 +164,7 @@ import {
   clearUserVote,
   type VoteResult,
 } from "@/modules/song/services/voteService";
-import { hasUserVoted } from "@/core/utils/voteTracking";
+import { getSelectedMemberId, setSelectedMemberId } from "@/core/utils/voteTracking";
 import { type Tables } from "@/plugins/supabase";
 
 const memberStore = useMemberStore();
@@ -186,19 +215,41 @@ const hasVoted = computed(() => {
   return userVote.value !== null;
 });
 
+const memberOptions = computed(() => {
+  return memberStore.members
+    .filter((member) => member.first_name) // Only members with names
+    .map((member) => ({
+      label: `${member.first_name} ${member.last_name || ""}`.trim(),
+      value: member.id,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label)); // Sort alphabetically
+});
+
 const userVote = ref<"up" | "down" | null>(null);
 const isVoting = ref(false);
+const showMemberSelector = ref(false);
+const selectedMemberForVoting = ref<number | null>(null);
 
 // Load user's existing vote on component mount
 onMounted(async () => {
-  if (song && hasUserVoted(song.id)) {
-    const existingVote = await getUserVote(song.id);
-    userVote.value = existingVote;
+  if (song && getSelectedMemberId()) {
+    try {
+      const existingVote = await getUserVote(song.id);
+      userVote.value = existingVote;
+    } catch {
+      // Member not selected or other error, will be handled by vote function
+    }
   }
 });
 
 const vote = async (voteType: "up" | "down") => {
   if (!song || isVoting.value) return;
+
+  // Check if member is selected
+  if (!getSelectedMemberId()) {
+    showMemberSelector.value = true;
+    return;
+  }
 
   isVoting.value = true;
   try {
@@ -250,6 +301,30 @@ const clearVote = async () => {
     }
   } finally {
     isVoting.value = false;
+  }
+};
+
+const cancelMemberSelection = () => {
+  showMemberSelector.value = false;
+  selectedMemberForVoting.value = null;
+};
+
+const confirmMemberSelection = () => {
+  if (selectedMemberForVoting.value) {
+    setSelectedMemberId(selectedMemberForVoting.value);
+    showMemberSelector.value = false;
+    selectedMemberForVoting.value = null;
+
+    // Now that member is selected, try to load existing vote
+    if (song) {
+      getUserVote(song.id)
+        .then((existingVote) => {
+          userVote.value = existingVote;
+        })
+        .catch(() => {
+          // No existing vote, that's fine
+        });
+    }
   }
 };
 </script>
