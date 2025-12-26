@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { useSetStore } from "@/modules/set/store";
 import { useSongStore } from "@/modules/song/store";
 

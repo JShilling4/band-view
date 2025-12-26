@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import type { Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { secToMinSec } from "@/core/utils/helpers";
 
 // Types
