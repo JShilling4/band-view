@@ -1,4 +1,4 @@
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 
 const SONG_STATUSES = ["learning", "active", "suggested", "burner", "killed"] as const;
 type SongStatusTuple = typeof SONG_STATUSES;
