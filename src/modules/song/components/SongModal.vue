@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { type LocalSong, SONG_SPECIALS, SONG_STATUSES } from "@/modules/song/models";
 
 const props = defineProps<{

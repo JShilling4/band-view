@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { Show } from "@/modules/show/types";
 import { type LocalSetlist } from "@/modules/setlist/models";
 import { useSetlistStore } from "@/modules/setlist/store";

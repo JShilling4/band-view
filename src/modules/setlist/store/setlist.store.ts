@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { useSetStore } from "@/modules/set/store";
 import { type LocalSetlist } from "@/modules/setlist/models";
 import supabase from "@/plugins/supabase";

@@ -1,4 +1,4 @@
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { type LocalSetlist, NewSetlist } from "@/modules/setlist/models";
 import { useSetlistStore } from "@/modules/setlist/store";
 

@@ -1,4 +1,4 @@
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 
 type LocalVenue = Omit<Tables<"venue">, "id">;
 function NewVenue(
