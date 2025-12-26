@@ -51,6 +51,7 @@
               flat
               dense
               :icon="hasVoted ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'"
+              size="sm"
               :color="userVote === 'up' ? 'positive' : 'grey-6'"
               :disable="isVoting"
               class="vote-btn"
@@ -65,6 +66,7 @@
               flat
               dense
               :icon="hasVoted ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'"
+              size="sm"
               :color="userVote === 'down' ? 'negative' : 'grey-6'"
               :disable="isVoting"
               class="vote-btn"
@@ -76,7 +78,7 @@
             </QBtn>
 
             <!-- Clear vote button (only shown when user has voted) -->
-            <QBtn
+            <!-- <QBtn
               v-if="hasVoted"
               flat
               dense
@@ -87,7 +89,7 @@
               @click.stop="clearVote"
             >
               <QTooltip>Clear your vote</QTooltip>
-            </QBtn>
+            </QBtn> -->
           </div>
         </div>
 
@@ -96,7 +98,7 @@
             :name="IconClasses.YouTube.join(' ')"
             color="red-9"
             class="song-link-icon"
-            size="sm"
+            size="xs"
             role="button"
             aria-label="Open YouTube link"
             tabindex="0"
@@ -107,14 +109,14 @@
           <QIcon
             :name="IconClasses.Download.join(' ')"
             class="song-link-icon"
-            size="sm"
+            size="xs"
             @click.stop="openBrowserTab(song.download_url)"
           />
         </span>
         <span v-if="!hideAdmin && userStore.memberIsAdmin" class="admin-controls q-ml-md">
           <QIcon
             :name="IconClasses.Delete.join(' ')"
-            size="sm"
+            size="xs"
             class="delete-icon"
             @click.stop="$emit('delete', song.id)"
           />
@@ -158,12 +160,7 @@ import { onMounted, ref } from "vue";
 import { Notify } from "quasar";
 import { IconClasses } from "@/core/models";
 import { openBrowserTab, secToMinSec } from "@/core/utils/helpers";
-import {
-  submitVote,
-  getUserVote,
-  clearUserVote,
-  type VoteResult,
-} from "@/modules/song/services/voteService";
+import { submitVote, getUserVote, type VoteResult } from "@/modules/song/services/voteService";
 import { getSelectedMemberId, setSelectedMemberId } from "@/core/utils/voteTracking";
 import { type Tables } from "@/plugins/supabase";
 
@@ -276,33 +273,33 @@ const vote = async (voteType: "up" | "down") => {
   }
 };
 
-const clearVote = async () => {
-  if (!song || isVoting.value) return;
+// const clearVote = async () => {
+//   if (!song || isVoting.value) return;
 
-  isVoting.value = true;
-  try {
-    const result: VoteResult = await clearUserVote(song.id);
+//   isVoting.value = true;
+//   try {
+//     const result: VoteResult = await clearUserVote(song.id);
 
-    if (result.success) {
-      userVote.value = null;
-      if (result.voteCount) {
-        songStore.updateSongVoteCount(song.id, result.voteCount);
-      }
+//     if (result.success) {
+//       userVote.value = null;
+//       if (result.voteCount) {
+//         songStore.updateSongVoteCount(song.id, result.voteCount);
+//       }
 
-      Notify.create({
-        type: "positive",
-        message: result.message,
-      });
-    } else {
-      Notify.create({
-        type: "negative",
-        message: result.message,
-      });
-    }
-  } finally {
-    isVoting.value = false;
-  }
-};
+//       Notify.create({
+//         type: "positive",
+//         message: result.message,
+//       });
+//     } else {
+//       Notify.create({
+//         type: "negative",
+//         message: result.message,
+//       });
+//     }
+//   } finally {
+//     isVoting.value = false;
+//   }
+// };
 
 const cancelMemberSelection = () => {
   showMemberSelector.value = false;
@@ -341,6 +338,7 @@ const confirmMemberSelection = () => {
     padding-right: 0 !important;
     font-family: Roboto, sans-serif;
     font-weight: 400;
+    align-items: center;
   }
 }
 .song-controls {
