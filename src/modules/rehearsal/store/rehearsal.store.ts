@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { type LocalRehearsal } from "@/modules/rehearsal/models";
 import supabase from "@/plugins/supabase";
 import { isAfter, isEqual } from "date-fns";

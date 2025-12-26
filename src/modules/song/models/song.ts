@@ -1,4 +1,4 @@
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 
 const SONG_STATUSES = ["learning", "active", "suggested", "burner", "killed"] as const;
 type SongStatusTuple = typeof SONG_STATUSES;
@@ -16,7 +16,9 @@ function NewSong(
   download_url: string | null = null,
   link_url: string | null = null,
   is_highlighted: boolean = false,
-  specials: SongSpecial[] | null = null
+  specials: SongSpecial[] | null = null,
+  downvotes: number = 0,
+  upvotes: number = 0
 ): LocalSong {
   return {
     artist,
@@ -30,6 +32,8 @@ function NewSong(
     link_url,
     is_highlighted,
     specials,
+    downvotes,
+    upvotes,
   };
 }
 

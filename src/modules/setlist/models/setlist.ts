@@ -1,4 +1,4 @@
-import { Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 
 type LocalSetlist = Omit<Tables<"setlist">, "id">;
 

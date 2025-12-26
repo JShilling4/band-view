@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { type LocalSong, type SongStatus } from "@/modules/song/models";
+import { type VoteCount, getVoteCountsForSongs } from "@/modules/song/services/voteService";
 import supabase from "@/plugins/supabase";
 
 interface State {
   songs: Tables<"song">[];
   loading: boolean;
+  songVoteCounts: Record<number, VoteCount>;
 }
 
 export const useSongStore = defineStore("songs", {
@@ -14,6 +16,7 @@ export const useSongStore = defineStore("songs", {
     return {
       songs: [],
       loading: false,
+      songVoteCounts: {},
     };
   },
 
@@ -33,12 +36,35 @@ export const useSongStore = defineStore("songs", {
           throw error;
         }
 
-        if (song) this.songs = song;
+        if (song) {
+          this.songs = song;
+          // Fetch vote counts for suggested songs
+          const suggestedSongIds = song.filter((s) => s.status === "suggested").map((s) => s.id);
+          if (suggestedSongIds.length > 0) {
+            await this.fetchSongVoteCounts(suggestedSongIds);
+          }
+        }
       } catch (error) {
         console.log(error);
       } finally {
         this.loading = false;
       }
+    },
+
+    async fetchSongVoteCounts(songIds: number[]) {
+      try {
+        const voteCounts = await getVoteCountsForSongs(songIds);
+        this.songVoteCounts = { ...this.songVoteCounts, ...voteCounts };
+      } catch (error) {
+        console.error("Error fetching vote counts:", error);
+      }
+    },
+
+    updateSongVoteCount(songId: number, voteCount: VoteCount) {
+      this.songVoteCounts = {
+        ...this.songVoteCounts,
+        [songId]: voteCount,
+      };
     },
 
     async deleteSong(id: number) {
@@ -130,6 +156,9 @@ export const useSongStore = defineStore("songs", {
       return state.songs
         .filter((song) => statuses.includes(song.status))
         .sort((a, b) => a.title.localeCompare(b.title));
+    },
+    getSongVoteCount: (state) => (songId: number) => {
+      return state.songVoteCounts[songId] || { upvotes: 0, downvotes: 0 };
     },
   },
 });

@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { QSkeleton } from "quasar";
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { SONG_STATUSES, type SongStatus } from "@/modules/song/models";
 
 const props = defineProps<{

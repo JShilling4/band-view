@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import supabase from "@/plugins/supabase";
 import { User } from "@supabase/supabase-js";
 

@@ -103,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { type LocalRehearsal } from "@/modules/rehearsal/models";
 
 const props = defineProps<{

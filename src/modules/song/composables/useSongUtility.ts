@@ -1,4 +1,4 @@
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { LocalSong, NewSong } from "@/modules/song/models";
 import clone from "lodash/clone";
 

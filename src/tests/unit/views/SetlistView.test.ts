@@ -4,7 +4,7 @@ import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import { installQuasarPlugin } from "../../mocks/quasar.mock";
 import { QBtn, QSpinner } from "quasar";
-import { type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { type Mock, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock composables

@@ -60,7 +60,8 @@
 
 <script setup lang="ts">
 import { copyToClipboard } from "quasar";
-import { IconClasses, Tables } from "@/core/models";
+import { IconClasses } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
 import { format } from "date-fns";
 import { Show } from "../types";
 

@@ -30,7 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import { IconClasses, type Tables } from "@/core/models";
+import { type Tables } from "@/plugins/supabase";
+import { IconClasses } from "@/core/models";
 
 defineProps<{
   venue: Tables<"venue">;
