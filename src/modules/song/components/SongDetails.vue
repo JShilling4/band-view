@@ -57,7 +57,14 @@
               class="vote-btn"
               @click.stop="vote('up')"
             >
-              <QBadge v-if="voteCount.upvotes > 0" color="positive" floating class="vote-badge">
+              <QBadge
+                v-if="voteCount.upvotes > 0"
+                color="white"
+                text-color="green-10"
+                rounded
+                floating
+                class="vote-badge"
+              >
                 {{ voteCount.upvotes }}
               </QBadge>
             </QBtn>
@@ -72,7 +79,14 @@
               class="vote-btn"
               @click.stop="vote('down')"
             >
-              <QBadge v-if="voteCount.downvotes > 0" color="negative" floating class="vote-badge">
+              <QBadge
+                v-if="voteCount.downvotes > 0"
+                color="white"
+                text-color="negative"
+                rounded
+                floating
+                class="vote-badge"
+              >
                 {{ voteCount.downvotes }}
               </QBadge>
             </QBtn>
