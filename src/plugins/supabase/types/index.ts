@@ -1,1063 +1,1055 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "11.2.0 (c820efb)"
-  }
+    PostgrestVersion: "11.2.0 (c820efb)";
+  };
   graphql_public: {
     Tables: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
       graphql: {
         Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
+          extensions?: Json;
+          operationName?: string;
+          query?: string;
+          variables?: Json;
+        };
+        Returns: Json;
+      };
+    };
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
+      [_ in never]: never;
+    };
+  };
   public: {
     Tables: {
       contact: {
         Row: {
-          email: string | null
-          fb_url: string | null
-          id: number
-          name: string
-          phone: string | null
-        }
+          email: string | null;
+          fb_url: string | null;
+          id: number;
+          name: string;
+          phone: string | null;
+        };
         Insert: {
-          email?: string | null
-          fb_url?: string | null
-          id?: number
-          name: string
-          phone?: string | null
-        }
+          email?: string | null;
+          fb_url?: string | null;
+          id?: number;
+          name: string;
+          phone?: string | null;
+        };
         Update: {
-          email?: string | null
-          fb_url?: string | null
-          id?: number
-          name?: string
-          phone?: string | null
-        }
-        Relationships: []
-      }
+          email?: string | null;
+          fb_url?: string | null;
+          id?: number;
+          name?: string;
+          phone?: string | null;
+        };
+        Relationships: [];
+      };
       member: {
         Row: {
-          first_name: string
-          id: number
-          image_url: string | null
-          last_name: string | null
-          permission_level: string | null
-          phone: string | null
-          profile_color: string | null
-          sort_order: number | null
-          title: string
-          user_id: string | null
-        }
+          first_name: string;
+          id: number;
+          image_url: string | null;
+          last_name: string | null;
+          permission_level: string | null;
+          phone: string | null;
+          profile_color: string | null;
+          sort_order: number | null;
+          title: string;
+          user_id: string | null;
+        };
         Insert: {
-          first_name: string
-          id?: number
-          image_url?: string | null
-          last_name?: string | null
-          permission_level?: string | null
-          phone?: string | null
-          profile_color?: string | null
-          sort_order?: number | null
-          title: string
-          user_id?: string | null
-        }
+          first_name: string;
+          id?: number;
+          image_url?: string | null;
+          last_name?: string | null;
+          permission_level?: string | null;
+          phone?: string | null;
+          profile_color?: string | null;
+          sort_order?: number | null;
+          title: string;
+          user_id?: string | null;
+        };
         Update: {
-          first_name?: string
-          id?: number
-          image_url?: string | null
-          last_name?: string | null
-          permission_level?: string | null
-          phone?: string | null
-          profile_color?: string | null
-          sort_order?: number | null
-          title?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
+          first_name?: string;
+          id?: number;
+          image_url?: string | null;
+          last_name?: string | null;
+          permission_level?: string | null;
+          phone?: string | null;
+          profile_color?: string | null;
+          sort_order?: number | null;
+          title?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
       rehearsal: {
         Row: {
-          date: string
-          id: number
-          new_songs: number[] | null
-          notes: string | null
-          review_songs: number[] | null
-          start_time: string | null
-        }
+          date: string;
+          id: number;
+          new_songs: number[] | null;
+          notes: string | null;
+          review_songs: number[] | null;
+          start_time: string | null;
+        };
         Insert: {
-          date: string
-          id?: number
-          new_songs?: number[] | null
-          notes?: string | null
-          review_songs?: number[] | null
-          start_time?: string | null
-        }
+          date: string;
+          id?: number;
+          new_songs?: number[] | null;
+          notes?: string | null;
+          review_songs?: number[] | null;
+          start_time?: string | null;
+        };
         Update: {
-          date?: string
-          id?: number
-          new_songs?: number[] | null
-          notes?: string | null
-          review_songs?: number[] | null
-          start_time?: string | null
-        }
-        Relationships: []
-      }
+          date?: string;
+          id?: number;
+          new_songs?: number[] | null;
+          notes?: string | null;
+          review_songs?: number[] | null;
+          start_time?: string | null;
+        };
+        Relationships: [];
+      };
       set: {
         Row: {
-          id: number
-          songs: number[] | null
-        }
+          id: number;
+          songs: number[] | null;
+        };
         Insert: {
-          id?: number
-          songs?: number[] | null
-        }
+          id?: number;
+          songs?: number[] | null;
+        };
         Update: {
-          id?: number
-          songs?: number[] | null
-        }
-        Relationships: []
-      }
+          id?: number;
+          songs?: number[] | null;
+        };
+        Relationships: [];
+      };
       setlist: {
         Row: {
-          id: number
-          name: string
-          sets: number[] | null
-          url: string | null
-        }
+          id: number;
+          name: string;
+          sets: number[] | null;
+          url: string | null;
+        };
         Insert: {
-          id?: number
-          name: string
-          sets?: number[] | null
-          url?: string | null
-        }
+          id?: number;
+          name: string;
+          sets?: number[] | null;
+          url?: string | null;
+        };
         Update: {
-          id?: number
-          name?: string
-          sets?: number[] | null
-          url?: string | null
-        }
-        Relationships: []
-      }
+          id?: number;
+          name?: string;
+          sets?: number[] | null;
+          url?: string | null;
+        };
+        Relationships: [];
+      };
       show: {
         Row: {
-          date: string
-          end_time: string
-          event: string | null
-          fb_url: string | null
-          id: number
-          start_time: string
-          venue: number
-        }
+          date: string;
+          end_time: string;
+          event: string | null;
+          fb_url: string | null;
+          id: number;
+          start_time: string;
+          venue: number;
+        };
         Insert: {
-          date: string
-          end_time: string
-          event?: string | null
-          fb_url?: string | null
-          id?: number
-          start_time: string
-          venue: number
-        }
+          date: string;
+          end_time: string;
+          event?: string | null;
+          fb_url?: string | null;
+          id?: number;
+          start_time: string;
+          venue: number;
+        };
         Update: {
-          date?: string
-          end_time?: string
-          event?: string | null
-          fb_url?: string | null
-          id?: number
-          start_time?: string
-          venue?: number
-        }
+          date?: string;
+          end_time?: string;
+          event?: string | null;
+          fb_url?: string | null;
+          id?: number;
+          start_time?: string;
+          venue?: number;
+        };
         Relationships: [
           {
-            foreignKeyName: "show_venue_fkey"
-            columns: ["venue"]
-            isOneToOne: false
-            referencedRelation: "venue"
-            referencedColumns: ["id"]
+            foreignKeyName: "show_venue_fkey";
+            columns: ["venue"];
+            isOneToOne: false;
+            referencedRelation: "venue";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       show_images: {
         Row: {
-          caption: string | null
-          created_at: string
-          id: number
-          url: string
-        }
+          caption: string | null;
+          created_at: string;
+          id: number;
+          url: string;
+        };
         Insert: {
-          caption?: string | null
-          created_at?: string
-          id?: number
-          url: string
-        }
+          caption?: string | null;
+          created_at?: string;
+          id?: number;
+          url: string;
+        };
         Update: {
-          caption?: string | null
-          created_at?: string
-          id?: number
-          url?: string
-        }
-        Relationships: []
-      }
+          caption?: string | null;
+          created_at?: string;
+          id?: number;
+          url?: string;
+        };
+        Relationships: [];
+      };
       show_videos: {
         Row: {
-          created_at: string
-          id: number
-          sort_order: number | null
-          title: string
-          url: string
-        }
+          created_at: string;
+          id: number;
+          sort_order: number | null;
+          title: string;
+          url: string;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          sort_order?: number | null
-          title: string
-          url: string
-        }
+          created_at?: string;
+          id?: number;
+          sort_order?: number | null;
+          title: string;
+          url: string;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          sort_order?: number | null
-          title?: string
-          url?: string
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          id?: number;
+          sort_order?: number | null;
+          title?: string;
+          url?: string;
+        };
+        Relationships: [];
+      };
       site_content: {
         Row: {
-          about_main_text: string
-          contact_main_text: string
-          id: number
-          show_next_year: boolean
-        }
+          about_main_text: string;
+          contact_main_text: string;
+          id: number;
+          show_next_year: boolean;
+        };
         Insert: {
-          about_main_text?: string
-          contact_main_text?: string
-          id?: number
-          show_next_year?: boolean
-        }
+          about_main_text?: string;
+          contact_main_text?: string;
+          id?: number;
+          show_next_year?: boolean;
+        };
         Update: {
-          about_main_text?: string
-          contact_main_text?: string
-          id?: number
-          show_next_year?: boolean
-        }
-        Relationships: []
-      }
+          about_main_text?: string;
+          contact_main_text?: string;
+          id?: number;
+          show_next_year?: boolean;
+        };
+        Relationships: [];
+      };
       song: {
         Row: {
-          artist: string
-          download_url: string | null
-          id: number
-          is_highlighted: boolean
-          length: number | null
-          link_url: string | null
-          specials: string[] | null
-          status: Database["public"]["Enums"]["song_status"]
-          title: string
-          vocal_lead: number | null
-          vocal_second: number | null
-          vocal_third: number | null
-        }
+          artist: string;
+          download_url: string | null;
+          id: number;
+          is_highlighted: boolean;
+          length: number | null;
+          link_url: string | null;
+          specials: string[] | null;
+          status: string;
+          title: string;
+          vocal_lead: number | null;
+          vocal_second: number | null;
+          vocal_third: number | null;
+        };
         Insert: {
-          artist: string
-          download_url?: string | null
-          id?: number
-          is_highlighted?: boolean
-          length?: number | null
-          link_url?: string | null
-          specials?: string[] | null
-          status: Database["public"]["Enums"]["song_status"]
-          title: string
-          vocal_lead?: number | null
-          vocal_second?: number | null
-          vocal_third?: number | null
-        }
+          artist: string;
+          download_url?: string | null;
+          id?: number;
+          is_highlighted?: boolean;
+          length?: number | null;
+          link_url?: string | null;
+          specials?: string[] | null;
+          status: string;
+          title: string;
+          vocal_lead?: number | null;
+          vocal_second?: number | null;
+          vocal_third?: number | null;
+        };
         Update: {
-          artist?: string
-          download_url?: string | null
-          id?: number
-          is_highlighted?: boolean
-          length?: number | null
-          link_url?: string | null
-          specials?: string[] | null
-          status?: Database["public"]["Enums"]["song_status"]
-          title?: string
-          vocal_lead?: number | null
-          vocal_second?: number | null
-          vocal_third?: number | null
-        }
+          artist?: string;
+          download_url?: string | null;
+          id?: number;
+          is_highlighted?: boolean;
+          length?: number | null;
+          link_url?: string | null;
+          specials?: string[] | null;
+          status?: string;
+          title?: string;
+          vocal_lead?: number | null;
+          vocal_second?: number | null;
+          vocal_third?: number | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "song_vocal_lead_fkey"
-            columns: ["vocal_lead"]
-            isOneToOne: false
-            referencedRelation: "member"
-            referencedColumns: ["id"]
+            foreignKeyName: "song_vocal_lead_fkey";
+            columns: ["vocal_lead"];
+            isOneToOne: false;
+            referencedRelation: "member";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "song_vocal_second_fkey"
-            columns: ["vocal_second"]
-            isOneToOne: false
-            referencedRelation: "member"
-            referencedColumns: ["id"]
+            foreignKeyName: "song_vocal_second_fkey";
+            columns: ["vocal_second"];
+            isOneToOne: false;
+            referencedRelation: "member";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "song_vocal_third_fkey"
-            columns: ["vocal_third"]
-            isOneToOne: false
-            referencedRelation: "member"
-            referencedColumns: ["id"]
+            foreignKeyName: "song_vocal_third_fkey";
+            columns: ["vocal_third"];
+            isOneToOne: false;
+            referencedRelation: "member";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       song_votes: {
         Row: {
-          created_at: string | null
-          id: number
-          ip_address: unknown
-          song_id: number
-          user_agent: string | null
-          vote_type: string
-          voter_identifier: string
-        }
+          created_at: string | null;
+          id: number;
+          ip_address: unknown;
+          song_id: number;
+          user_agent: string | null;
+          vote_type: string;
+          voter_identifier: string;
+        };
         Insert: {
-          created_at?: string | null
-          id?: number
-          ip_address?: unknown
-          song_id: number
-          user_agent?: string | null
-          vote_type: string
-          voter_identifier: string
-        }
+          created_at?: string | null;
+          id?: number;
+          ip_address?: unknown;
+          song_id: number;
+          user_agent?: string | null;
+          vote_type: string;
+          voter_identifier: string;
+        };
         Update: {
-          created_at?: string | null
-          id?: number
-          ip_address?: unknown
-          song_id?: number
-          user_agent?: string | null
-          vote_type?: string
-          voter_identifier?: string
-        }
+          created_at?: string | null;
+          id?: number;
+          ip_address?: unknown;
+          song_id?: number;
+          user_agent?: string | null;
+          vote_type?: string;
+          voter_identifier?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "song_votes_song_id_fkey"
-            columns: ["song_id"]
-            isOneToOne: false
-            referencedRelation: "song"
-            referencedColumns: ["id"]
+            foreignKeyName: "song_votes_song_id_fkey";
+            columns: ["song_id"];
+            isOneToOne: false;
+            referencedRelation: "song";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       venue: {
         Row: {
-          address: string | null
-          city: string | null
-          contact: number | null
-          id: number
-          is_private: boolean
-          name: string
-          phone: string | null
-          serves_food: boolean
-          state: string | null
-          website_url: string | null
-        }
+          address: string | null;
+          city: string | null;
+          contact: number | null;
+          id: number;
+          is_private: boolean;
+          name: string;
+          phone: string | null;
+          serves_food: boolean;
+          state: string | null;
+          website_url: string | null;
+        };
         Insert: {
-          address?: string | null
-          city?: string | null
-          contact?: number | null
-          id?: number
-          is_private?: boolean
-          name: string
-          phone?: string | null
-          serves_food?: boolean
-          state?: string | null
-          website_url?: string | null
-        }
+          address?: string | null;
+          city?: string | null;
+          contact?: number | null;
+          id?: number;
+          is_private?: boolean;
+          name: string;
+          phone?: string | null;
+          serves_food?: boolean;
+          state?: string | null;
+          website_url?: string | null;
+        };
         Update: {
-          address?: string | null
-          city?: string | null
-          contact?: number | null
-          id?: number
-          is_private?: boolean
-          name?: string
-          phone?: string | null
-          serves_food?: boolean
-          state?: string | null
-          website_url?: string | null
-        }
+          address?: string | null;
+          city?: string | null;
+          contact?: number | null;
+          id?: number;
+          is_private?: boolean;
+          name?: string;
+          phone?: string | null;
+          serves_food?: boolean;
+          state?: string | null;
+          website_url?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "venue_contact_fkey"
-            columns: ["contact"]
-            isOneToOne: false
-            referencedRelation: "contact"
-            referencedColumns: ["id"]
+            foreignKeyName: "venue_contact_fkey";
+            columns: ["contact"];
+            isOneToOne: false;
+            referencedRelation: "contact";
+            referencedColumns: ["id"];
           },
-        ]
-      }
-    }
+        ];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      song_status: "suggested" | "learning" | "burner" | "active" | "killed"
-    }
+      song_status: "suggested" | "learning" | "burner" | "active" | "killed";
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
+      [_ in never]: never;
+    };
+  };
   storage: {
     Tables: {
       buckets: {
         Row: {
-          allowed_mime_types: string[] | null
-          avif_autodetection: boolean | null
-          created_at: string | null
-          file_size_limit: number | null
-          id: string
-          name: string
-          owner: string | null
-          owner_id: string | null
-          public: boolean | null
-          type: Database["storage"]["Enums"]["buckettype"]
-          updated_at: string | null
-        }
+          allowed_mime_types: string[] | null;
+          avif_autodetection: boolean | null;
+          created_at: string | null;
+          file_size_limit: number | null;
+          id: string;
+          name: string;
+          owner: string | null;
+          owner_id: string | null;
+          public: boolean | null;
+          type: Database["storage"]["Enums"]["buckettype"];
+          updated_at: string | null;
+        };
         Insert: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id: string
-          name: string
-          owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
-          type?: Database["storage"]["Enums"]["buckettype"]
-          updated_at?: string | null
-        }
+          allowed_mime_types?: string[] | null;
+          avif_autodetection?: boolean | null;
+          created_at?: string | null;
+          file_size_limit?: number | null;
+          id: string;
+          name: string;
+          owner?: string | null;
+          owner_id?: string | null;
+          public?: boolean | null;
+          type?: Database["storage"]["Enums"]["buckettype"];
+          updated_at?: string | null;
+        };
         Update: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id?: string
-          name?: string
-          owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
-          type?: Database["storage"]["Enums"]["buckettype"]
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
+          allowed_mime_types?: string[] | null;
+          avif_autodetection?: boolean | null;
+          created_at?: string | null;
+          file_size_limit?: number | null;
+          id?: string;
+          name?: string;
+          owner?: string | null;
+          owner_id?: string | null;
+          public?: boolean | null;
+          type?: Database["storage"]["Enums"]["buckettype"];
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
       buckets_analytics: {
         Row: {
-          created_at: string
-          deleted_at: string | null
-          format: string
-          id: string
-          name: string
-          type: Database["storage"]["Enums"]["buckettype"]
-          updated_at: string
-        }
+          created_at: string;
+          deleted_at: string | null;
+          format: string;
+          id: string;
+          name: string;
+          type: Database["storage"]["Enums"]["buckettype"];
+          updated_at: string;
+        };
         Insert: {
-          created_at?: string
-          deleted_at?: string | null
-          format?: string
-          id?: string
-          name: string
-          type?: Database["storage"]["Enums"]["buckettype"]
-          updated_at?: string
-        }
+          created_at?: string;
+          deleted_at?: string | null;
+          format?: string;
+          id?: string;
+          name: string;
+          type?: Database["storage"]["Enums"]["buckettype"];
+          updated_at?: string;
+        };
         Update: {
-          created_at?: string
-          deleted_at?: string | null
-          format?: string
-          id?: string
-          name?: string
-          type?: Database["storage"]["Enums"]["buckettype"]
-          updated_at?: string
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          deleted_at?: string | null;
+          format?: string;
+          id?: string;
+          name?: string;
+          type?: Database["storage"]["Enums"]["buckettype"];
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       buckets_vectors: {
         Row: {
-          created_at: string
-          id: string
-          type: Database["storage"]["Enums"]["buckettype"]
-          updated_at: string
-        }
+          created_at: string;
+          id: string;
+          type: Database["storage"]["Enums"]["buckettype"];
+          updated_at: string;
+        };
         Insert: {
-          created_at?: string
-          id: string
-          type?: Database["storage"]["Enums"]["buckettype"]
-          updated_at?: string
-        }
+          created_at?: string;
+          id: string;
+          type?: Database["storage"]["Enums"]["buckettype"];
+          updated_at?: string;
+        };
         Update: {
-          created_at?: string
-          id?: string
-          type?: Database["storage"]["Enums"]["buckettype"]
-          updated_at?: string
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          id?: string;
+          type?: Database["storage"]["Enums"]["buckettype"];
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       migrations: {
         Row: {
-          executed_at: string | null
-          hash: string
-          id: number
-          name: string
-        }
+          executed_at: string | null;
+          hash: string;
+          id: number;
+          name: string;
+        };
         Insert: {
-          executed_at?: string | null
-          hash: string
-          id: number
-          name: string
-        }
+          executed_at?: string | null;
+          hash: string;
+          id: number;
+          name: string;
+        };
         Update: {
-          executed_at?: string | null
-          hash?: string
-          id?: number
-          name?: string
-        }
-        Relationships: []
-      }
+          executed_at?: string | null;
+          hash?: string;
+          id?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
       objects: {
         Row: {
-          bucket_id: string | null
-          created_at: string | null
-          id: string
-          last_accessed_at: string | null
-          level: number | null
-          metadata: Json | null
-          name: string | null
-          owner: string | null
-          owner_id: string | null
-          path_tokens: string[] | null
-          updated_at: string | null
-          user_metadata: Json | null
-          version: string | null
-        }
+          bucket_id: string | null;
+          created_at: string | null;
+          id: string;
+          last_accessed_at: string | null;
+          level: number | null;
+          metadata: Json | null;
+          name: string | null;
+          owner: string | null;
+          owner_id: string | null;
+          path_tokens: string[] | null;
+          updated_at: string | null;
+          user_metadata: Json | null;
+          version: string | null;
+        };
         Insert: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          level?: number | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          user_metadata?: Json | null
-          version?: string | null
-        }
+          bucket_id?: string | null;
+          created_at?: string | null;
+          id?: string;
+          last_accessed_at?: string | null;
+          level?: number | null;
+          metadata?: Json | null;
+          name?: string | null;
+          owner?: string | null;
+          owner_id?: string | null;
+          path_tokens?: string[] | null;
+          updated_at?: string | null;
+          user_metadata?: Json | null;
+          version?: string | null;
+        };
         Update: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          level?: number | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          user_metadata?: Json | null
-          version?: string | null
-        }
+          bucket_id?: string | null;
+          created_at?: string | null;
+          id?: string;
+          last_accessed_at?: string | null;
+          level?: number | null;
+          metadata?: Json | null;
+          name?: string | null;
+          owner?: string | null;
+          owner_id?: string | null;
+          path_tokens?: string[] | null;
+          updated_at?: string | null;
+          user_metadata?: Json | null;
+          version?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            foreignKeyName: "objects_bucketId_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       prefixes: {
         Row: {
-          bucket_id: string
-          created_at: string | null
-          level: number
-          name: string
-          updated_at: string | null
-        }
+          bucket_id: string;
+          created_at: string | null;
+          level: number;
+          name: string;
+          updated_at: string | null;
+        };
         Insert: {
-          bucket_id: string
-          created_at?: string | null
-          level?: number
-          name: string
-          updated_at?: string | null
-        }
+          bucket_id: string;
+          created_at?: string | null;
+          level?: number;
+          name: string;
+          updated_at?: string | null;
+        };
         Update: {
-          bucket_id?: string
-          created_at?: string | null
-          level?: number
-          name?: string
-          updated_at?: string | null
-        }
+          bucket_id?: string;
+          created_at?: string | null;
+          level?: number;
+          name?: string;
+          updated_at?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "prefixes_bucketId_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            foreignKeyName: "prefixes_bucketId_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       s3_multipart_uploads: {
         Row: {
-          bucket_id: string
-          created_at: string
-          id: string
-          in_progress_size: number
-          key: string
-          owner_id: string | null
-          upload_signature: string
-          user_metadata: Json | null
-          version: string
-        }
+          bucket_id: string;
+          created_at: string;
+          id: string;
+          in_progress_size: number;
+          key: string;
+          owner_id: string | null;
+          upload_signature: string;
+          user_metadata: Json | null;
+          version: string;
+        };
         Insert: {
-          bucket_id: string
-          created_at?: string
-          id: string
-          in_progress_size?: number
-          key: string
-          owner_id?: string | null
-          upload_signature: string
-          user_metadata?: Json | null
-          version: string
-        }
+          bucket_id: string;
+          created_at?: string;
+          id: string;
+          in_progress_size?: number;
+          key: string;
+          owner_id?: string | null;
+          upload_signature: string;
+          user_metadata?: Json | null;
+          version: string;
+        };
         Update: {
-          bucket_id?: string
-          created_at?: string
-          id?: string
-          in_progress_size?: number
-          key?: string
-          owner_id?: string | null
-          upload_signature?: string
-          user_metadata?: Json | null
-          version?: string
-        }
+          bucket_id?: string;
+          created_at?: string;
+          id?: string;
+          in_progress_size?: number;
+          key?: string;
+          owner_id?: string | null;
+          upload_signature?: string;
+          user_metadata?: Json | null;
+          version?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       s3_multipart_uploads_parts: {
         Row: {
-          bucket_id: string
-          created_at: string
-          etag: string
-          id: string
-          key: string
-          owner_id: string | null
-          part_number: number
-          size: number
-          upload_id: string
-          version: string
-        }
+          bucket_id: string;
+          created_at: string;
+          etag: string;
+          id: string;
+          key: string;
+          owner_id: string | null;
+          part_number: number;
+          size: number;
+          upload_id: string;
+          version: string;
+        };
         Insert: {
-          bucket_id: string
-          created_at?: string
-          etag: string
-          id?: string
-          key: string
-          owner_id?: string | null
-          part_number: number
-          size?: number
-          upload_id: string
-          version: string
-        }
+          bucket_id: string;
+          created_at?: string;
+          etag: string;
+          id?: string;
+          key: string;
+          owner_id?: string | null;
+          part_number: number;
+          size?: number;
+          upload_id: string;
+          version: string;
+        };
         Update: {
-          bucket_id?: string
-          created_at?: string
-          etag?: string
-          id?: string
-          key?: string
-          owner_id?: string | null
-          part_number?: number
-          size?: number
-          upload_id?: string
-          version?: string
-        }
+          bucket_id?: string;
+          created_at?: string;
+          etag?: string;
+          id?: string;
+          key?: string;
+          owner_id?: string | null;
+          part_number?: number;
+          size?: number;
+          upload_id?: string;
+          version?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey"
-            columns: ["upload_id"]
-            isOneToOne: false
-            referencedRelation: "s3_multipart_uploads"
-            referencedColumns: ["id"]
+            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey";
+            columns: ["upload_id"];
+            isOneToOne: false;
+            referencedRelation: "s3_multipart_uploads";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       vector_indexes: {
         Row: {
-          bucket_id: string
-          created_at: string
-          data_type: string
-          dimension: number
-          distance_metric: string
-          id: string
-          metadata_configuration: Json | null
-          name: string
-          updated_at: string
-        }
+          bucket_id: string;
+          created_at: string;
+          data_type: string;
+          dimension: number;
+          distance_metric: string;
+          id: string;
+          metadata_configuration: Json | null;
+          name: string;
+          updated_at: string;
+        };
         Insert: {
-          bucket_id: string
-          created_at?: string
-          data_type: string
-          dimension: number
-          distance_metric: string
-          id?: string
-          metadata_configuration?: Json | null
-          name: string
-          updated_at?: string
-        }
+          bucket_id: string;
+          created_at?: string;
+          data_type: string;
+          dimension: number;
+          distance_metric: string;
+          id?: string;
+          metadata_configuration?: Json | null;
+          name: string;
+          updated_at?: string;
+        };
         Update: {
-          bucket_id?: string
-          created_at?: string
-          data_type?: string
-          dimension?: number
-          distance_metric?: string
-          id?: string
-          metadata_configuration?: Json | null
-          name?: string
-          updated_at?: string
-        }
+          bucket_id?: string;
+          created_at?: string;
+          data_type?: string;
+          dimension?: number;
+          distance_metric?: string;
+          id?: string;
+          metadata_configuration?: Json | null;
+          name?: string;
+          updated_at?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "vector_indexes_bucket_id_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets_vectors"
-            referencedColumns: ["id"]
+            foreignKeyName: "vector_indexes_bucket_id_fkey";
+            columns: ["bucket_id"];
+            isOneToOne: false;
+            referencedRelation: "buckets_vectors";
+            referencedColumns: ["id"];
           },
-        ]
-      }
-    }
+        ];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
       add_prefixes: {
-        Args: { _bucket_id: string; _name: string }
-        Returns: undefined
-      }
+        Args: { _bucket_id: string; _name: string };
+        Returns: undefined;
+      };
       can_insert_object: {
-        Args: { bucketid: string; metadata: Json; name: string; owner: string }
-        Returns: undefined
-      }
+        Args: { bucketid: string; metadata: Json; name: string; owner: string };
+        Returns: undefined;
+      };
       delete_leaf_prefixes: {
-        Args: { bucket_ids: string[]; names: string[] }
-        Returns: undefined
-      }
+        Args: { bucket_ids: string[]; names: string[] };
+        Returns: undefined;
+      };
       delete_prefix: {
-        Args: { _bucket_id: string; _name: string }
-        Returns: boolean
-      }
-      extension: { Args: { name: string }; Returns: string }
-      filename: { Args: { name: string }; Returns: string }
-      foldername: { Args: { name: string }; Returns: string[] }
-      get_level: { Args: { name: string }; Returns: number }
-      get_prefix: { Args: { name: string }; Returns: string }
-      get_prefixes: { Args: { name: string }; Returns: string[] }
+        Args: { _bucket_id: string; _name: string };
+        Returns: boolean;
+      };
+      extension: { Args: { name: string }; Returns: string };
+      filename: { Args: { name: string }; Returns: string };
+      foldername: { Args: { name: string }; Returns: string[] };
+      get_level: { Args: { name: string }; Returns: number };
+      get_prefix: { Args: { name: string }; Returns: string };
+      get_prefixes: { Args: { name: string }; Returns: string[] };
       get_size_by_bucket: {
-        Args: never
+        Args: never;
         Returns: {
-          bucket_id: string
-          size: number
-        }[]
-      }
+          bucket_id: string;
+          size: number;
+        }[];
+      };
       list_multipart_uploads_with_delimiter: {
         Args: {
-          bucket_id: string
-          delimiter_param: string
-          max_keys?: number
-          next_key_token?: string
-          next_upload_token?: string
-          prefix_param: string
-        }
+          bucket_id: string;
+          delimiter_param: string;
+          max_keys?: number;
+          next_key_token?: string;
+          next_upload_token?: string;
+          prefix_param: string;
+        };
         Returns: {
-          created_at: string
-          id: string
-          key: string
-        }[]
-      }
+          created_at: string;
+          id: string;
+          key: string;
+        }[];
+      };
       list_objects_with_delimiter: {
         Args: {
-          bucket_id: string
-          delimiter_param: string
-          max_keys?: number
-          next_token?: string
-          prefix_param: string
-          start_after?: string
-        }
+          bucket_id: string;
+          delimiter_param: string;
+          max_keys?: number;
+          next_token?: string;
+          prefix_param: string;
+          start_after?: string;
+        };
         Returns: {
-          id: string
-          metadata: Json
-          name: string
-          updated_at: string
-        }[]
-      }
+          id: string;
+          metadata: Json;
+          name: string;
+          updated_at: string;
+        }[];
+      };
       lock_top_prefixes: {
-        Args: { bucket_ids: string[]; names: string[] }
-        Returns: undefined
-      }
-      operation: { Args: never; Returns: string }
+        Args: { bucket_ids: string[]; names: string[] };
+        Returns: undefined;
+      };
+      operation: { Args: never; Returns: string };
       search: {
         Args: {
-          bucketname: string
-          levels?: number
-          limits?: number
-          offsets?: number
-          prefix: string
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
-        }
+          bucketname: string;
+          levels?: number;
+          limits?: number;
+          offsets?: number;
+          prefix: string;
+          search?: string;
+          sortcolumn?: string;
+          sortorder?: string;
+        };
         Returns: {
-          created_at: string
-          id: string
-          last_accessed_at: string
-          metadata: Json
-          name: string
-          updated_at: string
-        }[]
-      }
+          created_at: string;
+          id: string;
+          last_accessed_at: string;
+          metadata: Json;
+          name: string;
+          updated_at: string;
+        }[];
+      };
       search_legacy_v1: {
         Args: {
-          bucketname: string
-          levels?: number
-          limits?: number
-          offsets?: number
-          prefix: string
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
-        }
+          bucketname: string;
+          levels?: number;
+          limits?: number;
+          offsets?: number;
+          prefix: string;
+          search?: string;
+          sortcolumn?: string;
+          sortorder?: string;
+        };
         Returns: {
-          created_at: string
-          id: string
-          last_accessed_at: string
-          metadata: Json
-          name: string
-          updated_at: string
-        }[]
-      }
+          created_at: string;
+          id: string;
+          last_accessed_at: string;
+          metadata: Json;
+          name: string;
+          updated_at: string;
+        }[];
+      };
       search_v1_optimised: {
         Args: {
-          bucketname: string
-          levels?: number
-          limits?: number
-          offsets?: number
-          prefix: string
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
-        }
+          bucketname: string;
+          levels?: number;
+          limits?: number;
+          offsets?: number;
+          prefix: string;
+          search?: string;
+          sortcolumn?: string;
+          sortorder?: string;
+        };
         Returns: {
-          created_at: string
-          id: string
-          last_accessed_at: string
-          metadata: Json
-          name: string
-          updated_at: string
-        }[]
-      }
+          created_at: string;
+          id: string;
+          last_accessed_at: string;
+          metadata: Json;
+          name: string;
+          updated_at: string;
+        }[];
+      };
       search_v2: {
         Args: {
-          bucket_name: string
-          levels?: number
-          limits?: number
-          prefix: string
-          sort_column?: string
-          sort_column_after?: string
-          sort_order?: string
-          start_after?: string
-        }
+          bucket_name: string;
+          levels?: number;
+          limits?: number;
+          prefix: string;
+          sort_column?: string;
+          sort_column_after?: string;
+          sort_order?: string;
+          start_after?: string;
+        };
         Returns: {
-          created_at: string
-          id: string
-          key: string
-          last_accessed_at: string
-          metadata: Json
-          name: string
-          updated_at: string
-        }[]
-      }
-    }
+          created_at: string;
+          id: string;
+          key: string;
+          last_accessed_at: string;
+          metadata: Json;
+          name: string;
+          updated_at: string;
+        }[];
+      };
+    };
     Enums: {
-      buckettype: "STANDARD" | "ANALYTICS" | "VECTOR"
-    }
+      buckettype: "STANDARD" | "ANALYTICS" | "VECTOR";
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">;
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">];
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
   ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
       DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] & DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R;
       }
       ? R
       : never
-    : never
+    : never;
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
   ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
     ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I
+        Insert: infer I;
       }
       ? I
       : never
-    : never
+    : never;
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
   ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
     ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U
+        Update: infer U;
       }
       ? U
       : never
-    : never
+    : never;
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
   ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-    : never
+    : never;
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
   ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
+    : never;
 
 export const Constants = {
   graphql_public: {
@@ -1073,4 +1065,4 @@ export const Constants = {
       buckettype: ["STANDARD", "ANALYTICS", "VECTOR"],
     },
   },
-} as const
+} as const;

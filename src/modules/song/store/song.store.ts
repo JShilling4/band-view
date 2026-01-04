@@ -154,11 +154,11 @@ export const useSongStore = defineStore("songs", {
     },
     getSongsByStatus: (state) => (statuses: SongStatus[]) => {
       return state.songs
-        .filter((song) => statuses.includes(song.status))
+        .filter((song) => statuses.includes(song.status as SongStatus))
         .sort((a, b) => a.title.localeCompare(b.title));
     },
     getSongVoteCount: (state) => (songId: number) => {
-      return state.songVoteCounts[songId] || { upvotes: 0, downvotes: 0 };
+      return state.songVoteCounts[songId] ?? { upvotes: 0, downvotes: 0 };
     },
   },
 });
