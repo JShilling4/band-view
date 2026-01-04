@@ -12,43 +12,22 @@
           dense
           @click="onAddSongClick"
         />
-        <AppSelect
-          v-model="statusFilter"
-          :options="Array(...SONG_STATUSES).sort()"
-          emit-value
-          option-value="name"
-          option-label="name"
-          label="Select Status"
-          class="q-mr-md"
-        />
-        <AppSelect
-          v-model="vocalFilter"
-          :options="memberStore.members"
-          multiple
-          emit-value
-          option-value="id"
-          :option-label="(opt: Tables<'member'>) => `${opt.first_name} ${opt.last_name}`"
-          label="Select Vocals"
-          ><template #selected-item="scope">
-            <QChip
-              removable
-              dense
-              :tabindex="scope.tabindex"
-              color="black"
-              text-color="white"
-              class="q-pa-sm"
-              style="max-width: 120px"
-              @remove="scope.removeAtIndex(scope.index)"
-            >
-              <div class="ellipsis">
-                {{ memberStore.getMemberFullNameById(scope.opt) }}&nbsp;&nbsp;
-                <QTooltip class="bg-black">
-                  {{ memberStore.getMemberFullNameById(scope.opt) }}
-                </QTooltip>
-              </div>
-            </QChip>
-          </template>
-        </AppSelect>
+        <div class="status-pills q-mr-md">
+          <QBtn
+            v-for="statusOption in SONG_STATUSES"
+            :key="statusOption"
+            :class="[
+              'status-pill q-mr-sm',
+              statusFilter === statusOption ? 'status-pill--selected' : 'status-pill--unselected',
+            ]"
+            dense
+            no-caps
+            @click="statusFilter = statusOption"
+          >
+            {{ statusOption }}
+          </QBtn>
+        </div>
+
         <SongModal
           v-model:show-modal="showSongModal"
           v-model:song="localSong"
@@ -57,6 +36,36 @@
           @hide="onHideSongModal"
         />
       </div>
+      <AppSelect
+        v-model="vocalFilter"
+        :options="memberStore.members"
+        multiple
+        emit-value
+        option-value="id"
+        :option-label="(opt: Tables<'member'>) => `${opt.first_name} ${opt.last_name}`"
+        label="Select Vocals"
+        class="q-mb-lg"
+      >
+        <template #selected-item="scope">
+          <QChip
+            removable
+            dense
+            :tabindex="scope.tabindex"
+            color="black"
+            text-color="white"
+            class="q-pa-sm"
+            style="max-width: 120px"
+            @remove="scope.removeAtIndex(scope.index)"
+          >
+            <div class="ellipsis">
+              {{ memberStore.getMemberFullNameById(scope.opt) }}&nbsp;&nbsp;
+              <QTooltip class="bg-black">
+                {{ memberStore.getMemberFullNameById(scope.opt) }}
+              </QTooltip>
+            </div>
+          </QChip>
+        </template>
+      </AppSelect>
       <div class="song-container q-mb-lg">
         <div v-if="error" class="text-negative q-mb-md">
           {{ error }}
@@ -65,7 +74,7 @@
           <QSkeleton v-for="n in 3" :key="n" type="rect" class="q-mb-sm" />
         </div>
         <template v-else>
-          <div v-if="statusFilter" class="results-text">{{ selectedSongs?.length }} results</div>
+          <div class="results-text">{{ selectedSongs?.length }} results</div>
           <QList separator>
             <SongDetails
               v-for="song in selectedSongs"
@@ -105,14 +114,10 @@ const {
   onAddSongClick,
 } = useSongUtility();
 
-const statusFilter = ref<SongStatus | null>(null);
+const statusFilter = ref<SongStatus>("learning");
 const vocalFilter = ref<number[]>([]);
 const selectedSongs = computed(() => {
-  if (!statusFilter.value && !vocalFilter.value.length) return;
-
-  let filteredSongs = statusFilter.value
-    ? songStore.getSongsByStatus([statusFilter.value])
-    : songStore.songs;
+  let filteredSongs = songStore.getSongsByStatus([statusFilter.value]);
 
   if (vocalFilter.value.length > 0) {
     filteredSongs = filteredSongs.filter((song) => {
@@ -130,8 +135,7 @@ const error = ref<string | null>(null);
 watch(
   () => props.status,
   () => {
-    if (!props.status) return;
-    statusFilter.value = props.status;
+    statusFilter.value = props.status || "learning";
   },
   { immediate: true }
 );
@@ -174,6 +178,38 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .song-container {
   max-width: 500px;
+}
+
+.status-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  @media (max-width: 600px) {
+    .status-pill {
+      flex: 1 1 auto;
+      min-width: calc(50% - 4px);
+      justify-content: center;
+    }
+  }
+}
+
+.status-pill {
+  --active-color: #3775b3;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-pill--selected {
+  background-color: var(--active-color) !important;
+  color: white !important;
+  border: 2px solid var(--active-color) !important;
+}
+
+.status-pill--unselected {
+  background-color: white !important;
+  color: #333 !important;
+  border: 2px solid var(--active-color) !important;
 }
 
 :deep(.q-field__native) {

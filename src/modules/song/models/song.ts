@@ -1,18 +1,15 @@
 import { type Tables } from "@/plugins/supabase";
 
-const SONG_STATUSES = [
-  "learning",
-  "active",
-  "suggested",
-  "burner",
-  "retired",
-  "voted out",
-] as const;
+export const SONG_STATUSES = ["learning", "suggested", "active", "retired", "voted out"] as const;
 type SongStatusTuple = typeof SONG_STATUSES;
-type SongStatus = SongStatusTuple[number];
+export type SongStatus = SongStatusTuple[number];
 
-type LocalSong = Omit<Tables<"song">, "id">;
-function NewSong(
+export const VOTABLE_STATUSES = ["suggested", "voted out"] as const;
+type VotableStatusTuple = typeof VOTABLE_STATUSES;
+export type VotableStatus = VotableStatusTuple[number];
+
+export type LocalSong = Omit<Tables<"song">, "id">;
+export function NewSong(
   artist: string = "",
   title: string = "",
   status: SongStatus = "suggested",
@@ -40,21 +37,10 @@ function NewSong(
   };
 }
 
-const SONG_SPECIALS = ["D", "B↑", "B↓", "Acc", "Mand"] as const;
+export const SONG_SPECIALS = ["D", "B↑", "B↓", "Acc", "Mand"] as const;
 type SongSpecialTuple = typeof SONG_SPECIALS;
-type SongSpecial = SongSpecialTuple[number];
+export type SongSpecial = SongSpecialTuple[number];
 
-const SONG_MOODS = ["fast dance", "slow dance", "singalong", "drink"] as const;
+export const SONG_MOODS = ["fast dance", "slow dance", "singalong", "drink"] as const;
 type SongMoodTuple = typeof SONG_MOODS;
-type SongMood = SongMoodTuple[number];
-
-export {
-  type SongMood,
-  type SongSpecial,
-  type LocalSong,
-  type SongStatus,
-  SONG_STATUSES,
-  SONG_SPECIALS,
-  SONG_MOODS,
-  NewSong,
-};
+export type SongMood = SongMoodTuple[number];
