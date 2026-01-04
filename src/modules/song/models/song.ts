@@ -1,6 +1,13 @@
 import { type Tables } from "@/plugins/supabase";
 
-const SONG_STATUSES = ["learning", "active", "suggested", "burner", "killed"] as const;
+const SONG_STATUSES = [
+  "learning",
+  "active",
+  "suggested",
+  "burner",
+  "retired",
+  "voted out",
+] as const;
 type SongStatusTuple = typeof SONG_STATUSES;
 type SongStatus = SongStatusTuple[number];
 

@@ -278,7 +278,7 @@ export type Database = {
           length: number | null
           link_url: string | null
           specials: string[] | null
-          status: Database["public"]["Enums"]["song_status"]
+          status: string
           title: string
           vocal_lead: number | null
           vocal_second: number | null
@@ -292,7 +292,7 @@ export type Database = {
           length?: number | null
           link_url?: string | null
           specials?: string[] | null
-          status: Database["public"]["Enums"]["song_status"]
+          status: string
           title: string
           vocal_lead?: number | null
           vocal_second?: number | null
@@ -306,7 +306,7 @@ export type Database = {
           length?: number | null
           link_url?: string | null
           specials?: string[] | null
-          status?: Database["public"]["Enums"]["song_status"]
+          status?: string
           title?: string
           vocal_lead?: number | null
           vocal_second?: number | null
