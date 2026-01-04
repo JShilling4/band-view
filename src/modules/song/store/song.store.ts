@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import { type Tables } from "@/plugins/supabase";
-import { type LocalSong, type SongStatus } from "@/modules/song/models";
+import { type LocalSong, type SongStatus, VOTABLE_STATUSES } from "@/modules/song/models";
 import { type VoteCount, getVoteCountsForSongs } from "@/modules/song/services/voteService";
 import supabase from "@/plugins/supabase";
 
@@ -38,10 +38,12 @@ export const useSongStore = defineStore("songs", {
 
         if (song) {
           this.songs = song;
-          // Fetch vote counts for suggested songs
-          const suggestedSongIds = song.filter((s) => s.status === "suggested").map((s) => s.id);
-          if (suggestedSongIds.length > 0) {
-            await this.fetchSongVoteCounts(suggestedSongIds);
+          // Fetch vote counts for votable songs
+          const votableSongIds = song
+            .filter((s) => (VOTABLE_STATUSES as readonly string[]).includes(s.status))
+            .map((s) => s.id);
+          if (votableSongIds.length > 0) {
+            await this.fetchSongVoteCounts(votableSongIds);
           }
         }
       } catch (error) {

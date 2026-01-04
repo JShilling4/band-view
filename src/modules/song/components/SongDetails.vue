@@ -45,7 +45,7 @@
     <QItemSection side top>
       <div class="song-controls row items-center">
         <!-- Voting controls for suggested songs -->
-        <div v-if="song.status === 'suggested'" class="vote-controls q-mr-md">
+        <div v-if="isVotableStatus" class="vote-controls q-mr-md">
           <div class="vote-buttons row items-center q-gutter-xs">
             <QBtn
               flat
@@ -53,19 +53,12 @@
               :icon="hasVoted ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'"
               size="sm"
               :color="userVote === 'up' ? 'positive' : 'grey-6'"
-              :disable="isVoting"
+              :disable="isVoting || !canVote"
               class="vote-btn"
               @click.stop="vote('up')"
             >
-              <QBadge
-                v-if="voteCount.upvotes > 0"
-                color="white"
-                text-color="green-10"
-                rounded
-                floating
-                class="vote-badge"
-              >
-                {{ voteCount.upvotes }}
+              <QBadge color="white" text-color="green-10" rounded floating class="vote-badge">
+                {{ voteCount.upvotes ?? 0 }}
               </QBadge>
             </QBtn>
 
@@ -75,19 +68,12 @@
               :icon="hasVoted ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'"
               size="sm"
               :color="userVote === 'down' ? 'negative' : 'grey-6'"
-              :disable="isVoting"
+              :disable="isVoting || !canVote"
               class="vote-btn"
               @click.stop="vote('down')"
             >
-              <QBadge
-                v-if="voteCount.downvotes > 0"
-                color="white"
-                text-color="negative"
-                rounded
-                floating
-                class="vote-badge"
-              >
-                {{ voteCount.downvotes }}
+              <QBadge color="white" text-color="negative" rounded floating class="vote-badge">
+                {{ voteCount.downvotes ?? 0 }}
               </QBadge>
             </QBtn>
 
@@ -98,7 +84,7 @@
               dense
               icon="fa-solid fa-xmark"
               color="grey-6"
-              :disable="isVoting"
+              :disable="isVoting || !canVote"
               class="clear-vote-btn"
               @click.stop="clearVote"
             >
@@ -177,6 +163,7 @@ import { openBrowserTab, secToMinSec } from "@/core/utils/helpers";
 import { submitVote, getUserVote, type VoteResult } from "@/modules/song/services/voteService";
 import { getSelectedMemberId, setSelectedMemberId } from "@/core/utils/voteTracking";
 import { type Tables } from "@/plugins/supabase";
+import { VOTABLE_STATUSES } from "@/modules/song/models";
 
 const memberStore = useMemberStore();
 const songStore = useSongStore();
@@ -234,6 +221,16 @@ const memberOptions = computed(() => {
       value: member.id,
     }))
     .sort((a, b) => a.label.localeCompare(b.label)); // Sort alphabetically
+});
+
+const isVotableStatus = computed(() => {
+  if (!song) return false;
+  return (VOTABLE_STATUSES as readonly string[]).includes(song.status);
+});
+
+const canVote = computed(() => {
+  if (!song) return false;
+  return song.status === "suggested"; // Only allow voting on suggested songs
 });
 
 const userVote = ref<"up" | "down" | null>(null);
