@@ -76,20 +76,6 @@
                 {{ voteCount.downvotes ?? 0 }}
               </QBadge>
             </QBtn>
-
-            <!-- Clear vote button (only shown when user has voted) -->
-            <!-- <QBtn
-              v-if="hasVoted"
-              flat
-              dense
-              icon="fa-solid fa-xmark"
-              color="grey-6"
-              :disable="isVoting || !canVote"
-              class="clear-vote-btn"
-              @click.stop="clearVote"
-            >
-              <QTooltip>Clear your vote</QTooltip>
-            </QBtn> -->
           </div>
         </div>
 
@@ -156,11 +142,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
 import { Notify } from "quasar";
 import { IconClasses } from "@/core/models";
 import { openBrowserTab, secToMinSec } from "@/core/utils/helpers";
-import { submitVote, getUserVote, type VoteResult } from "@/modules/song/services/voteService";
+import { submitVote, type VoteResult } from "@/modules/song/services/voteService";
 import { getSelectedMemberId, setSelectedMemberId } from "@/core/utils/voteTracking";
 import { type Tables } from "@/plugins/supabase";
 import { VOTABLE_STATUSES } from "@/modules/song/models";
@@ -208,8 +193,12 @@ const voteCount = computed(() => {
   return songStore.getSongVoteCount(song.id);
 });
 
+const userVote = computed(() => {
+  if (!song) return null;
+  return songStore.getUserVote(song.id);
+});
+
 const hasVoted = computed(() => {
-  if (!song) return false;
   return userVote.value !== null;
 });
 
@@ -233,22 +222,9 @@ const canVote = computed(() => {
   return song.status === "suggested"; // Only allow voting on suggested songs
 });
 
-const userVote = ref<"up" | "down" | null>(null);
 const isVoting = ref(false);
 const showMemberSelector = ref(false);
 const selectedMemberForVoting = ref<number | null>(null);
-
-// Load user's existing vote on component mount
-onMounted(async () => {
-  if (song && getSelectedMemberId()) {
-    try {
-      const existingVote = await getUserVote(song.id);
-      userVote.value = existingVote;
-    } catch {
-      // Member not selected or other error, will be handled by vote function
-    }
-  }
-});
 
 const vote = async (voteType: "up" | "down") => {
   if (!song || isVoting.value) return;
@@ -264,7 +240,7 @@ const vote = async (voteType: "up" | "down") => {
     const result: VoteResult = await submitVote(song.id, voteType);
 
     if (result.success) {
-      userVote.value = voteType;
+      songStore.updateUserVote(song.id, voteType);
       if (result.voteCount) {
         songStore.updateSongVoteCount(song.id, result.voteCount);
       }
@@ -284,55 +260,19 @@ const vote = async (voteType: "up" | "down") => {
   }
 };
 
-// const clearVote = async () => {
-//   if (!song || isVoting.value) return;
-
-//   isVoting.value = true;
-//   try {
-//     const result: VoteResult = await clearUserVote(song.id);
-
-//     if (result.success) {
-//       userVote.value = null;
-//       if (result.voteCount) {
-//         songStore.updateSongVoteCount(song.id, result.voteCount);
-//       }
-
-//       Notify.create({
-//         type: "positive",
-//         message: result.message,
-//       });
-//     } else {
-//       Notify.create({
-//         type: "negative",
-//         message: result.message,
-//       });
-//     }
-//   } finally {
-//     isVoting.value = false;
-//   }
-// };
-
 const cancelMemberSelection = () => {
   showMemberSelector.value = false;
   selectedMemberForVoting.value = null;
 };
 
-const confirmMemberSelection = () => {
+const confirmMemberSelection = async () => {
   if (selectedMemberForVoting.value) {
     setSelectedMemberId(selectedMemberForVoting.value);
     showMemberSelector.value = false;
     selectedMemberForVoting.value = null;
 
-    // Now that member is selected, try to load existing vote
-    if (song) {
-      getUserVote(song.id)
-        .then((existingVote) => {
-          userVote.value = existingVote;
-        })
-        .catch(() => {
-          // No existing vote, that's fine
-        });
-    }
+    // Fetch all user votes for the newly selected member
+    await songStore.fetchUserVotes();
   }
 };
 </script>
