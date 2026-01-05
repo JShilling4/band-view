@@ -91,7 +91,7 @@
             @click.stop="openBrowserTab(song.link_url)"
           />
         </span>
-        <span v-if="!hideLinks && song.download_url" class="q-ml-md">
+        <span v-if="!hideLinks && song.download_url">
           <QIcon
             :name="IconClasses.Download.join(' ')"
             class="song-link-icon"
