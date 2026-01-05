@@ -2,23 +2,23 @@
   <QItem
     v-if="song"
     :clickable="userStore.memberIsAdmin"
-    :class="{ highlight: song.is_highlighted }"
+    :class="['row items-start', { highlight: song.is_highlighted }]"
     role="listitem"
   >
+    <QItemSection v-if="showHandle && userStore.memberIsAdmin" top side class="list-item-avatar">
+      <span class="song-index-container">
+        <QIcon :name="IconClasses.Handle.join(' ')" class="q-mr-sm handle" />
+        <span v-if="typeof listIndex === 'number'" class="song-index">{{ listIndex + 1 }}. </span>
+      </span>
+    </QItemSection>
     <QItemSection
       :tabindex="userStore.memberIsAdmin ? 0 : undefined"
       @click="userStore.memberIsAdmin && $emit('song-clicked')"
     >
       <QItemLabel>
-        <QIcon
-          v-if="showHandle && userStore.memberIsAdmin"
-          :name="IconClasses.Handle.join(' ')"
-          class="q-mr-sm handle"
-        />
-        <span v-if="typeof listIndex === 'number'" class="song-index">{{ listIndex + 1 }}. </span>
         <div v-if="!hideArtist" class="song-artist">
           {{ song.artist }}&nbsp;&nbsp;
-          <span v-if="vocals.length > 0" class="song-metadata">
+          <span v-if="!inlineDetails && vocals.length > 0" class="song-metadata">
             <span v-for="(vocalId, index) in vocals" :key="index" :class="`vocal-name-${index}`">
               <span v-if="index > 0" class="vocal-separator">,</span>
               {{ getMemberInitials(vocalId) }}
@@ -26,7 +26,7 @@
           </span>
         </div>
         <span class="song-title">
-          <span class="song-name">{{ song.title }}&nbsp;</span>
+          <span class="song-name"> {{ song.title }}&nbsp; </span>
           <span v-if="userStore.memberIsAdmin && song.length" class="song-duration">
             ({{ secToMinSec(song.length) }})
           </span>
@@ -41,10 +41,16 @@
             >]
           </span>
         </span>
+        <div v-if="inlineDetails && vocals.length > 0" class="song-metadata">
+          <span v-for="(vocalId, index) in vocals" :key="index" :class="`vocal-name-${index}`">
+            <span v-if="index > 0" class="vocal-separator">,</span>
+            {{ getMemberInitials(vocalId) }}
+          </span>
+        </div>
       </QItemLabel>
     </QItemSection>
-    <QItemSection side top>
-      <div class="song-controls row items-center">
+    <QItemSection side top class="q-ml-auto">
+      <div class="song-controls flex items-center">
         <!-- Voting controls for suggested songs -->
         <div v-if="isVotableStatus" class="vote-controls q-mr-md">
           <div class="vote-buttons row items-center q-gutter-xs">
@@ -162,6 +168,7 @@ const {
   hideAdmin = false,
   listIndex = undefined,
   showHandle = false,
+  inlineDetails = false,
 } = defineProps<{
   song?: Tables<"song">;
   hideArtist?: boolean;
@@ -170,6 +177,7 @@ const {
   hideLinks?: boolean;
   listIndex?: number;
   showHandle?: boolean;
+  inlineDetails?: boolean;
 }>();
 
 defineEmits<{
@@ -284,7 +292,8 @@ const confirmMemberSelection = async () => {
 
 <style lang="scss" scoped>
 .song-container {
-  .handle {
+  .list-item-avatar {
+    padding-right: 2px;
     @media print {
       display: none;
     }
@@ -294,8 +303,11 @@ const confirmMemberSelection = async () => {
     padding-right: 0 !important;
     font-family: Roboto, sans-serif;
     font-weight: 400;
-    align-items: center;
   }
+}
+.song-index-container {
+  width: 3rem;
+  display: inline-block;
 }
 .song-controls {
   @media print {
