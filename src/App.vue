@@ -14,8 +14,10 @@
 </template>
 
 <script setup lang="ts">
+import { getSelectedMemberId } from "@/core/utils/voteTracking";
 const { fetchMembers } = useMemberStore();
 const { getSession } = useUserStore();
+const { fetchUserVotes } = useSongStore();
 
 const showRightDrawer = ref(false);
 
@@ -27,6 +29,11 @@ onMounted(async () => {
   try {
     await fetchMembers();
     await getSession();
+
+    // Fetch user votes if a member is already selected
+    if (getSelectedMemberId()) {
+      await fetchUserVotes();
+    }
   } catch (error) {
     console.error("Failed to initialize app:", error);
   }

@@ -197,3 +197,28 @@ export async function getVoteCountsForSongs(songIds: number[]): Promise<Record<n
 
   return voteCounts;
 }
+
+export async function getAllUserVotes(): Promise<Record<number, "up" | "down">> {
+  try {
+    const voterIdentifier = getVoterIdentifier();
+
+    const { data, error } = await supabase
+      .from("song_votes")
+      .select("song_id, vote_type")
+      .eq("voter_identifier", voterIdentifier);
+
+    if (error) {
+      throw error;
+    }
+
+    const userVotes: Record<number, "up" | "down"> = {};
+    data.forEach((vote) => {
+      userVotes[vote.song_id] = vote.vote_type as "up" | "down";
+    });
+
+    return userVotes;
+  } catch (error) {
+    console.error("Error fetching all user votes:", error);
+    return {};
+  }
+}

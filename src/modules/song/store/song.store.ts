@@ -2,13 +2,18 @@ import { defineStore } from "pinia";
 import { Notify } from "quasar";
 import { type Tables } from "@/plugins/supabase";
 import { type LocalSong, type SongStatus, VOTABLE_STATUSES } from "@/modules/song/models";
-import { type VoteCount, getVoteCountsForSongs } from "@/modules/song/services/voteService";
+import {
+  type VoteCount,
+  getVoteCountsForSongs,
+  getAllUserVotes,
+} from "@/modules/song/services/voteService";
 import supabase from "@/plugins/supabase";
 
 interface State {
   songs: Tables<"song">[];
   loading: boolean;
   songVoteCounts: Record<number, VoteCount>;
+  userVotes: Record<number, "up" | "down">;
 }
 
 export const useSongStore = defineStore("songs", {
@@ -17,6 +22,7 @@ export const useSongStore = defineStore("songs", {
       songs: [],
       loading: false,
       songVoteCounts: {},
+      userVotes: {},
     };
   },
 
@@ -67,6 +73,26 @@ export const useSongStore = defineStore("songs", {
         ...this.songVoteCounts,
         [songId]: voteCount,
       };
+    },
+
+    async fetchUserVotes() {
+      try {
+        const userVotes = await getAllUserVotes();
+        this.userVotes = userVotes;
+      } catch (error) {
+        console.error("Error fetching user votes:", error);
+      }
+    },
+
+    updateUserVote(songId: number, voteType: "up" | "down" | null) {
+      if (voteType === null) {
+        delete this.userVotes[songId];
+      } else {
+        this.userVotes = {
+          ...this.userVotes,
+          [songId]: voteType,
+        };
+      }
     },
 
     async deleteSong(id: number) {
@@ -161,6 +187,9 @@ export const useSongStore = defineStore("songs", {
     },
     getSongVoteCount: (state) => (songId: number) => {
       return state.songVoteCounts[songId] ?? { upvotes: 0, downvotes: 0 };
+    },
+    getUserVote: (state) => (songId: number) => {
+      return state.userVotes[songId] ?? null;
     },
   },
 });
