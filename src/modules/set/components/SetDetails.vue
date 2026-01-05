@@ -40,6 +40,7 @@
             :song="song"
             :list-index="i"
             hide-artist
+            inline-details
             show-handle
             @delete="onSongListItemDelete(song.id)"
             @click="onSongClick(song.id)"
