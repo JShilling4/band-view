@@ -2,10 +2,10 @@
   <QItem
     v-if="song"
     :clickable="userStore.memberIsAdmin"
-    :class="{ highlight: song.is_highlighted }"
+    :class="['row items-start', { highlight: song.is_highlighted }]"
     role="listitem"
   >
-    <QItemSection v-if="showHandle && userStore.memberIsAdmin" avatar class="list-item-avatar">
+    <QItemSection v-if="showHandle && userStore.memberIsAdmin" top side class="list-item-avatar">
       <span class="song-index-container">
         <QIcon :name="IconClasses.Handle.join(' ')" class="q-mr-sm handle" />
         <span v-if="typeof listIndex === 'number'" class="song-index">{{ listIndex + 1 }}. </span>
@@ -293,6 +293,7 @@ const confirmMemberSelection = async () => {
 <style lang="scss" scoped>
 .song-container {
   .list-item-avatar {
+    padding-right: 2px;
     @media print {
       display: none;
     }
@@ -302,7 +303,6 @@ const confirmMemberSelection = async () => {
     padding-right: 0 !important;
     font-family: Roboto, sans-serif;
     font-weight: 400;
-    align-items: center;
   }
 }
 .song-index-container {
