@@ -16,7 +16,15 @@
           class="q-mr-sm handle"
         />
         <span v-if="typeof listIndex === 'number'" class="song-index">{{ listIndex + 1 }}. </span>
-        <span v-if="!hideArtist" class="song-artist">{{ song.artist }} - </span>
+        <div v-if="!hideArtist" class="song-artist">
+          {{ song.artist }}&nbsp;&nbsp;
+          <span v-if="vocals.length > 0" class="song-metadata">
+            <span v-for="(vocalId, index) in vocals" :key="index" :class="`vocal-name-${index}`">
+              <span v-if="index > 0" class="vocal-separator">,</span>
+              {{ getMemberInitials(vocalId) }}
+            </span>
+          </span>
+        </div>
         <span class="song-title">
           <span class="song-name">{{ song.title }}&nbsp;</span>
           <span v-if="userStore.memberIsAdmin && song.length" class="song-duration">
@@ -32,13 +40,6 @@
               {{ special }} </span
             >]
           </span>
-        </span>
-      </QItemLabel>
-      <QItemLabel v-if="song.vocal_lead" lines="1" class="song-metadata">
-        Vocal:
-        <span v-for="(vocalId, index) in vocals" :key="index" :class="`vocal-name-${index}`">
-          <span v-if="index > 0" class="vocal-separator">,</span>
-          {{ getMemberName(vocalId) }}
         </span>
       </QItemLabel>
     </QItemSection>
@@ -183,7 +184,11 @@ const vocals = computed(() => {
   return [song.vocal_lead, song.vocal_second, song.vocal_third].filter(Boolean);
 });
 
-const getMemberName = (id: number | null) => memberStore.getMemberById(id)?.first_name ?? "";
+const getMemberInitials = (id: number | null) => {
+  const member = memberStore.getMemberById(id);
+  if (!member) return "";
+  return `${member.first_name[0]}${member.last_name?.[0] ?? ""}`.toUpperCase();
+};
 
 const getMemberColor = (id: number | null) => memberStore.getMemberById(id)?.profile_color ?? "";
 
@@ -327,10 +332,10 @@ const confirmMemberSelection = async () => {
   }
 
   .vocal-name-0 {
-    color: v-bind("getMemberColor(vocals[0])");
+    color: v-bind("getMemberColor(vocals[0])") !important;
   }
   .vocal-name-1 {
-    color: v-bind("getMemberColor(vocals[1])");
+    color: v-bind("getMemberColor(vocals[1])") !important;
   }
   .vocal-name-2 {
     color: v-bind("getMemberColor(vocals[2])");
